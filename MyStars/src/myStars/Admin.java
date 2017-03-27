@@ -1,5 +1,5 @@
 package myStars;
-
+//myinput
 public class Admin extends Person{
 	
 	private String position;
