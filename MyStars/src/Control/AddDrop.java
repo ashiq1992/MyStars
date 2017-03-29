@@ -1,6 +1,5 @@
-package myStars;
+package Control;
 
-import Control.FileManager;
 import Model.Admin;
 import Model.Course;
 import Model.Student;
