@@ -1,7 +1,8 @@
-package myStars;
+package Control;
 
 import Model.Admin;
 import Model.Student;
+import myStars.AddDrop;
 
 public class FileManager {
 	
