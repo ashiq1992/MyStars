@@ -1,5 +1,9 @@
 package myStars;
 
+import Model.Admin;
+import Model.Course;
+import Model.Student;
+
 public class AddDrop {
 	
 	private Course c1;

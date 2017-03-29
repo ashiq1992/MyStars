@@ -1,4 +1,4 @@
-package myStars;
+package Model;
 
 public class Student extends Person{
 	

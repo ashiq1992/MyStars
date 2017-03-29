@@ -1,5 +1,8 @@
 package myStars;
 
+import Model.Admin;
+import Model.Student;
+
 public class FileManager {
 	
 	private AddDrop a1;

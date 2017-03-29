@@ -1,4 +1,4 @@
-package myStars;
+package Model;
 //hello
 
 public class Course {

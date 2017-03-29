@@ -1,4 +1,4 @@
-package myStars;
+package Model;
 //myinput
 public class Admin extends Person{
 	
