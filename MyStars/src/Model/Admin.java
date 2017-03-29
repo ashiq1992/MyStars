@@ -6,9 +6,11 @@ public class Admin extends Person{
 	private boolean access;
 	private Course c1;
 	
-	public Admin()
+	public Admin(String position,boolean access,Course c1)
 	{
-		
+		this.position=position;
+		this.access=access;
+		this.c1=c1;
 	}
 
 	public String getPosition() {
