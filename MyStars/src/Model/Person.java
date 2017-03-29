@@ -9,6 +9,15 @@ public class Person {
 	private String password;
 	
 	
+	public Person(String gender,String name,String nationality,String userId,String password)
+	{
+		this.gender=gender;
+		this.name=name;
+		this.nationality=nationality;
+		this.userId=userId;
+		this.password=password;
+	}
+	
 	
 	public String getGender() {
 		return gender;

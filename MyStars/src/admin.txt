@@ -1,0 +1,4 @@
+Male|Ameenudeen|Singaporean|ameenudeen@ntu.edu.sg|111111
+Female|Tom|Malaysian|Tom@ntu.edu.sg|222222
+Male|Harry|French|Harry@ntu.edu.sg|333333
+Female|Ben|Chinese|Ben@ntu.edu.sg|444444

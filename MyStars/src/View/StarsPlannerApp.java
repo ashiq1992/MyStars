@@ -3,6 +3,8 @@ package View;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Control.AdminController;
+
 public class StarsPlannerApp {
 	
 	public static void main(String args[])
@@ -10,6 +12,8 @@ public class StarsPlannerApp {
 	{
 		int input=-1; //Takes in user input;
 		int valid=1;
+		boolean result;
+		String password,userId;
 		do {
 		
 		
@@ -33,7 +37,18 @@ public class StarsPlannerApp {
 		
 		else if (input==2)
 		{
-			
+			System.out.println("Enter userId:");
+			userId=sc.next();
+			System.out.println("Enter Password:");
+			password=sc.next();
+			AdminController ad=new AdminController();
+			result=ad.checkAccount(userId, password);
+			if(result==true){
+				System.out.println("Sucess");
+			}
+			else{
+				System.out.println("Failed");
+			}
 		}
 		
 		else 
