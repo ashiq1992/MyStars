@@ -30,7 +30,7 @@ public class CourseController {
 			  				 
 			  System.out.println("Please enter student name: ");
 			  String name=sc.next();
-			  student.setName(name);
+			  student.setName(name); 
 			  
 			  System.out.println("Please enter student Matriculation Number: ");
 			  String matriculationNumber=sc.next();
