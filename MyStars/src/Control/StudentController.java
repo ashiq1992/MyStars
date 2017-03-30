@@ -105,12 +105,12 @@ public class StudentController {
 			for(int i=0;i<a1.size();i++)
 			{
 				Student student=(Student)a1.get(i);
-				System.out.println("Gender: "+student.getGender());
-				System.out.println("MatriculationNumber: "+student.getMatriculationNumber());
+				//System.out.println("Gender: "+student.getGender());
+				//System.out.println("MatriculationNumber: "+student.getMatriculationNumber());
 				l2.add(a1.get(i));
 			}
 			
-			saveStudent(file,l2);
+			saveStudentAmmend(file,l2);
 			
 			
 		} catch (IOException e) {
@@ -123,7 +123,7 @@ public class StudentController {
 
 	  /** Write fixed content to the given file. */
 	  public static void write(String fileName, List data) throws IOException  {
-	    PrintWriter out = new PrintWriter(new FileWriter(fileName));
+	    PrintWriter out = new PrintWriter(new FileWriter(fileName,true));//does not delete previous data
 
 	    try {
 			for (int i =0; i < data.size() ; i++) {
@@ -134,6 +134,47 @@ public class StudentController {
 	      out.close();
 	    }
 	  }
+	  
+	  
+	  
+	  
+	  
+	  /** Write fixed content to the given file.Ashiq implemented this to test the remove function */
+	  public static void newWrite(String fileName, List data) throws IOException  {
+	    PrintWriter out = new PrintWriter(new FileWriter(fileName));//does not delete previous data
+
+	    try {
+			for (int i =0; i < data.size() ; i++) {
+	      		out.println((String)data.get(i));
+			}
+	    }
+	    finally {
+	      out.close();
+	    }
+	  }
+	  /*Implement another save to amend the content in the file after deleting the student from the file*/
+	  public static void saveStudentAmmend(String filename, List al) throws IOException {
+	  		List alw = new ArrayList() ;// to store students data
+
+	          for (int i = 0 ; i < al.size() ; i++) {
+	  				Student student = (Student)al.get(i);
+	  				StringBuilder st =  new StringBuilder() ;
+	  				st.append(student.getMatriculationNumber().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getName().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getUserId().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getPassword().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getNationality().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getGender().trim());
+	  				alw.add(st.toString()) ;
+	  			}
+	  			newWrite(filename,alw);
+	  	}
+	  
 	  
 
 

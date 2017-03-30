@@ -1,5 +1,6 @@
 package Control;
 
+
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class AdminController {
 	  
 	  /** Write fixed content to the given file. */
 	  public static void write(String fileName, List data) throws IOException  {
-	    PrintWriter out = new PrintWriter(new FileWriter(fileName));
+	    PrintWriter out = new PrintWriter(new FileWriter(fileName,true));//true to ensure the previous data is not deleted
 
 	    try {
 			for (int i =0; i < data.size() ; i++) {
@@ -77,19 +78,21 @@ public class AdminController {
 		  List studentSave= new ArrayList();
 		  System.out.println("No of students to be added");
 		  int input=sc.nextInt();
-		  
+		
 		  for (int i=0;i<input;i++)
 		  {
+			  String temp=sc.nextLine();//to eliminate the buffer /n
 			  Student student = new Student();
 			  
 			  				 
 			  System.out.println("Please enter student name: ");
-			  String name=sc.next();
-			  student.setName(name);
+			  
+			  //String name=sc.nextLine();
+			  student.setName(sc.nextLine());
 			  
 			  System.out.println("Please enter student Matriculation Number: ");
-			  String matriculationNumber=sc.next();
-			  student.setMatriculationNumber(matriculationNumber);
+			 // String matriculationNumber=sc.next();
+			  student.setMatriculationNumber(sc.nextLine());
 			  
 			  
 			  

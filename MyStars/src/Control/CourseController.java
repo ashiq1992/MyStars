@@ -25,7 +25,7 @@ public class CourseController {
 		  List courseSave = new ArrayList();
 		  System.out.println("No of courses to be added");
 		  int input = sc.nextInt();
-		  
+		  String Temp=sc.nextLine();//to clear the \n buffer
 		  for (int i=0;i<input;i++)
 		  {
 			  
@@ -33,17 +33,17 @@ public class CourseController {
 			  int 	 capacity;
 			  				 
 			  System.out.println("Please enter course code: ");
-			  code = sc.next();
+			  code = sc.nextLine();
 			  
 			  System.out.println("Please enter course name: ");
-			  name = sc.next();
+			  name = sc.nextLine();
 			  
 			  System.out.println("Please enter course school : ");
-			  school = sc.next();
+			  school = sc.nextLine();
 			  
 			  System.out.println("Please enter the capacity of the course: ");
 			  capacity = sc.nextInt();
-			  
+			  Temp=sc.nextLine();//To eliminate the buffer
 			  System.out.println("Please enter the start date of course: ");
 			  startDate = sc.next();
 			  

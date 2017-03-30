@@ -132,8 +132,10 @@ public class StarsPlannerApp {
 	
 	public static void removeStudent(){
 		boolean result;
+		Scanner sc=new Scanner(System.in);
 		StudentController s1 = new StudentController();
-		String id="U162";
+		System.out.println("Enter Student MatricID:");
+		String id=sc.nextLine();
 		result=s1.deleteStudent("src/student.txt",id);
 		if(result==true){
 			System.out.println("Success");
