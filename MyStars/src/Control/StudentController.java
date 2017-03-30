@@ -85,9 +85,6 @@ public class StudentController {
 		  try {
 			ArrayList<Student> a1=readAllStudents(file);
 			
-			
-		
-			
 			List l2 = new ArrayList();
 			for(int i=0;i<a1.size();i++)
 			{
