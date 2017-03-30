@@ -4,9 +4,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Control.AdminController;
+import Control.StudentController;
 
 public class StarsPlannerApp {
-	
+	static AdminController Ad=new AdminController();
 	public static void main(String args[])
 	
 	{
@@ -74,6 +75,7 @@ public class StarsPlannerApp {
 		System.out.println("3)RemoveCourse.");
 		System.out.println("4)Print by index.");
 		System.out.println("5)Print by Course.");
+		System.out.println("6) Remove Student");
 		System.out.println("10)LogOut.");
 		
 		//System.out.println("Enter options:");
@@ -86,6 +88,9 @@ public class StarsPlannerApp {
 		switch(input){
 		case 1:AddStudent();
 				break;
+				
+		case 6:removeStudent();
+				break;
 			
 			default: System.out.println("Input error");
 		}
@@ -94,7 +99,7 @@ public class StarsPlannerApp {
 	}
 	public static void AddStudent(){
 		boolean result;
-		AdminController Ad=new AdminController();
+		
 		
 		result=Ad.AddStudent();
 		if(result==true){
@@ -105,6 +110,22 @@ public class StarsPlannerApp {
 		}
 		
 	}
+	
+	public static void removeStudent(){
+		boolean result;
+		StudentController s1 = new StudentController();
+		String id="U162";
+		result=s1.deleteStudent("src/student.txt",id);
+		if(result==true){
+			System.out.println("Success");
+		}
+		else{
+			System.out.println("Fail");
+		}
+		
+	}
+	
+	
 	
 
 }

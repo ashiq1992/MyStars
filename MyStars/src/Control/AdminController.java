@@ -55,28 +55,7 @@ public class AdminController {
 	    return data;
 	  }
 	  
-	  // an example of saving
-	  public static void saveStudent(String filename, List al) throws IOException {
-	  		List alw = new ArrayList() ;// to store students data
 
-	          for (int i = 0 ; i < al.size() ; i++) {
-	  				Student student = (Student)al.get(i);
-	  				StringBuilder st =  new StringBuilder() ;
-	  				st.append(student.getName().trim());
-	  				st.append(SEPARATOR);
-	  				st.append(student.getMatriculationNumber().trim());
-	  				st.append(SEPARATOR);
-	  				st.append(student.getUserId().trim());
-	  				st.append(SEPARATOR);
-	  				st.append(student.getPassword().trim());
-	  				st.append(SEPARATOR);
-	  				st.append(student.getNationality().trim());
-	  				st.append(SEPARATOR);
-	  				st.append(student.getGender().trim());
-	  				alw.add(st.toString()) ;
-	  			}
-	  			write(filename,alw);
-	  	}
 	  
 	  /** Write fixed content to the given file. */
 	  public static void write(String fileName, List data) throws IOException  {
@@ -131,7 +110,8 @@ public class AdminController {
 		  
 		  
 		  try {
-			saveStudent("src/student.txt", studentSave);
+			 
+			StudentController.saveStudent("src/student.txt", studentSave);
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -140,7 +120,8 @@ public class AdminController {
 		  
 	  }
 
-	
+	  
+	  
 	public ArrayList<Admin> retriveAllAdmins()
 	{
 		ArrayList<Admin> a2 = new ArrayList<Admin>();

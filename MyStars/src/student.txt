@@ -1,3 +1,3 @@
-Ashiq|U123456S|ashiqali001|123456|Singaporean|Male
-ben|u9876543U|ben001|123456|Singaporean|Male
-Marry|U8765432Y|marry002|123456|Australian|Female
+U164|Ameen|ameen|pass|SG|Male
+U163|Ameen|ameen|pass|SG|Male
+U166|Ameen|ameen|pass|SG|Male

@@ -1,20 +1,22 @@
 package Model;
 
 public class Student extends Person{
-	
+	//Properties
 	private String matriculationNumber;
 	
+	
+	//Constructor
 	public Student()
 	{
 		
 	}
-	public Student(String gender, String name, String nationality, String userId, String password,String matriculationNumber) {
+	public Student(String matriculationNumber,String name,String userId,String password,String nationality,String gender) {
 		super(gender, name, nationality, userId, password);
 		this.matriculationNumber=matriculationNumber;
 	}
 
 	
-
+	//Methods
 	public String getMatriculationNumber() {
 		return matriculationNumber;
 	}
