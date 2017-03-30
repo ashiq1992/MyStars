@@ -4,10 +4,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Control.AdminController;
+import Control.CourseController;
 import Control.StudentController;
 
 public class StarsPlannerApp {
-	static AdminController Ad=new AdminController();
+	static AdminController Ad  = new AdminController();
+	static CourseController Cd = new CourseController();
 	public static void main(String args[])
 	
 	{
@@ -88,6 +90,9 @@ public class StarsPlannerApp {
 		switch(input){
 		case 1:AddStudent();
 				break;
+
+		case 2:addCourse();
+				break;
 				
 		case 6:removeStudent();
 				break;
@@ -106,10 +111,24 @@ public class StarsPlannerApp {
 			System.out.println("Success");
 		}
 		else{
-			System.out.println("Fail");
+			System.err.println("Fail");
 		}
 		
 	}
+	
+	public static void addCourse(){
+		boolean result;
+		
+		result = Cd.addCourse();
+		if(result==true){
+			System.out.println("Success");
+		}
+		else{
+			System.err.println("Fail");
+		}
+		
+	}
+	
 	
 	public static void removeStudent(){
 		boolean result;
@@ -120,7 +139,7 @@ public class StarsPlannerApp {
 			System.out.println("Success");
 		}
 		else{
-			System.out.println("Fail");
+			System.err.println("Fail");
 		}
 		
 	}
