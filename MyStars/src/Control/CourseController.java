@@ -26,7 +26,7 @@ public class CourseController {
 		  for (int i=0;i<input;i++)
 		  {
 			  
-			  String code, name, school,
+			  String code, name, school; 
 			  				 
 			  System.out.println("Please enter student name: ");
 			  String name=sc.next();
