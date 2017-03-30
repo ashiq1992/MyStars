@@ -2,12 +2,18 @@ package Model;
 
 public class Student extends Person{
 	
-	public Student(String gender, String name, String nationality, String userId, String password) {
+	private String matriculationNumber;
+	
+	public Student()
+	{
+		
+	}
+	public Student(String gender, String name, String nationality, String userId, String password,String matriculationNumber) {
 		super(gender, name, nationality, userId, password);
-		// TODO Auto-generated constructor stub
+		this.matriculationNumber=matriculationNumber;
 	}
 
-	private String matriculationNumber;
+	
 
 	public String getMatriculationNumber() {
 		return matriculationNumber;

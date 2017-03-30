@@ -1,13 +1,16 @@
 package Control;
 
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import Model.Admin;
+import Model.Student;
 
 public class AdminController {
 	public static final String SEPARATOR = "|";
@@ -51,6 +54,92 @@ public class AdminController {
 	    }
 	    return data;
 	  }
+	  
+	  // an example of saving
+	  public static void saveStudent(String filename, List al) throws IOException {
+	  		List alw = new ArrayList() ;// to store students data
+
+	          for (int i = 0 ; i < al.size() ; i++) {
+	  				Student student = (Student)al.get(i);
+	  				StringBuilder st =  new StringBuilder() ;
+	  				st.append(student.getName().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getMatriculationNumber().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getUserId().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getPassword().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getNationality().trim());
+	  				st.append(SEPARATOR);
+	  				st.append(student.getGender().trim());
+	  				alw.add(st.toString()) ;
+	  			}
+	  			write(filename,alw);
+	  	}
+	  
+	  /** Write fixed content to the given file. */
+	  public static void write(String fileName, List data) throws IOException  {
+	    PrintWriter out = new PrintWriter(new FileWriter(fileName));
+
+	    try {
+			for (int i =0; i < data.size() ; i++) {
+	      		out.println((String)data.get(i));
+			}
+	    }
+	    finally {
+	      out.close();
+	    }
+	  }
+	  
+	  public boolean AddStudent()
+	  {
+		  Scanner sc = new Scanner(System.in);
+		  List studentSave= new ArrayList();
+		  System.out.println("No of students to be added");
+		  int input=sc.nextInt();
+		  
+		  for (int i=0;i<input;i++)
+		  {
+			  Student student = new Student();
+			  
+			  				 
+			  System.out.println("Please enter student name: ");
+			  String name=sc.next();
+			  student.setName(name);
+			  
+			  System.out.println("Please enter student Matriculation Number: ");
+			  String matriculationNumber=sc.next();
+			  student.setMatriculationNumber(matriculationNumber);
+			  
+			  
+			  
+			  System.out.println("Please enter student user id : ");
+			  student.setUserId(sc.next());
+			  
+			  System.out.println("Please enter student password: ");
+			  student.setPassword(sc.next());
+			  
+			  System.out.println("Please enter student nationality: ");
+			  student.setNationality(sc.next());
+			  
+			  System.out.println("Please enter student gender: ");
+			  student.setGender(sc.next());
+			  
+			  studentSave.add(student);
+		  }
+		  
+		  
+		  try {
+			saveStudent("src/student.txt", studentSave);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		  
+	  }
+
 	
 	public ArrayList<Admin> retriveAllAdmins()
 	{

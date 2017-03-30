@@ -45,6 +45,8 @@ public class StarsPlannerApp {
 			result=ad.checkAccount(userId, password);
 			if(result==true){
 				System.out.println("Sucess");
+				AdminMenu();
+				
 			}
 			else{
 				System.out.println("Failed");
@@ -60,6 +62,47 @@ public class StarsPlannerApp {
 		
 		while(valid !=0);
 			
+		
+	}
+	
+	public static void AdminMenu()
+	{
+		Scanner sc=new Scanner(System.in);
+		int input;
+		System.out.println("1)Add student.");
+		System.out.println("2)Add Course.");
+		System.out.println("3)RemoveCourse.");
+		System.out.println("4)Print by index.");
+		System.out.println("5)Print by Course.");
+		System.out.println("10)LogOut.");
+		
+		//System.out.println("Enter options:");
+		//input=sc.nextInt();
+		
+		do{
+			System.out.println("Enter options:");
+			input=sc.nextInt();
+			
+		switch(input){
+		case 1:AddStudent();
+				break;
+			
+			default: System.out.println("Input error");
+		}
+		}while(input !=10);
+		
+	}
+	public static void AddStudent(){
+		boolean result;
+		AdminController Ad=new AdminController();
+		
+		result=Ad.AddStudent();
+		if(result==true){
+			System.out.println("Success");
+		}
+		else{
+			System.out.println("Fail");
+		}
 		
 	}
 	

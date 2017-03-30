@@ -8,6 +8,10 @@ public class Person {
 	private String userId;
 	private String password;
 	
+	public Person()
+	{
+		
+	}
 	
 	public Person(String gender,String name,String nationality,String userId,String password)
 	{
