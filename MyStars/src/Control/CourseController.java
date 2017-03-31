@@ -15,6 +15,7 @@ import Model.Student;
 public class CourseController {
 	//Properties
 	public static final String SEPARATOR = "|"; 
+	public static final String INDEX_SEPARATOR = "_"; 
 	
 	
 	//Constructor
@@ -33,12 +34,13 @@ public class CourseController {
 				String courseCode=star.nextToken().trim();
 				String  courseName = star.nextToken().trim();
 				String  school = star.nextToken().trim();
+				//String 
 				int  capacity =Integer.parseInt(star.nextToken().trim()); //(int) star.nextToken().trim(); capacity is int 
 				String  startDate = star.nextToken().trim();
 				String  endDate= star.nextToken().trim();
 				
-				
-				Course course = new Course(courseCode,courseName,school,capacity,startDate,endDate);
+				//Course course = new Course(courseCode,courseName,String school,int[] indices,startDate,);
+				//Course course = new Course(courseCode,courseName,school,capacity,startDate,endDate);
 				
 				// add student objects to alr
 				alr.add(course) ;
@@ -91,7 +93,7 @@ public class CourseController {
 			  capacity = 0;
 			  int[] indices = new int[noOfSections];
 			  
-			  for(int g=0; i<noOfSections; g++){
+			  for(int g=0; g<noOfSections; g++){
 				  System.out.println("Please enter the capacity of index" + (g+1) + ": ");
 				  temp = sc.nextInt();
 				  indices[g] = temp;
@@ -106,6 +108,7 @@ public class CourseController {
 			  Course course = new Course(code, name, school, indices, startDate, endDate);
 			  
 			  courseSave.add(course);
+			  Temp=sc.nextLine();//To eliminate the buffer
 		  }
 		  
 		  
@@ -131,9 +134,27 @@ public class CourseController {
   				st.append(SEPARATOR);
   				st.append(course.getSchool().trim());
   				st.append(SEPARATOR);
-  				String temp = "" + course.getCapacity();
-  				st.append(temp.trim()); 
-  				st.append(SEPARATOR);
+  				
+  				for(int j=0;j<course.getIndices().length;j++)
+  				{
+  					st.append(j+1);
+  					st.append(INDEX_SEPARATOR);
+  					st.append(course.getIndices()[i]);
+  					st.append(SEPARATOR);
+  					if(j==course.getIndices().length)
+  						
+  					{
+  						st.append(j+1);
+  	  					st.append(INDEX_SEPARATOR);
+  	  					st.append(course.getIndices()[i]);
+  					}
+  					
+  					
+  				}
+  				
+  				//String temp = "" + course.getCapacity();
+  				//st.append(temp.trim()); 
+  				//st.append(SEPARATOR);
   				st.append(course.getStartDate().trim());
   				st.append(SEPARATOR);
   				st.append(course.getEndDate().trim());
@@ -224,24 +245,33 @@ public class CourseController {
 	public static void saveCourseAmend(String filename, List list) throws IOException {
   		List tempList = new ArrayList() ;// to store students data
 
-          for (int i = 0 ; i < list.size() ; i++) {
-  				Course course = (Course)list.get(i);
-  				StringBuilder st =  new StringBuilder() ;
-  				st.append(course.getCourseCode().trim());
-  				st.append(SEPARATOR);
-  				st.append(course.getCourseName().trim());
-  				st.append(SEPARATOR);
-  				st.append(course.getSchool().trim());
-  				st.append(SEPARATOR);
-  				String temp = "" + course.getCapacity();
-  				st.append(temp.trim()); 
-  				st.append(SEPARATOR);
-  				st.append(course.getStartDate().trim());
-  				st.append(SEPARATOR);
-  				st.append(course.getEndDate().trim());
-  				// 
-  				tempList.add(st.toString());
-  			}
+  		for (int i = 0 ; i < list.size() ; i++) {
+				Course course = (Course)list.get(i);
+				StringBuilder st =  new StringBuilder() ;
+				st.append(course.getCourseCode().trim());
+				st.append(SEPARATOR);
+				st.append(course.getCourseName().trim());
+				st.append(SEPARATOR);
+				st.append(course.getSchool().trim());
+				st.append(SEPARATOR);
+				
+				for(int j=0;i<course.getIndices().length;j++)
+				{
+					st.append(j+1);
+					st.append(INDEX_SEPARATOR);
+					st.append(course.getIndices()[i]);
+					st.append(SEPARATOR);
+				}
+				
+				//String temp = "" + course.getCapacity();
+				//st.append(temp.trim()); 
+				st.append(SEPARATOR);
+				st.append(course.getStartDate().trim());
+				st.append(SEPARATOR);
+				st.append(course.getEndDate().trim());
+				
+				tempList.add(st.toString());
+			}
   			newWrite(filename,tempList);
   	}
 }
