@@ -94,6 +94,9 @@ public class StarsPlannerApp {
 		case 2:addCourse();
 				break;
 				
+		case 3: removeCourse();
+				break;
+				
 		case 6:removeStudent();
 				break;
 			
@@ -128,6 +131,23 @@ public class StarsPlannerApp {
 		}
 		
 	}
+	
+	public static void removeCourse(){
+		boolean result;
+		Scanner sc=new Scanner(System.in);
+		CourseController cd =new CourseController();
+		System.out.println("Enter CourseCode:");
+		String id=sc.nextLine();
+		result=cd.deleteCourse("src/course.txt",id);
+		if(result==true){
+			System.out.println("Success");
+		}
+		else{
+			System.err.println("Fail");
+		}
+		
+	}
+	
 	
 	
 	public static void removeStudent(){
