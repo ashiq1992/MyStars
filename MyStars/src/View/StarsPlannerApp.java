@@ -249,7 +249,7 @@ public class StarsPlannerApp {
 	
 	public static void  viewAllCourses(){
 		
-		
+		Cd.showAllCourses();
 	}
 	
 	public static void viewMyCourses(){
@@ -281,6 +281,20 @@ public class StarsPlannerApp {
 	}
 	
 	public static void addACourse(){
+		String courseCode;
+		int index;
+		System.out.println("Enter Course Code: ");
+		courseCode=sc.next();
+		
+		Cd.showIndexByCourse(courseCode);
+		System.out.println("Enter index: ");
+		index=sc.nextInt();
+		Cd.decreaseCourseIndexVacancy(courseCode, index);
+		
+		
+		
+		
+		
 		
 	}
 	

@@ -23,8 +23,8 @@ public class Course {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.school 	= school;
-		this.indices 	= indices;
-		this.vacancy	= indices;
+		this.indices 	= indices;//total
+		this.vacancy	= indices;//updated to stdudent
 		this.startDate 	= startDate;
 		this.endDate 	= endDate;
 		

@@ -143,10 +143,7 @@ public class StudentController {
 	 * remove function
 	 */
 	public static void newWrite(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName));// does not
-																	// delete
-																	// previous
-																	// data
+		PrintWriter out = new PrintWriter(new FileWriter(fileName));//Rewrites the dataa
 
 		try {
 			for (int i = 0; i < data.size(); i++) {
