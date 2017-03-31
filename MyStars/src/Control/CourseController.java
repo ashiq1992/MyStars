@@ -75,7 +75,7 @@ public class CourseController {
 		  {
 			  
 			  String code, name, school, startDate, endDate;
-			  int 	 capacity;
+			  int 	 capacity, noOfSections, temp;
 			  				 
 			  System.out.println("Please enter course code: ");
 			  code = sc.nextLine();
@@ -85,9 +85,17 @@ public class CourseController {
 			  
 			  System.out.println("Please enter course school : ");
 			  school = sc.nextLine();
+
+			  System.out.println("Please enter the number of sections in the course: ");
+			  noOfSections = sc.nextInt();
+			  capacity = 0;
+			  int[] indices = new int[noOfSections];
 			  
-			  System.out.println("Please enter the capacity of the course: ");
-			  capacity = sc.nextInt();
+			  for(int g=0; i<noOfSections; g++){
+				  System.out.println("Please enter the capacity of index" + (g+1) + ": ");
+				  temp = sc.nextInt();
+				  indices[g] = temp;
+			  }
 			  Temp=sc.nextLine();//To eliminate the buffer
 			  System.out.println("Please enter the start date of course: ");
 			  startDate = sc.next();
@@ -95,7 +103,7 @@ public class CourseController {
 			  System.out.println("Please enter the end date of course: ");
 			  endDate = sc.next();
 			  
-			  Course course = new Course(code, name, school, capacity, startDate, endDate);
+			  Course course = new Course(code, name, school, indices, startDate, endDate);
 			  
 			  courseSave.add(course);
 		  }
@@ -152,7 +160,9 @@ public class CourseController {
 	
 	
 	  public boolean deleteCourse(String file,String courseCode)
-	  {
+	  {	
+		  boolean deleted = false;
+		  
 		  try {
 			ArrayList<Course> a1=readAllCourse(file);
 			
@@ -168,6 +178,7 @@ public class CourseController {
 				{
 					
 					a1.remove(i);
+					deleted = true;
 				}
 				
 								
@@ -189,7 +200,7 @@ public class CourseController {
 			return false;
 		}
 		  
-		  return true;
+		  return deleted;
 	  }
 	
 	

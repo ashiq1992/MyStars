@@ -4,7 +4,8 @@ package Model;
 public class Course {
 	//Properties
 	private String   school, courseCode, courseName;
-	private int      capacity, vacancy;
+	private int      nOfIndex, capacity;
+	private int[] 	 indices, vacancy;
 	private String   startDate, endDate; //to be changed to Date type
 	private Schedule schedule;
 	
@@ -12,12 +13,12 @@ public class Course {
 	//Constructor
 	public Course(){}
 	
-	public Course(String courseCode, String courseName, String school, int capacity, String startDate, String endDate){
+	public Course(String courseCode, String courseName, String school, int[] indices, String startDate, String endDate){
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.school 	= school;
-		this.capacity 	= capacity;
-		this.vacancy 	= capacity;
+		this.indices 	= indices;
+		this.vacancy	= indices;
 		this.startDate 	= startDate;
 		this.endDate 	= endDate;
 	}
@@ -63,27 +64,34 @@ public class Course {
 		this.courseName = courseName;
 	}
 	
-	public int getCapacity() {
-		return capacity;
+//	public int getCapacity() {
+//		return capacity;
+//	}
+//	public void setCapacity(int capacity) {
+//		this.capacity = capacity;
+//	}
+	
+	public int[] getIndices() {
+		return indices;
 	}
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setIndices(int[] indices) {
+		this.indices = indices;
 	}
 	
-	public int getVacancy() {
+	public int[] getVacancy() {
 		return vacancy;
 	}
 	
-	public void setVacancy(int vacancy) {
+	public void setVacancy(int[] vacancy) {
 		this.vacancy = vacancy;
 	}
 	
-	public void decreaseVacancy(){
-		vacancy--;
+	public void decreaseVacancy(int indexNo){
+		vacancy[indexNo-1] --;
 	}
 	
-	public void increaseVacancy(){
-		vacancy++;
+	public void increaseVacancy(int indexNo){
+		vacancy[indexNo-1] ++;
 	}
 	
 	//public Person waitlist()
