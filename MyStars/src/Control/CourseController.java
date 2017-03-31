@@ -228,7 +228,7 @@ public class CourseController {
   				st.append(course.getStartDate().trim());
   				st.append(SEPARATOR);
   				st.append(course.getEndDate().trim());
-  				
+  				// 
   				tempList.add(st.toString());
   			}
   			newWrite(filename,tempList);
