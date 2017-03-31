@@ -285,7 +285,7 @@ public class StarsPlannerApp {
 		int index;
 		System.out.println("Enter Course Code: ");
 		courseCode=sc.next();
-		
+		//add
 		Cd.showIndexByCourse(courseCode);
 		System.out.println("Enter index: ");
 		index=sc.nextInt();
