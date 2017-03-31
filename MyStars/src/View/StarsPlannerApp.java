@@ -40,7 +40,20 @@ public class StarsPlannerApp {
 		}
 		if(input==1)
 		{
-			
+			System.out.println("Enter userId:");
+			userId=sc.next();
+			System.out.println("Enter Password:");
+			password=sc.next();
+			StudentController ad=new StudentController();
+			result=ad.checkAccount(userId, password);
+			if(result==true){
+				System.out.println("Sucess");
+				StudentMenu();
+				
+			}
+			else{
+				System.out.println("Failed");
+			}
 		}
 		
 		else if (input==2)
@@ -235,6 +248,7 @@ public class StarsPlannerApp {
 	}
 	
 	public static void  viewAllCourses(){
+		
 		
 	}
 	

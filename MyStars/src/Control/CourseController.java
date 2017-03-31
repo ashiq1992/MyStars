@@ -298,6 +298,12 @@ public class CourseController {
   			newWrite(filename,tempList);
   	}
 	
+	public void showAllCourses(){
+		
+	}
+	
+	
+	
 //	public static void main(String args[])
 //	{
 //		CourseController c1 = new CourseController();
