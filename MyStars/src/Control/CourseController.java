@@ -30,7 +30,6 @@ public class CourseController {
 				String st = (String)stringArray.get(i);
 				// get individual 'fields' of the string separated by SEPARATOR
 				StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
-				
 				String courseCode=star.nextToken().trim();
 				String  courseName = star.nextToken().trim();
 				String  school = star.nextToken().trim();
