@@ -19,7 +19,7 @@ public class Course {
 	//Constructor
 	public Course(){}
 	
-	public Course(String courseCode, String courseName, String school, int[] indices, String startDate, String endDate){
+	public Course(String courseCode, String courseName, String school,String startDate, String endDate,int[] indices){
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.school 	= school;

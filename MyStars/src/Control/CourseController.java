@@ -26,19 +26,43 @@ public class CourseController {
 		// read String from text file
 		ArrayList stringArray = (ArrayList)read(filename);
 		ArrayList alr = new ArrayList() ;// to store Admins data
+		
 		for (int i = 0 ; i < stringArray.size() ; i++) {
+				
 				String st = (String)stringArray.get(i);
 				// get individual 'fields' of the string separated by SEPARATOR
 				StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 				String courseCode=star.nextToken().trim();
 				String  courseName = star.nextToken().trim();
 				String  school = star.nextToken().trim();
-				//String 
-				int  capacity =Integer.parseInt(star.nextToken().trim()); //(int) star.nextToken().trim(); capacity is int 
 				String  startDate = star.nextToken().trim();
-				String  endDate= star.nextToken().trim();
+				String  endDate=star.nextToken().trim();
+				int counter=0;
+				counter=star.countTokens();
 				
-				//Course course = new Course(courseCode,courseName,String school,int[] indices,startDate,);
+				int[] retrievedIndex= new int[counter];
+				
+				//Algorithm to breakdown indexes and vacancies separately
+				for(int j=0;j<counter;j++)
+				{
+					
+					String index=star.nextToken("_").trim();
+					StringBuilder modifyIndex = new StringBuilder(index);
+					index=modifyIndex.deleteCharAt(0).toString();
+					
+					String vacancy=star.nextToken("|").trim();
+					
+					StringBuilder modifyVacancy = new StringBuilder(vacancy);
+					vacancy=modifyVacancy.deleteCharAt(0).toString();
+					
+					
+					retrievedIndex[j]=Integer.parseInt(vacancy);
+					
+					System.out.println("index : "+index + " Vacancy: "+vacancy);
+				
+				}
+				
+				Course course = new Course(courseCode,courseName,school,startDate,endDate,retrievedIndex);
 				//Course course = new Course(courseCode,courseName,school,capacity,startDate,endDate);
 				
 				// add student objects to alr
@@ -104,7 +128,7 @@ public class CourseController {
 			  System.out.println("Please enter the end date of course: ");
 			  endDate = sc.next();
 			  
-			  Course course = new Course(code, name, school, indices, startDate, endDate);
+			  Course course = new Course(code,name,school,startDate,endDate,indices);
 			  
 			  courseSave.add(course);
 			  Temp=sc.nextLine();//To eliminate the buffer
@@ -273,4 +297,34 @@ public class CourseController {
 			}
   			newWrite(filename,tempList);
   	}
+	
+	public static void main(String args[])
+	{
+		CourseController c1 = new CourseController();
+		String src="src/course.txt";
+		try {
+			ArrayList test= c1.readAllCourse(src);
+			
+			for(int i=0;i<test.size();i++)
+			{
+				Course c2 = (Course)test.get(i);
+				System.out.println(c2.getCourseCode());
+				System.out.println(c2.getCourseName());
+				System.out.println(c2.getSchool());
+				System.out.println(c2.getStartDate());
+				System.out.println(c2.getEndDate());
+				
+				for(int j=0;j<c2.getIndices().length;j++)
+				{
+					
+					System.out.println(c2.getIndices()[j]);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
