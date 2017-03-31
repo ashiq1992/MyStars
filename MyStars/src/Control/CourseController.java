@@ -278,11 +278,11 @@ public class CourseController {
 				st.append(course.getSchool().trim());
 				st.append(SEPARATOR);
 				
-				for(int j=0;i<course.getIndices().length;j++)
+				for(int j=0;j<course.getIndices().length;j++)
 				{
 					st.append(j+1);
 					st.append(INDEX_SEPARATOR);
-					st.append(course.getIndices()[i]);
+					st.append(course.getIndices()[j]);
 					st.append(SEPARATOR);
 				}
 				
@@ -298,33 +298,33 @@ public class CourseController {
   			newWrite(filename,tempList);
   	}
 	
-	public static void main(String args[])
-	{
-		CourseController c1 = new CourseController();
-		String src="src/course.txt";
-		try {
-			ArrayList test= c1.readAllCourse(src);
-			
-			for(int i=0;i<test.size();i++)
-			{
-				Course c2 = (Course)test.get(i);
-				System.out.println(c2.getCourseCode());
-				System.out.println(c2.getCourseName());
-				System.out.println(c2.getSchool());
-				System.out.println(c2.getStartDate());
-				System.out.println(c2.getEndDate());
-				
-				for(int j=0;j<c2.getIndices().length;j++)
-				{
-					
-					System.out.println(c2.getIndices()[j]);
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+//	public static void main(String args[])
+//	{
+//		CourseController c1 = new CourseController();
+//		String src="src/course.txt";
+//		try {
+//			ArrayList test= c1.readAllCourse(src);
+//			
+//			for(int i=0;i<test.size();i++)
+//			{
+//				Course c2 = (Course)test.get(i);
+//				System.out.println(c2.getCourseCode());
+//				System.out.println(c2.getCourseName());
+//				System.out.println(c2.getSchool());
+//				System.out.println(c2.getStartDate());
+//				System.out.println(c2.getEndDate());
+//				
+//				for(int j=0;j<c2.getIndices().length;j++)
+//				{
+//					
+//					System.out.println(c2.getIndices()[j]);
+//				}
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 }
