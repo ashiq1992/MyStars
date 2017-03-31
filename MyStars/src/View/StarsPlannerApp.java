@@ -10,9 +10,11 @@ import Control.StudentController;
 public class StarsPlannerApp {
 	static AdminController Ad  = new AdminController();
 	static CourseController Cd = new CourseController();
-	public static void main(String args[])
+	static boolean adddropEnable;
 	
-	{
+	public static void main(String args[]){
+		adddropEnable = true;
+		
 		int input=-1; //Takes in user input;
 		int valid=1;
 		boolean result;
@@ -68,6 +70,12 @@ public class StarsPlannerApp {
 		
 	}
 	
+	// =================================================================================
+	// =================================================================================
+	// 									ADMIN MENU
+	// =================================================================================
+	// =================================================================================
+	
 	public static void AdminMenu()
 	{
 		Scanner sc=new Scanner(System.in);
@@ -78,6 +86,7 @@ public class StarsPlannerApp {
 		System.out.println("4)Print by index.");
 		System.out.println("5)Print by Course.");
 		System.out.println("6) Remove Student");
+		System.out.println("7) Enable/Disable Add/Drop");
 		System.out.println("10)LogOut.");
 		
 		//System.out.println("Enter options:");
@@ -88,17 +97,21 @@ public class StarsPlannerApp {
 			input=sc.nextInt();
 			
 		switch(input){
-		case 1:AddStudent();
+		case 1: AddStudent();
 				break;
 
-		case 2:addCourse();
+		case 2: addCourse();
 				break;
 				
 		case 3: removeCourse();
 				break;
 				
-		case 6:removeStudent();
+		case 6: removeStudent();
 				break;
+		
+		case 7: adddrop();
+				break;
+
 			
 			default: System.out.println("Input error");
 		}
@@ -163,9 +176,49 @@ public class StarsPlannerApp {
 		else{
 			System.err.println("Fail");
 		}
+				
 		
 	}
+
+	// =================================================================================
+	// =================================================================================
+	// 									STUDENT MENU
+	// =================================================================================
+	// =================================================================================
 	
+	public static void StudentMenu()
+	{
+		Scanner sc=new Scanner(System.in);
+		int input;
+		System.out.println("1)View Courses.");
+		System.out.println("2)Add/Drop.");
+		System.out.println("0)LogOut.");
+		
+		//System.out.println("Enter options:");
+		//input=sc.nextInt();
+		
+		do{
+			System.out.println("Enter options:");
+			input=sc.nextInt();
+			
+		switch(input){
+		case 1:AddStudent();
+				break;
+
+		case 2:addCourse();
+				break;
+				
+		case 3: removeCourse();
+				break;
+				
+		case 6:removeStudent();
+				break;
+			
+			default: System.out.println("Input error");
+		}
+		}while(input !=10);
+		
+	}
 	
 	
 

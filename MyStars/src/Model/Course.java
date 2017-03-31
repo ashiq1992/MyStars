@@ -1,13 +1,19 @@
 package Model;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 //hello
 
 public class Course {
 	//Properties
-	private String   school, courseCode, courseName;
-	private int      nOfIndex, capacity;
-	private int[] 	 indices, vacancy;
-	private String   startDate, endDate; //to be changed to Date type
-	private Schedule schedule;
+	private String       school, courseCode, courseName;
+	private int          nOfIndex, capacity;
+	private int[] 	     indices, vacancy;
+	private String       startDate, endDate; //to be changed to Date type
+	private Schedule     schedule;
+	private LinkedList[] waitlist;
 	
 	
 	//Constructor
@@ -21,6 +27,17 @@ public class Course {
 		this.vacancy	= indices;
 		this.startDate 	= startDate;
 		this.endDate 	= endDate;
+		
+		int nOfIndex = 0;
+		for(int i=0; i<indices.length;i++)
+			nOfIndex++;
+		
+		this.waitlist = new LinkedList[nOfIndex];
+		
+		for(int i=0; i<nOfIndex; i++){
+			this.waitlist[i] = new LinkedList();
+		
+		}
 	}
 	
 	//Methods	
