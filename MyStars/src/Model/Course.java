@@ -36,7 +36,6 @@ public class Course {
 		
 		for(int i=0; i<nOfIndex; i++){
 			this.waitlist[i] = new LinkedList();
-		
 		}
 	}
 	

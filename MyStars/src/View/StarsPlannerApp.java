@@ -8,9 +8,12 @@ import Control.CourseController;
 import Control.StudentController;
 
 public class StarsPlannerApp {
-	static AdminController Ad  = new AdminController();
-	static CourseController Cd = new CourseController();
+	static AdminController   Ad = new AdminController();
+	static CourseController  Cd = new CourseController();
+	static StudentController Sd = new StudentController();
+	
 	static boolean adddropEnable;
+	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String args[]){
 		adddropEnable = true;
@@ -118,6 +121,7 @@ public class StarsPlannerApp {
 		}while(input !=10);
 		
 	}
+	
 	public static void AddStudent(){
 		boolean result;
 		
@@ -129,7 +133,6 @@ public class StarsPlannerApp {
 		else{
 			System.err.println("Fail");
 		}
-		
 	}
 	
 	public static void addCourse(){
@@ -142,7 +145,6 @@ public class StarsPlannerApp {
 		else{
 			System.err.println("Fail");
 		}
-		
 	}
 	
 	public static void removeCourse(){
@@ -158,14 +160,11 @@ public class StarsPlannerApp {
 		else{
 			System.err.println("Fail");
 		}
-		
 	}
-	
 	
 	
 	public static void removeStudent(){
 		boolean result;
-		Scanner sc=new Scanner(System.in);
 		StudentController s1 = new StudentController();
 		System.out.println("Enter Student MatricID:");
 		String id=sc.nextLine();
@@ -176,7 +175,25 @@ public class StarsPlannerApp {
 		else{
 			System.err.println("Fail");
 		}
-				
+	}
+	
+	public static void adddrop(){
+		int input;
+		System.out.println("Current Add/Drop Status, Enabled: " + adddropEnable);
+		
+		if(adddropEnable){
+			System.out.println("Do you want to disable Add/Drop?\n1. Yes\n2. No");
+			input =sc.nextInt();
+			if(input == 1 ){
+				adddropEnable = false;
+			}
+		} else {
+			System.out.println("Do you want to enable Add/Drop?\n1. Yes\n2. No");
+			input =sc.nextInt();
+			if(input == 1 ){
+				adddropEnable = true;
+			}
+		}
 		
 	}
 
@@ -188,10 +205,10 @@ public class StarsPlannerApp {
 	
 	public static void StudentMenu()
 	{
-		Scanner sc=new Scanner(System.in);
 		int input;
-		System.out.println("1)View Courses.");
-		System.out.println("2)Add/Drop.");
+		System.out.println("1)View all Courses.");
+		System.out.println("2)View my Courses.");
+		System.out.println("3)Add/Drop.");
 		System.out.println("0)LogOut.");
 		
 		//System.out.println("Enter options:");
@@ -201,25 +218,63 @@ public class StarsPlannerApp {
 			System.out.println("Enter options:");
 			input=sc.nextInt();
 			
-		switch(input){
-		case 1:AddStudent();
-				break;
-
-		case 2:addCourse();
-				break;
-				
-		case 3: removeCourse();
-				break;
-				
-		case 6:removeStudent();
-				break;
+			switch(input){
+			case 1: viewAllCourses();
+					break;
+	
+			case 2: viewMyCourses();
+					break;
+						
+			case 3: addDropMenu();
+					break;
+							
+				default: System.err.println("Input error");
+			}
 			
-			default: System.out.println("Input error");
-		}
-		}while(input !=10);
+		} while(input !=0);
+	}
+	
+	public static void  viewAllCourses(){
 		
 	}
 	
+	public static void viewMyCourses(){
+		
+	}
 	
-
+	public static void addDropMenu(){
+		int input;
+		System.out.println("1)Add a course.");
+		System.out.println("2)Drop a course.");
+		System.out.println("3)Change index number.");
+		System.out.println("0)Back.");
+		
+		System.out.println("Enter options:");
+		input=sc.nextInt();
+		
+		switch(input){
+			case 1: addACourse();
+					break;
+	
+			case 2: dropACourse();
+					break;
+						
+			case 3: changeIndex();
+					break;
+					
+			default: System.err.println("Input error");
+		}
+	}
+	
+	public static void addACourse(){
+		
+	}
+	
+	public static void dropACourse(){
+		
+	}
+	
+	public static void changeIndex(){
+		
+	}
 }
