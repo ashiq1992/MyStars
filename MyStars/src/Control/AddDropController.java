@@ -37,7 +37,7 @@ try {
 			//ArrayList<AddDrop> a1 =Cc1. readAll("src/courseAndStudent.txt");//To add the student with a course then save it to a txt file
 			List studentData = new ArrayList() ;
 			
-			ArrayList<Course> a1 =Cc1. readAllCourse("src/courses.txt");
+			ArrayList<Course> a1 =Cc1. readAllCourse("src/courses.txt");//read all data and store it in course format
 			List data = new ArrayList() ;
 			
 			for (int x = 0; x < a1.size(); x++) {
@@ -229,23 +229,23 @@ try {
 	
 	
 	
-	public static void main(String[] args){
-		 try {
-			ArrayList<AddDrop> A1= readAllCourseAndStudent("src/courseAndStudent.txt");
-			for(int x=0;x<A1.size();x++){
-				for(int i=0;i<A1.get(x).getMatricNumArray().length;i++){
-					System.out.println(A1.get(x).getCourseCode()+" "+A1.get(x).getIndex() +" "+A1.get(x).getMatricNumArray()[i]);
-				}
-				
-				//System.out.println(A1.get(x).getIndex() );
-				
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
-	}
+//	public static void main(String[] args){
+//		 try {
+//			ArrayList<AddDrop> A1= readAllCourseAndStudent("src/courseAndStudent.txt");
+//			for(int x=0;x<A1.size();x++){
+//				for(int i=0;i<A1.get(x).getMatricNumArray().length;i++){
+//					System.out.println(A1.get(x).getCourseCode()+" "+A1.get(x).getIndex() +" "+A1.get(x).getMatricNumArray()[i]);
+//				}
+//				
+//				//System.out.println(A1.get(x).getIndex() );
+//				
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		 
+//	}
 	
 	
 	
