@@ -28,7 +28,7 @@ public class StarsPlannerApp {
 		boolean result;
 		String password,userId;
 		do {
-		
+		 
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Type of user: ");
