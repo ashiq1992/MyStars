@@ -426,6 +426,12 @@ public class CourseController {
 	//
 	// }
 	
-
+	
+	public static void main(String args[]){
+	{
+		CourseController c1 = new CourseController();
+		c1.showIndexByCourse("mh1814");
+	}
+	}
 
 }
