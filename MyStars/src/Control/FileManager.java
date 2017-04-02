@@ -5,7 +5,7 @@ import Model.Student;
 
 public class FileManager {
 	
-	private AddDrop a1;
+	private AddDropController a1;
 	private Admin ad1;
 	private Student s1;
 	

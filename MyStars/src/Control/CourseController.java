@@ -350,7 +350,7 @@ public class CourseController {
 		}
 	}
 
-	public boolean decreaseCourseIndexVacancy(String courseCode, int index) {
+	public boolean  decreaseCourseIndexVacancy(String courseCode, int index) {
 		boolean endResult=false;
 		try {
 			

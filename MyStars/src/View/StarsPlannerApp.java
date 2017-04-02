@@ -3,14 +3,19 @@ package View;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Model.AddDrop;
+import Control.AddDropController;
 import Control.AdminController;
 import Control.CourseController;
 import Control.StudentController;
+import Model.Student;
 
 public class StarsPlannerApp {
 	static AdminController   Ad = new AdminController();
 	static CourseController  Cd = new CourseController();
 	static StudentController Sd = new StudentController();
+	static AddDropController addDrop=new AddDropController();
+	static Student student =new Student();
 	
 	static boolean adddropEnable;
 	static Scanner sc = new Scanner(System.in);
@@ -44,10 +49,11 @@ public class StarsPlannerApp {
 			userId=sc.next();
 			System.out.println("Enter Password:");
 			password=sc.next();
-			StudentController ad=new StudentController();
-			result=ad.checkAccount(userId, password);
+			
+			result=Sd.checkAccount(userId, password);
 			if(result==true){
 				System.out.println("Sucess");
+				student.setMatriculationNumber(userId);
 				StudentMenu();
 				
 			}
@@ -256,6 +262,14 @@ public class StarsPlannerApp {
 		
 	}
 	
+	
+	// =================================================================================
+		// =================================================================================
+		// 									AddDrop Menu
+		// =================================================================================
+		// =================================================================================
+	
+	
 	public static void addDropMenu(){
 		int input;
 		System.out.println("1)Add a course.");
@@ -283,15 +297,22 @@ public class StarsPlannerApp {
 	public static void addACourse(){
 		String courseCode;
 		int index;
+		boolean result;
 		System.out.println("Enter Course Code: ");
 		courseCode=sc.next();
 		//add
 		Cd.showIndexByCourse(courseCode);
 		System.out.println("Enter index: ");
 		index=sc.nextInt();
-		Cd.decreaseCourseIndexVacancy(courseCode, index);
+		result=addDrop.addMethod(courseCode, index,student.getMatriculationNumber());
+		//Cd.decreaseCourseIndexVacancy(courseCode, index);
 		
-		
+		if(result){
+			System.out.println("Success");
+		}
+		else{
+			System.err.println("Fail");
+		}
 		
 		
 		
