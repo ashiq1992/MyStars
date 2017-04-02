@@ -103,11 +103,11 @@ public class Course {
 	}
 	
 	public void decreaseVacancy(int indexNo){
-		vacancy[indexNo-1] --;
+		vacancy[indexNo-1]--;
 	}
 	
 	public void increaseVacancy(int indexNo){
-		vacancy[indexNo-1] ++;
+		vacancy[indexNo-1]++;
 	}
 	
 	//public Person waitlist()

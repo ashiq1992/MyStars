@@ -67,6 +67,13 @@ public class CourseController {
 				retrievedIndex[j] = Integer.parseInt(vacancy);
 
 			}
+			
+//			for(int j=0;j<retrievedIndex.length;j++)
+//			{
+//				
+//				System.out.println("Index "+(j+1)+": "+retrievedIndex[j]);
+//			}
+			
 
 			Course course = new Course(courseCode, courseName, school, startDate, endDate, retrievedIndex);
 			// Course course = new
@@ -325,24 +332,46 @@ public class CourseController {
 	public void showIndexByCourse(String courseCode) {
 		try {
 
-			ArrayList<Course> a1 = readAllCourse("src/courses.txt");
-			ArrayList<Course> a2 = new ArrayList<Course>();
+			ArrayList a1 = readAllCourse("src/courses.txt");
+			ArrayList a2 = new ArrayList();
+			
+			
+//			for(int j=0;j<a1.get(j).getIndices().length;j++)
+//			{
+//				System.out.println("Index "+(j+1)+": "+a1.get(j).getVacancy()[j]);
+//			}
+			
+//			for(int z=0;z<a1.size();z++)
+//			{
+//				System.out.println("Display coursecode: "+a1.get(z).getCourseCode());
+//				System.out.println("Display coursename: "+a1.get(z).getCourseName());
+//				System.out.println("Display school: "+a1.get(z).getSchool());
+//				System.out.println("Display start date: "+a1.get(z).getStartDate());
+//				System.out.println("Display end date: "+a1.get(z).getEndDate());
+//				
+//				
+//				
+//				
+//			}
 
-			System.out.println(a1.get(0).getCourseCode().length());
+			courseCode=courseCode.toLowerCase();
 
 			for (int i = 0; i < a1.size(); i++) {
-
-				if (a1.get(i).getCourseCode().compareToIgnoreCase(courseCode) == 0) {
+					Course course = (Course)a1.get(i);
+				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
 					a2.add(a1.get(i));
 				}
 
 			}
 
 			for (int x = 0; x < a2.size(); x++) {
-				System.out.println("Course code: " + a1.get(x).getCourseCode());
-				System.out.println("Course name: " + a1.get(x).getCourseName());
-				for (int j = 0; j < a2.get(x).getVacancy().length; j++) {
-					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + a1.get(x).getVacancy()[j]);
+				Course course = (Course)a2.get(x);
+				System.out.println("Course code: " + course.getCourseCode());
+				System.out.println("Course name: " + course.getCourseName());
+				//System.out.println("spots: "+a2.get(x).getVacancy().length);
+				//System.out.println("spots: "+a2.size());
+				for (int j = 0; j < course.getVacancy().length; j++) {
+					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + course.getVacancy()[j]);
 				}
 
 			}
@@ -415,9 +444,5 @@ public class CourseController {
 	// }
 	//
 
-	public static void main(String args[]) {
-		CourseController c1 = new CourseController();
-		c1.showIndexByCourse("mh1815");
-	}
 
 }
