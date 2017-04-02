@@ -324,20 +324,31 @@ public class CourseController {
 
 	public void showIndexByCourse(String courseCode) {
 		try {
+			
 			ArrayList<Course> a1 = readAllCourse("src/courses.txt");
 			ArrayList<Course> a2 = new ArrayList<Course>();
+			
+			
 
 			for (int i = 0; i < a1.size(); i++) {
-				if (a1.get(i).getCourseCode().equals(courseCode)) {
+				
+				
+								
+				if(a1.get(i).getCourseCode().compareToIgnoreCase(courseCode)==0)
+				{
 					a2.add(a1.get(i));
 				}
+				
+
 			}
+			
+			
 
 			for (int x = 0; x < a2.size(); x++) {
-				// System.out.println("Course code: " +
-				// a1.get(x).getCourseCode());
-				// System.out.println("Course name: " +
-				// a1.get(x).getCourseName());
+				 System.out.println("Course code: " +
+				 a1.get(x).getCourseCode());
+				 System.out.println("Course name: " +
+				 a1.get(x).getCourseName());
 				for (int j = 0; j < a2.get(x).getVacancy().length; j++) {
 					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + a1.get(x).getVacancy()[j]);
 				}
@@ -414,5 +425,7 @@ public class CourseController {
 	// }
 	//
 	// }
+	
+
 
 }
