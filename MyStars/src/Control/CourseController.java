@@ -174,7 +174,7 @@ public class CourseController {
 					st.append(INDEX_SEPARATOR);
 					st.append(course.getIndices()[j]);
 				}
-				
+
 			}
 			// String temp = "" + course.getCapacity();
 			// st.append(temp.trim());
@@ -293,7 +293,7 @@ public class CourseController {
 					st.append(INDEX_SEPARATOR);
 					st.append(course.getIndices()[j]);
 				}
-				
+
 			}
 			// String temp = "" + course.getCapacity();
 			// st.append(temp.trim());
@@ -324,31 +324,23 @@ public class CourseController {
 
 	public void showIndexByCourse(String courseCode) {
 		try {
-			
+
 			ArrayList<Course> a1 = readAllCourse("src/courses.txt");
 			ArrayList<Course> a2 = new ArrayList<Course>();
-			
-			
+
+			System.out.println(a1.get(0).getCourseCode().length());
 
 			for (int i = 0; i < a1.size(); i++) {
-				
-				
-								
-				if(a1.get(i).getCourseCode().compareToIgnoreCase(courseCode)==0)
-				{
+
+				if (a1.get(i).getCourseCode().compareToIgnoreCase(courseCode) == 0) {
 					a2.add(a1.get(i));
 				}
-				
 
 			}
-			
-			
 
 			for (int x = 0; x < a2.size(); x++) {
-				 System.out.println("Course code: " +
-				 a1.get(x).getCourseCode());
-				 System.out.println("Course name: " +
-				 a1.get(x).getCourseName());
+				System.out.println("Course code: " + a1.get(x).getCourseCode());
+				System.out.println("Course name: " + a1.get(x).getCourseName());
 				for (int j = 0; j < a2.get(x).getVacancy().length; j++) {
 					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + a1.get(x).getVacancy()[j]);
 				}
@@ -361,34 +353,30 @@ public class CourseController {
 		}
 	}
 
-	public boolean  decreaseCourseIndexVacancy(String courseCode, int index) {
-		boolean endResult=false;
+	public boolean decreaseCourseIndexVacancy(String courseCode, int index) {
+		boolean endResult = false;
 		try {
-			
+
 			ArrayList<Course> a1 = readAllCourse("src/courses.txt");
-			List data = new ArrayList() ;
-			
+			List data = new ArrayList();
+
 			for (int x = 0; x < a1.size(); x++) {
 				if (courseCode.equals(a1.get(x).getCourseCode())) {
-					if (a1.get(x).getVacancy()[index-1] <= 0) {
-						//waitList();
+					if (a1.get(x).getVacancy()[index - 1] <= 0) {
+						// waitList();
 						endResult = false;
 					} else {
 						a1.get(x).decreaseVacancy(index);
-						System.out.println("Index:"+index+" "+a1.get(x).getVacancy()[index-1]);
-					
+						System.out.println("Index:" + index + " " + a1.get(x).getVacancy()[index - 1]);
+
 						endResult = true;
 					}
-					
+
 				}
 				data.add(a1.get(x));
 			}
-			
-			
-						
-			
-			CourseController.saveCourseAmend("src/courses.txt",data);
-			
+
+			CourseController.saveCourseAmend("src/courses.txt", data);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -396,35 +384,40 @@ public class CourseController {
 		}
 		return endResult;
 	}
-//
-//	 public static void main(String args[])
-//	 {
-//	 CourseController c1 = new CourseController();
-//	 String src="src/courses.txt";
-//	 try {
-//	 ArrayList test= c1.readAllCourse(src);
-//	
-//	 for(int i=0;i<test.size();i++)
-//	 {
-//	Course c2 = (Course)test.get(i);
-//	 System.out.println(c2.getCourseCode());
-//	 System.out.println(c2.getCourseName());
-//	 System.out.println(c2.getSchool());
-//	 System.out.println(c2.getStartDate());
-//	 System.out.println(c2.getEndDate());
-//	
-//	 for(int j=0;j<c2.getIndices().length;j++)
-//	 {
-//	
-//	 System.out.println(c2.getIndices()[j]);
-//	 }
-//	 }
-//	 } catch (IOException e) {
-//	 // TODO Auto-generated catch block
-//	 e.printStackTrace();
-//	 }
-//	
-//	 }
-//	
+	//
+	// public static void main(String args[])
+	// {
+	// CourseController c1 = new CourseController();
+	// String src="src/courses.txt";
+	// try {
+	// ArrayList test= c1.readAllCourse(src);
+	//
+	// for(int i=0;i<test.size();i++)
+	// {
+	// Course c2 = (Course)test.get(i);
+	// System.out.println(c2.getCourseCode());
+	// System.out.println(c2.getCourseName());
+	// System.out.println(c2.getSchool());
+	// System.out.println(c2.getStartDate());
+	// System.out.println(c2.getEndDate());
+	//
+	// for(int j=0;j<c2.getIndices().length;j++)
+	// {
+	//
+	// System.out.println(c2.getIndices()[j]);
+	// }
+	// }
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	// }
+	//
+
+	public static void main(String args[]) {
+		CourseController c1 = new CourseController();
+		c1.showIndexByCourse("mh1815");
+	}
 
 }
