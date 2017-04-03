@@ -271,7 +271,7 @@ public class StarsPlannerApp {
 
 		System.out.println("Enter options:");
 		input = sc.nextInt();
-
+//test
 		switch (input) {
 		case 1:
 			addACourse();
