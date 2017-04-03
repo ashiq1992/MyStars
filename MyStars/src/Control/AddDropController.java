@@ -87,11 +87,6 @@ public class AddDropController {
 	}
 
 	public void sendEmail() {
-
-	}
-
-	public void dropMethod() {
-
 	}
 
 	public void changeIndex() {
@@ -283,6 +278,8 @@ public class AddDropController {
 
 	public void dropMethod(String courseCode, int index, String matricNum) {
 		try {
+			List a2 = Cc1.readAllCourse("src/courses.txt");// read the data from
+															// the course txt.
 			List tempList = new ArrayList();
 			List stringArray = readAllCourseAndStudent("src/courseAndStudent.txt");
 
@@ -293,10 +290,23 @@ public class AddDropController {
 						if (check.getList().get(x).toLowerCase().equals(matricNum.toLowerCase())) {
 							System.out.print("test");
 							check.getList().remove(x);
+							/*
+							 * triverse through the course and add back the
+							 * vacancy
+							 */
+							for (int k = 0; k < a2.size(); k++) {
+								Course course = (Course) a2.get(k);
+								if (course.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+									course.increaseVacancy(index);
+								}
+
+							}
+
 						}
 					}
 				}
 			}
+			Cc1.saveCourseAmend("src/courses.txt", a2);
 
 			for (int i = 0; i < stringArray.size(); i++) {
 				StringBuilder st1 = new StringBuilder();
@@ -323,10 +333,39 @@ public class AddDropController {
 		}
 	}
 
-	public static void main(String args[]) {
-		AddDropController a2 = new AddDropController();
-		a2.dropMethod("mh1812", 4,"u165");
+	/* This method return the user the index of thr course added base */
+	public int returnIndex(String matriculationNum, String courseCode) {
+		List stringArray;
+		int index = 0;
+		try {
+
+			stringArray = readAllCourseAndStudent("src/courseAndStudent.txt");
+
+			for (int i = 0; i < stringArray.size(); i++) {
+				AddDrop check = (AddDrop) stringArray.get(i);
+				if (check.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+					for (int k = 0; k < check.getList().size(); k++) {
+						if (check.getList().get(k).toLowerCase().equals(matriculationNum.toLowerCase())) {
+							index = check.getIndex();
+						}
+
+					}
+				}
+
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return index;
 
 	}
+	// public static void main(String args[]) {
+	// AddDropController a2 = new AddDropController();
+	// a2.dropMethod("mh1815", 2,"u162");
+	//
+	// }
 
 }

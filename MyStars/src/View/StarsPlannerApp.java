@@ -309,6 +309,15 @@ public class StarsPlannerApp {
 	}
 
 	public static void dropACourse() {
+		String courseCode;
+		int index;
+		System.out.println("Enter CourseCode:");
+		courseCode=sc.next();
+		index=addDrop.returnIndex(student.getMatriculationNumber(), courseCode);//get the index from the file 
+		System.out.println(" "+index);
+		addDrop.dropMethod(courseCode, index, student.getMatriculationNumber());
+		
+		
 
 	}
 
