@@ -20,10 +20,10 @@ public class AddDropController {
 	public static final String SEPARATOR = "|";
 	public static final String INDEX_SEPARATOR = "_";
 
-//	private Course c1;
-//	private Admin a1;
-//	private Student s1;
-//	private FileManager f1;
+	// private Course c1;
+	// private Admin a1;
+	// private Student s1;
+	// private FileManager f1;
 	private CourseController Cc1 = new CourseController();
 
 	public boolean addMethod(String courseCode, int index, String matricNum) {
@@ -72,8 +72,8 @@ public class AddDropController {
 			// }
 			AddDropController addd = new AddDropController();
 			addd.studentAddsCourse("src/courseAndStudent.txt", studentData, courseCode, index);
-			
-			//AddDropController.studentAddsCourse();
+
+			// AddDropController.studentAddsCourse();
 			Cc1.saveCourseAmend("src/courses.txt", data);
 			endResult = true;
 
@@ -110,9 +110,9 @@ public class AddDropController {
 
 		List tempList = new ArrayList();
 		ArrayList listOfEnrolledStudents = readAllCourseAndStudent("src/courseAndStudent.txt");
-		
-		//ArrayList<Course> a1 = readAllCourse(file);
-		
+
+		// ArrayList<Course> a1 = readAllCourse(file);
+
 		if (listOfEnrolledStudents.isEmpty()) {
 
 			AddDrop addCourse = (AddDrop) list.get(0);
@@ -126,37 +126,31 @@ public class AddDropController {
 			newBuild.append(addCourse.getMatricNum());
 			newBuild.append(SEPARATOR);
 			tempList.add(newBuild.toString());
-			
 
 		}
 
 		else {
-			
-			
+
 			ArrayList updated = new ArrayList();
 			int flag = 0;
-			
+
 			for (int x = 0; x < listOfEnrolledStudents.size(); x++) {
 				AddDrop singleMatricNum = (AddDrop) list.get(0);
 
 				AddDrop listOfMatricNum = (AddDrop) listOfEnrolledStudents.get(x);
-				
-				
-				
+
 				AddDrop addMatricNum = new AddDrop(listOfMatricNum.getCourseCode(), listOfMatricNum.getIndex(),
 						listOfMatricNum.getList());
-				
-				
 
-				if (listOfMatricNum.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && listOfMatricNum.getIndex() == index)
-					
+				if (listOfMatricNum.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())
+						&& listOfMatricNum.getIndex() == index)
+
 				{
 					List<String> matricList = new ArrayList<String>();
 					matricList.add(singleMatricNum.getMatricNum());
 					addMatricNum.setList(matricList);
-				
+
 					flag = 1;
-	
 
 				}
 
@@ -165,57 +159,52 @@ public class AddDropController {
 
 			if (flag != 1) {
 				AddDrop a1 = (AddDrop) list.get(0);
-				String matriculationNumber= a1.getMatricNum();
-				String courseCode1=a1.getCourseCode();
+				String matriculationNumber = a1.getMatricNum();
+				String courseCode1 = a1.getCourseCode();
 				int index1 = a1.getIndex();
-				
-				List<String> matricNum=new ArrayList<String>();
+
+				List<String> matricNum = new ArrayList<String>();
 				matricNum.add(a1.getMatricNum());
 				AddDrop a2 = new AddDrop(a1.getCourseCode(), a1.getIndex(), matricNum);
-				
-				
+
 				updated.add(a2);
-				
-				for(int j=0;j<updated.size();j++)
-				{
-					AddDrop test= (AddDrop) updated.get(j);
+
+				for (int j = 0; j < updated.size(); j++) {
+					AddDrop test = (AddDrop) updated.get(j);
 				}
 			}
-			
+
 			for (int i = 0; i < updated.size(); i++) {
 				StringBuilder st1 = new StringBuilder();
 				AddDrop a1 = (AddDrop) updated.get(i);
 
-				
 				st1.append(a1.getCourseCode());
 				st1.append(INDEX_SEPARATOR);
 				st1.append(a1.getIndex());
 				st1.append(SEPARATOR);
 				for (int j = 0; j < a1.getList().size(); j++) {
-					
+
 					st1.append(a1.getList().get(j));
 					st1.append(SEPARATOR);
-					
+
 				}
 				tempList.add(st1.toString());
 			}
-			
-			
+
 		}
 		write(filename, tempList);
 	}
 
-
 	public static void write(String fileName, List data) throws IOException {
 		PrintWriter out = new PrintWriter(new FileWriter(fileName));// to
-																			// ensure
-																			// that
-																			// the
-																			// previous
-																			// data
-																			// is
-																			// still
-																			// intact
+																	// ensure
+																	// that
+																	// the
+																	// previous
+																	// data
+																	// is
+																	// still
+																	// intact
 
 		try {
 			for (int i = 0; i < data.size(); i++) {
@@ -235,7 +224,7 @@ public class AddDropController {
 
 			String st = (String) stringArray.get(i);
 			// get individual 'fields' of the string separated by SEPARATOR
-			StringTokenizer star = new StringTokenizer(st,SEPARATOR); // pass
+			StringTokenizer star = new StringTokenizer(st, SEPARATOR); // pass
 																		// in
 																		// the
 																		// string
@@ -248,16 +237,14 @@ public class AddDropController {
 																		// ","
 
 			String courseCode = star.nextToken("_").trim();
-			
-			String index= star.nextToken("|").trim();
-						
+
+			String index = star.nextToken("|").trim();
+
 			StringBuilder modifyIndex = new StringBuilder(index);
 			index = modifyIndex.deleteCharAt(0).toString();
-			
-			
+
 			int counter = 0;
 			counter = star.countTokens();
-			
 
 			ArrayList retrievedMatricNum = new ArrayList();
 
@@ -268,7 +255,7 @@ public class AddDropController {
 				retrievedMatricNum.add(matricNum);
 
 			}
-			
+
 			AddDrop add = new AddDrop(courseCode, Integer.parseInt(index), retrievedMatricNum);
 			// Course course = new
 			// Course(courseCode,courseName,school,capacity,startDate,endDate);
@@ -294,11 +281,52 @@ public class AddDropController {
 		return data;
 	}
 
-	public static void main(String args[]) {
-		AddDropController a2 = new AddDropController();
-		a2.addMethod("Mh1814", 2, "u1644");
+	public void dropMethod(String courseCode, int index, String matricNum) {
+		try {
+			List tempList = new ArrayList();
+			List stringArray = readAllCourseAndStudent("src/courseAndStudent.txt");
 
+			for (int i = 0; i < stringArray.size(); i++) {
+				AddDrop check = (AddDrop) stringArray.get(i);
+				if (check.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && check.getIndex() == index) {
+					for (int x = 0; x < check.getList().size(); x++) {
+						if (check.getList().get(x).toLowerCase().equals(matricNum.toLowerCase())) {
+							System.out.print("test");
+							check.getList().remove(x);
+						}
+					}
+				}
+			}
+
+			for (int i = 0; i < stringArray.size(); i++) {
+				StringBuilder st1 = new StringBuilder();
+				AddDrop a1 = (AddDrop) stringArray.get(i);
+
+				st1.append(a1.getCourseCode());
+				st1.append(INDEX_SEPARATOR);
+				st1.append(a1.getIndex());
+				st1.append(SEPARATOR);
+				for (int j = 0; j < a1.getList().size(); j++) {
+
+					st1.append(a1.getList().get(j));
+					st1.append(SEPARATOR);
+
+				}
+				tempList.add(st1.toString());
+			}
+
+			write("src/courseAndStudent.txt", tempList);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	public static void main(String args[]) {
+		AddDropController a2 = new AddDropController();
+		a2.dropMethod("mh1812", 4,"u165");
+
+	}
 
 }
