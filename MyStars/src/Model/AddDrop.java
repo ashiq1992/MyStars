@@ -15,7 +15,7 @@ public class AddDrop {
 	private String CourseCode;
 	private int Index;
 	private String MatricNum;
-	private String[] matricNum;
+	private ArrayList matricNum=null;
 	
 	
 	public AddDrop(String CourseCode,int index,String matricNum ){
@@ -27,15 +27,14 @@ public class AddDrop {
 	
 	
 
-	public AddDrop(String CourseCode,int index,String[] matricNum ){
+	public AddDrop(String CourseCode,int index,ArrayList matricNum ){
+		matricNum= new ArrayList();
 		this.CourseCode=CourseCode;
 		this.Index=index;
 		this.matricNum =matricNum;
+		
 		//System.out.println(this.matricNum);
-		for(int x=0;x<matricNum.length;x++){
-			this.matricNum[x]=matricNum[x];
-		//System.out.println(this.matricNum[x]);
-		}
+	
 		
 	}
 	
@@ -67,11 +66,17 @@ public class AddDrop {
 		MatricNum = matricNum;
 	}
 
-	public void setmatricNumArray(String matricNum) {
-		this.matricNum[this.matricNum.length]=matricNum; //Adds the MatricNum to the lst Position of the array
+	public void setmatricNumArray(ArrayList matricNum) {
+		
+		for(int i=0;i<this.matricNum.size();i++)
+		{
+			this.matricNum.add(matricNum.get(i));
+		}
+		
+		//this.matricNum.add(matricNum.get(0));
 	
 	}
-	public String[] getMatricNumArray() {
+	public ArrayList getMatricNumArray() {
 	return this.matricNum;
 	}
 	
