@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import Model.AddDrop;
 import Model.Admin;
 import Model.Student;
 
 public class StudentController {
 	public static final String SEPARATOR = "|";
+	public AddDropController addDrop = new AddDropController();
+	public CourseController Cc1=new CourseController();
 
 	public static ArrayList readAllStudents(String filename) throws IOException {
 		// read String from text file
@@ -235,5 +238,42 @@ public class StudentController {
 		}
 
 	}
-
+		public void displayCourse(String matriculationNum){
+			try {
+				List StringArray=addDrop.readAllCourseAndStudent("src/courseAndStudent.txt");
+				
+				
+				for(int x=0;x<StringArray.size();x++){
+					AddDrop addDrop=(AddDrop)StringArray.get(x);
+					for(int k=0;k<addDrop.getList().size();k++){
+						if(addDrop.getList().get(k).toLowerCase().equals(matriculationNum.toLowerCase())){
+							System.out.println("Course Code: "+ addDrop.getCourseCode() +" Index: "+addDrop.getIndex());
+						}
+					}
+					
+				}
+				
+				
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+		
+		
+		
+		
+		/*for testing display course by student*/
+//		
+//		public static void main (String args[]){
+//			
+//			
+//			StudentController SS=new StudentController();
+//			SS.displayCourse("u162");
+//			
+//			
+//		}
+		
 }
