@@ -362,6 +362,37 @@ public class AddDropController {
 		return index;
 
 	}
+	
+	/*Save the amended student and course file*/
+	public void saveAmend(List stringArray){
+		List tempList = new ArrayList();
+		for (int i = 0; i < stringArray.size(); i++) {
+			StringBuilder st1 = new StringBuilder();
+			AddDrop a1 = (AddDrop) stringArray.get(i);
+
+			st1.append(a1.getCourseCode());
+			st1.append(INDEX_SEPARATOR);
+			st1.append(a1.getIndex());
+			st1.append(SEPARATOR);
+			for (int j = 0; j < a1.getList().size(); j++) {
+
+				st1.append(a1.getList().get(j));
+				st1.append(SEPARATOR);
+
+			}
+			tempList.add(st1.toString());
+		}
+
+		try {
+			write("src/courseAndStudent.txt", tempList);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
 	// public static void main(String args[]) {
 	// AddDropController a2 = new AddDropController();
 	// a2.dropMethod("mh1815", 2,"u162");

@@ -262,18 +262,53 @@ public class StudentController {
 			}
 	}
 		
+		public void changeIndex(int index,int oldindex,String courseCode,String matricNum){
+			try {
+				int temp;
+				List list=new ArrayList();
+				list.add(matricNum);
+				
+				
+				List StringArray=addDrop.readAllCourseAndStudent("src/courseAndStudent.txt");
+				for(int x=0;x<StringArray.size();x++){
+				AddDrop changeIndex=(AddDrop)StringArray.get(x);
+				/*To remove the matric number from old index number*/
+				if(changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())&& changeIndex.getIndex()==oldindex){
+					for(int k=0;k<changeIndex.getList().size();k++){
+						if(changeIndex.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())){
+							changeIndex.getList().remove(k);
+							
+						}
+					}
+					
+				}
+				if(changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && changeIndex.getIndex()==index){
+					
+					changeIndex.setList(list);
+				}
+				
 		
+				
+				}
+				addDrop.saveAmend(StringArray);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		
 		/*for testing display course by student*/
-//		
-//		public static void main (String args[]){
-//			
-//			
-//			StudentController SS=new StudentController();
-//			SS.displayCourse("u162");
-//			
-//			
-//		}
+		
+		public static void main (String args[]){
+			
+			
+			StudentController SS=new StudentController();
+			//SS.displayCourse("u162");
+			SS.changeIndex(4,2, "Mh1812", "u162");
+			
+			
+		}
 		
 }

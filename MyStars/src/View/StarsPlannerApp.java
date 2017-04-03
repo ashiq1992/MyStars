@@ -325,6 +325,11 @@ public class StarsPlannerApp {
 	}
 
 	public static void changeIndex() {
+		String matriculation;
+		System.out.println("Enter the Students Matriculation Id:");
+		matriculation=sc.next();
+		
+		
 
 	}
 }
