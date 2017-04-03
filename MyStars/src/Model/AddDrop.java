@@ -66,14 +66,12 @@ public class AddDrop {
 		MatricNum = matricNum;
 	}
 
-	public void setmatricNumArray(ArrayList matricNum) {
+	public void setmatricNumArray(String matricNum) {
 		
-		for(int i=0;i<this.matricNum.size();i++)
-		{
-			this.matricNum.add(matricNum.get(i));
-		}
 		
-		//this.matricNum.add(matricNum.get(0));
+		this.matricNum.add(matricNum);
+		
+		
 	
 	}
 	public ArrayList getMatricNumArray() {
