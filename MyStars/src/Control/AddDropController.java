@@ -20,10 +20,10 @@ public class AddDropController {
 	public static final String SEPARATOR = "|";
 	public static final String INDEX_SEPARATOR = "_";
 
-	private Course c1;
-	private Admin a1;
-	private Student s1;
-	private FileManager f1;
+//	private Course c1;
+//	private Admin a1;
+//	private Student s1;
+//	private FileManager f1;
 	private CourseController Cc1 = new CourseController();
 
 	public boolean addMethod(String courseCode, int index, String matricNum) {
@@ -56,7 +56,6 @@ public class AddDropController {
 						course.decreaseVacancy(index);
 						Add = new AddDrop(courseCode, index, matricNum);
 						studentData.add(Add);
-						// System.out.println("Index:"+index+"
 						// "+a1.get(x).getVacancy()[index-1]);
 
 						endResult = true;
@@ -70,10 +69,11 @@ public class AddDropController {
 			// {
 			// AddDrop course = (AddDrop)studentData.get(i);
 			//
-			// System.out.println("Test: "+course.getCourseCode());
 			// }
-
-			AddDropController.studentAddsCourse("src/courseAndStudent.txt", studentData, courseCode, index);
+			AddDropController addd = new AddDropController();
+			addd.studentAddsCourse("src/courseAndStudent.txt", studentData, courseCode, index);
+			
+			//AddDropController.studentAddsCourse();
 			Cc1.saveCourseAmend("src/courses.txt", data);
 			endResult = true;
 
@@ -105,167 +105,109 @@ public class AddDropController {
 	public void checkClash() {
 
 	}
-	
-	public static void studentAddsCourse(String filename,List list,String courseCode,int index) throws IOException
-	{
-		
-		List tempList= new ArrayList();
+
+	public void studentAddsCourse(String filename, List list, String courseCode, int index) throws IOException {
+
+		List tempList = new ArrayList();
 		ArrayList listOfEnrolledStudents = readAllCourseAndStudent("src/courseAndStudent.txt");
 		
-		if(listOfEnrolledStudents.size()==0)
-		{
-			
-				
-				AddDrop addCourse = (AddDrop) list.get(0);
-				StringBuilder newBuild = new StringBuilder();		
-				
-				newBuild.append(addCourse.getCourseCode());
-				newBuild.append(INDEX_SEPARATOR);
-				newBuild.append(addCourse.getIndex());
-					
-				
-					newBuild.append(SEPARATOR);
-					newBuild.append(addCourse.getMatricNum());
-					newBuild.append(SEPARATOR);
-					tempList.add(newBuild.toString());
-				
-		}
+		//ArrayList<Course> a1 = readAllCourse(file);
 		
-		else
-		{
+		if (listOfEnrolledStudents.isEmpty()) {
+
+			AddDrop addCourse = (AddDrop) list.get(0);
+			StringBuilder newBuild = new StringBuilder();
+
+			newBuild.append(addCourse.getCourseCode());
+			newBuild.append(INDEX_SEPARATOR);
+			newBuild.append(addCourse.getIndex());
+
+			newBuild.append(SEPARATOR);
+			newBuild.append(addCourse.getMatricNum());
+			newBuild.append(SEPARATOR);
+			tempList.add(newBuild.toString());
+			
+
+		}
+
+		else {
+			
+			
 			ArrayList updated = new ArrayList();
-			int flag=0;
+			int flag = 0;
+			
 			for (int x = 0; x < listOfEnrolledStudents.size(); x++) {
-				
 				AddDrop singleMatricNum = (AddDrop) list.get(0);
-				
-				
+
 				AddDrop listOfMatricNum = (AddDrop) listOfEnrolledStudents.get(x);
-				AddDrop addMatricNum= new AddDrop(listOfMatricNum.getCourseCode(),listOfMatricNum.getIndex(),listOfMatricNum.getMatricNumArray());
 				
-				if(listOfMatricNum.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && listOfMatricNum.getIndex()==index)
+				
+				
+				AddDrop addMatricNum = new AddDrop(listOfMatricNum.getCourseCode(), listOfMatricNum.getIndex(),
+						listOfMatricNum.getList());
+				
+				
+
+				if (listOfMatricNum.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && listOfMatricNum.getIndex() == index)
 					
 				{
-					addMatricNum.setmatricNumArray(singleMatricNum.getMatricNum());
-					flag=1;
-										
-				}
+					List<String> matricList = new ArrayList<String>();
+					matricList.add(singleMatricNum.getMatricNum());
+					addMatricNum.setList(matricList);
 				
-				updated.add(addMatricNum);			
+					flag = 1;
+	
+
+				}
+
+				updated.add(addMatricNum);
 			}
-			
-			if(flag !=1)
-			{
+
+			if (flag != 1) {
 				AddDrop a1 = (AddDrop) list.get(0);
-				ArrayList<String> matricNum=a1.getMatricNumArray();
-				AddDrop a2 = new AddDrop(a1.getCourseCode(),a1.getIndex(),matricNum);
+				String matriculationNumber= a1.getMatricNum();
+				String courseCode1=a1.getCourseCode();
+				int index1 = a1.getIndex();
+				
+				List<String> matricNum=new ArrayList<String>();
+				matricNum.add(a1.getMatricNum());
+				AddDrop a2 = new AddDrop(a1.getCourseCode(), a1.getIndex(), matricNum);
+				
+				
 				updated.add(a2);
+				
+				for(int j=0;j<updated.size();j++)
+				{
+					AddDrop test= (AddDrop) updated.get(j);
+				}
 			}
 			
 			for (int i = 0; i < updated.size(); i++) {
-				
-				AddDrop a1 = (AddDrop) updated.get(i);
-				
 				StringBuilder st1 = new StringBuilder();
+				AddDrop a1 = (AddDrop) updated.get(i);
+
+				
 				st1.append(a1.getCourseCode());
 				st1.append(INDEX_SEPARATOR);
 				st1.append(a1.getIndex());
-				for (int j = 0; j < a1.getMatricNumArray().size(); j++) {
+				st1.append(SEPARATOR);
+				for (int j = 0; j < a1.getList().size(); j++) {
+					
+					st1.append(a1.getList().get(j));
 					st1.append(SEPARATOR);
-					st1.append(a1.getMatricNumArray().get(j));
-					st1.append(SEPARATOR);
-					tempList.add(st1.toString());
+					
 				}
+				tempList.add(st1.toString());
 			}
 			
-			write(filename, tempList);
+			
 		}
-		
+		write(filename, tempList);
 	}
 
-//	public static void saveCourseWithStudent(String filename, List list, String courseCode, int index)
-//			throws IOException {
-//		List tempList = new ArrayList();// to store students data
-//		ArrayList<AddDrop> StringArray = readAllCourseAndStudent("src/courseAndStudent.txt");
-//		
-//		if (StringArray.size() != 0) {
-//			for (int x = 0; x < StringArray.size(); x++) {
-//				AddDrop Add = (AddDrop) list.get(0);// Convert the data into
-//													// AddDrop
-//													// class then check for
-//													// condition before adding
-//													// them
-//													// together
-//				AddDrop a1 = new AddDrop(StringArray.get(x).getCourseCode(),StringArray.get(x).getIndex(),StringArray.get(x).getMatricNumArray());
-//				// AddDrop stArray = (AddDrop) StringArray.get(x);
-//				// System.out.println("test");
-//				if (StringArray.get(x).getCourseCode().toLowerCase().equals(courseCode.toLowerCase())
-//						&& StringArray.get(x).getIndex() == index) {
-//					System.out.println(Add.getMatricNum());
-//					ArrayList pass = new ArrayList();
-//					pass.add(Add.getMatricNum());
-//					//System.out.println(pass.size());
-//					StringArray.get(x).setmatricNumArray(pass);
-//
-//				} else {
-//					StringArray.add(Add);
-//
-//				}
-//			}
-//
-//			for (int i = 0; i < StringArray.size(); i++) {
-//				// AddDrop Add = (AddDrop) list.get(i);
-//				StringBuilder st = new StringBuilder();
-//				AddDrop stArray = (AddDrop) list.get(i);
-//				st.append(StringArray.get(i).getCourseCode());
-//				// st.append(stArray.getCourseCode());
-//				st.append(INDEX_SEPARATOR);
-//				st.append(StringArray.get(i).getIndex());
-//				// System.out.println(stArray.getMatricNum());
-//				for (int j = 0; j < StringArray.get(i).getMatricNumArray().size(); j++) {
-//					st.append(SEPARATOR);
-//					st.append(StringArray.get(i).getMatricNumArray().get(j));
-//					st.append(SEPARATOR);
-//					// }
-//
-//					// String temp = "" + course.getCapacity();
-//					// st.append(temp.trim());
-//					// st.append(SEPARATOR);
-//
-//					tempList.add(st.toString());
-//
-//				}
-//			}
-//		} else {
-//
-//			for (int i = 0; i < StringArray.size(); i++) {
-//				// AddDrop Add = (AddDrop) list.get(i);
-//				StringBuilder st1 = new StringBuilder();
-//				// AddDrop stArray = (AddDrop) list.get(i);
-//				st1.append(StringArray.get(i).getCourseCode());
-//				// st.append(stArray.getCourseCode());
-//				st1.append(INDEX_SEPARATOR);
-//				st1.append(StringArray.get(i).getIndex());
-//				// System.out.println(stArray.getMatricNum());
-//				for (int j = 0; j < StringArray.get(i).getMatricNumArray().size(); j++) {
-//					st1.append(SEPARATOR);
-//					st1.append(StringArray.get(i).getMatricNumArray().get(j));
-//					st1.append(SEPARATOR);
-//					// }
-//
-//					// String temp = "" + course.getCapacity();
-//					// st.append(temp.trim());
-//					// st.append(SEPARATOR);
-//
-//					tempList.add(st1.toString());
-//				}
-//			}
-//		}
-//		write(filename, tempList);
-//	}
 
 	public static void write(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName, true));// to
+		PrintWriter out = new PrintWriter(new FileWriter(fileName));// to
 																			// ensure
 																			// that
 																			// the
@@ -287,14 +229,13 @@ public class AddDropController {
 	public static ArrayList readAllCourseAndStudent(String filename) throws IOException {
 		// read String from text file
 		ArrayList stringArray = (ArrayList) read(filename);
-		//System.out.println(read(filename).size());
 		ArrayList alr = new ArrayList();// to store Admins data
 
 		for (int i = 0; i < stringArray.size(); i++) {
 
 			String st = (String) stringArray.get(i);
 			// get individual 'fields' of the string separated by SEPARATOR
-			StringTokenizer star = new StringTokenizer(st, SEPARATOR); // pass
+			StringTokenizer star = new StringTokenizer(st,SEPARATOR); // pass
 																		// in
 																		// the
 																		// string
@@ -307,12 +248,16 @@ public class AddDropController {
 																		// ","
 
 			String courseCode = star.nextToken("_").trim();
-			String index = star.nextToken("|").trim();
+			
+			String index= star.nextToken("|").trim();
+						
 			StringBuilder modifyIndex = new StringBuilder(index);
 			index = modifyIndex.deleteCharAt(0).toString();
-			// System.out.println(index);//for error checking
+			
+			
 			int counter = 0;
 			counter = star.countTokens();
+			
 
 			ArrayList retrievedMatricNum = new ArrayList();
 
@@ -320,17 +265,15 @@ public class AddDropController {
 			for (int j = 0; j < counter; j++) {
 
 				String matricNum = star.nextToken().trim();
-				// System.out.println(matricNum);//for testing purpose
 				retrievedMatricNum.add(matricNum);
 
 			}
-
+			
 			AddDrop add = new AddDrop(courseCode, Integer.parseInt(index), retrievedMatricNum);
 			// Course course = new
 			// Course(courseCode,courseName,school,capacity,startDate,endDate);
 
 			// add student objects to alr
-			// System.out.println("hello");
 			alr.add(add);
 		}
 
@@ -351,36 +294,11 @@ public class AddDropController {
 		return data;
 	}
 
-	 public static void main(String[] args){
-	 try {
-	 ArrayList A1= readAllCourseAndStudent("src/courseAndStudent.txt");
-	 //System.out.println(A1.size());
-	 //System.out.println("test");
-	 AddDropController a2 = new AddDropController();
-	 a2.addMethod("Mh1812",1,"u162");
-	 
-	 for(int x=0;x<A1.size();x++){
-	 AddDrop a1 = (AddDrop) A1.get(x);
-	 System.out.println(a1.getCourseCode());
-	 for(int i=0;i<a1.getMatricNumArray().size();i++){
-	 System.out.println(a1.getCourseCode()+" "+a1.getIndex() +" "+a1.getMatricNumArray().get(i));
-	 }
-	
-	 //System.out.println(A1.get(x).getIndex() );
-	
-	 }
-	 } catch (IOException e) {
-	 // TODO Auto-generated catch block
-	 e.printStackTrace();
-	 }
-	
-	 }
+	public static void main(String args[]) {
+		AddDropController a2 = new AddDropController();
+		a2.addMethod("Mh1814", 2, "u1644");
 
-	// public static void main(String args[])
-	
-//	 {
-//	 AddDropController a1 = new AddDropController();
-//	 a1.addMethod("Mh1812",1,"u162");
-//	 }
+	}
+
 
 }
