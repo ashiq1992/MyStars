@@ -11,12 +11,13 @@ import java.util.StringTokenizer;
 
 import Model.AddDrop;
 import Model.Admin;
+import Model.Course;
 import Model.Student;
 
 public class StudentController {
 	public static final String SEPARATOR = "|";
-	public AddDropController addDrop = new AddDropController();
-	public CourseController Cc1=new CourseController();
+	private AddDropController addDrop = new AddDropController();
+	private CourseController Cc1=new CourseController();
 
 	public static ArrayList readAllStudents(String filename) throws IOException {
 		// read String from text file
@@ -264,10 +265,26 @@ public class StudentController {
 		
 		public void changeIndex(int index,int oldindex,String courseCode,String matricNum){
 			try {
+				
 				int temp;
 				List list=new ArrayList();
 				list.add(matricNum);
 				
+				
+				List readCourse = Cc1.readAllCourse("src/courses.txt");
+				
+				for(int i=0;i<readCourse.size();i++)
+				{
+					Course course = (Course) readCourse.get(i);
+					System.out.println("Course Id: "+course.getCourseCode());
+					
+					for(int z=0;z<course.getVacancy().length;z++)
+					{
+						System.out.println("Vacancy: "+course.getVacancy()[z]);
+					}
+					
+					
+				}
 				
 				List StringArray=addDrop.readAllCourseAndStudent("src/courseAndStudent.txt");
 				for(int x=0;x<StringArray.size();x++){
@@ -290,7 +307,7 @@ public class StudentController {
 		
 				
 				}
-				addDrop.saveAmend(StringArray);
+				//addDrop.saveAmend(StringArray);
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
