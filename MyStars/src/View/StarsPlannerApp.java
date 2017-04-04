@@ -1,5 +1,7 @@
 package View;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -22,7 +24,6 @@ public class StarsPlannerApp {
 
 	public static void main(String args[]) {
 		adddropEnable = true;
-
 		int input = -1; // Takes in user input;
 		int valid = 1;
 		boolean result;
@@ -33,6 +34,8 @@ public class StarsPlannerApp {
 			System.out.println("Type of user: ");
 			System.out.println("1) Student ");
 			System.out.println("2) Admin ");
+			
+			
 
 			try {
 				input = sc.nextInt();

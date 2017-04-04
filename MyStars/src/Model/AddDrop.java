@@ -79,15 +79,6 @@ public class AddDrop {
 	public void sendEmail() {
 
 	}
-
-	public void changeIndex() {
-
-	}
-
-	public void swapIndex() {
-
-	}
-
 	public void checkClash() {
 
 	}

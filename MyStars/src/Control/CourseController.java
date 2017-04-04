@@ -1,5 +1,6 @@
 package Control;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -140,10 +141,20 @@ public class CourseController {
 
 			courseSave.add(course);
 			Temp = sc.nextLine();// To eliminate the buffer
+			File f = new File("src/waitlists/"+code+".txt");
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			
 		}
+		
 
 		try {
 			saveCourse("src/courses.txt", courseSave);
+		
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -216,18 +227,23 @@ public class CourseController {
 		boolean deleted = false;
 
 		try {
+			
 			ArrayList<Course> a1 = readAllCourse(file);
-
+		
 			List l2 = new ArrayList();
 			for (int i = 0; i < a1.size(); i++) {
+				
 				Course course = (Course) a1.get(i);
 
-				String mat = course.getCourseCode();
-
-				if (mat.equals(courseCode)) {
+				String mat = course.getCourseCode().toLowerCase();
+				
+				if (mat.equals(courseCode.toLowerCase())) {
 
 					a1.remove(i);
 					deleted = true;
+					
+					File f = new File("src/waitlists/"+mat+".txt");
+					f.delete();
 				}
 
 			}
