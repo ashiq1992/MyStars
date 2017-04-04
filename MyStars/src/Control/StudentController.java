@@ -270,6 +270,7 @@ public class StudentController {
 
 			int courseIndex = 0;
 			String courseID = null;
+			int retIndex=0;
 
 			List StringArray = addDrop.readAllCourseAndStudent("src/courseAndStudent.txt");
 			for (int x = 0; x < StringArray.size(); x++) {
@@ -289,7 +290,7 @@ public class StudentController {
 				}
 				if (changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())
 						&& changeIndex.getIndex() == index) {
-
+						retIndex=x;
 					changeIndex.setList(list);
 				}
 
@@ -299,33 +300,49 @@ public class StudentController {
 
 			for (int i = 0; i < readCourse.size(); i++) {
 				Course course = (Course) readCourse.get(i);
-				System.out.println("Course Id: " + course.getCourseCode());
+				//System.out.println("Course Id: " + course.getCourseCode());
 				// System.out.println(courseIndex);
 
 				for (int j = 0; j < course.getVacancy().length; j++) {
-					System.out.println("Index " + (j + 1));
+					//System.out.println("Index " + (j + 1));
 
 					if ((j + 1) == courseIndex && courseID.toLowerCase().equals(course.getCourseCode().toLowerCase())) {
 						course.increaseVacancy(courseIndex);
-						System.out.println("INcreased");
+						//System.out.println("INcreased");
 					}
 
 					if ((j + 1) == index && (courseID.toLowerCase().equals(course.getCourseCode().toLowerCase()))) {
 						course.decreaseVacancy(index);
-						System.out.println("Decreased");
+						//System.out.println("Decreased");
 					}
 
 				}
 
-//				for (int z = 0; z < course.getVacancy().length; z++) {
-//					System.out.println("Vacancy: " + course.getVacancy()[z]);
-//				}
+				
 
+			}
+			
+			
+			if(addDrop.validateIndexOfCourseAndStudent(index, courseCode))
+			{
+				addDrop.saveAmend(StringArray);
+			}
+			
+			else
+			{
+				System.out.println("Index >>>>>>>"+index);
+				List newArray = new ArrayList();
+				//newArray.add(StringArray.get(retIndex));
+				List matric=new ArrayList();
+				matric.add(matricNum);
+				AddDrop a1=new AddDrop(courseCode,index,matric);
+				StringArray.add(a1);
+				addDrop.saveAmend(StringArray);
 			}
 			
 			Cc1.saveCourseAmend("src/courses.txt", readCourse);
 
-			addDrop.saveAmend(StringArray);
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -335,12 +352,6 @@ public class StudentController {
 
 	/* for testing display course by student */
 
-	public static void main(String args[]) {
 
-		StudentController SS = new StudentController();
-		// SS.displayCourse("u162");
-		SS.changeIndex(4, 2, "Mh1812", "u162");
-
-	}
 
 }

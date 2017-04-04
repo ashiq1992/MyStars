@@ -25,7 +25,7 @@ public class AddDropController {
 	// private Student s1;
 	// private FileManager f1;
 	private CourseController Cc1 = new CourseController();
-
+	
 	public boolean addMethod(String courseCode, int index, String matricNum) {
 		boolean endResult = false;
 		List student;
@@ -393,10 +393,69 @@ public class AddDropController {
 		
 		
 	}
-	// public static void main(String args[]) {
-	// AddDropController a2 = new AddDropController();
-	// a2.dropMethod("mh1815", 2,"u162");
-	//
-	// }
+	
+	public boolean validateIndexOfCourseAndStudent(int index,String courseCode)
+	{
+		boolean state=false;
+		try {
+			List data = readAllCourseAndStudent("src/courseAndStudent.txt");
+			
+			
+			for(int i=0;i<data.size();i++)
+			{
+				AddDrop validate= (AddDrop)data.get(i);
+				
+				if(validate.getIndex()==index && validate.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()))
+				{
+					
+					state=true;
+				}
+			}
+			
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return state;
+		
+	}
+	
+	public boolean validateStudentAgainstCourseEnrolled(String matricNum,String courseCode,int index)
+	{
+		boolean state=false;
+		
+		try {
+			List read= readAllCourseAndStudent("src/courseAndStudent.txt");
+			
+			
+			for(int i=0;i<read.size();i++)
+			{
+				AddDrop a1 = (AddDrop) read.get(i);
+				if(a1.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && (a1.getIndex()==index))
+				{
+					
+					for(int j=0;j<a1.getList().size();j++)
+					{
+						if(a1.getList().get(j).toLowerCase().equals(matricNum.toLowerCase()))
+						{
+							state=true;
+						}
+					}
+					
+				}
+			}
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return state;
+	}
+	
+	
 
 }

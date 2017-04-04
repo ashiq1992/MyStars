@@ -413,36 +413,126 @@ public class CourseController {
 		}
 		return endResult;
 	}
-	//
-	// public static void main(String args[])
-	// {
-	// CourseController c1 = new CourseController();
-	// String src="src/courses.txt";
-	// try {
-	// ArrayList test= c1.readAllCourse(src);
-	//
-	// for(int i=0;i<test.size();i++)
-	// {
-	// Course c2 = (Course)test.get(i);
-	// System.out.println(c2.getCourseCode());
-	// System.out.println(c2.getCourseName());
-	// System.out.println(c2.getSchool());
-	// System.out.println(c2.getStartDate());
-	// System.out.println(c2.getEndDate());
-	//
-	// for(int j=0;j<c2.getIndices().length;j++)
-	// {
-	//
-	// System.out.println(c2.getIndices()[j]);
-	// }
-	// }
-	// } catch (IOException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	//
-	// }
-	//
+	
+	
+	public boolean checkIndexes(int newIndex,int oldIndex,String courseCode)
+	{
+		int firstCheck=0;
+		int secondCheck=0;
+		boolean state=false;
+		try {
+			List data=readAllCourse("src/courses.txt");
+			
+			for(int i=0;i<data.size();i++)
+			{
+				Course course = (Course) data.get(i);
+				if(course.getCourseCode().equals(courseCode))
+				{
+					
+					for(int j=0;j<course.getIndices().length;j++)
+					{
+						
+						if((j+1)==oldIndex)
+						{
+							firstCheck=1;
+						}
+						
+					}
+					
+					for(int j=0;j<course.getIndices().length;j++)
+					{
+						
+						if((j+1)==newIndex)
+						{
+							secondCheck=1;
+						}
+						
+					}
+					
+					
+				}
+			}
+			
+			if(firstCheck!=1)
+			{
+				System.out.println("Please re-check your old index");
+			}
+			
+			if(secondCheck!=1)
+			{
+				System.out.println("Please re-check your new index");
+			}
+			
+			if(firstCheck==1 && secondCheck==1)
+			{
+				state=true;
+			}
+			
+		
+			
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return state;
+		
+		
+	}
+	
+	public boolean checkCourseCode(String courseCode,String matricNum,int index)
+	{	
+		
+		boolean state=false;
+		boolean result=false;
+		
+		try {
+			
+			List data=readAllCourse("src/courses.txt");
+			
+			for(int i=0;i<data.size();i++)
+			{
+				
+				Course course = (Course)data.get(i);
+				
+				if(course.getCourseCode().toLowerCase().equals(courseCode))
+				{
+					
+//				
+					state=true;
+					
+				}
+				
+			}
+			
+			
+			
+			
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+		
+		if(state)
+		{
+			AddDropController invoke = new AddDropController();
+			result=invoke.validateStudentAgainstCourseEnrolled(matricNum, courseCode, index);
+			
+		}
+		return result;
+	}
+	
+	
+//	 public static void main(String args[])
+//	 {
+//		 CourseController c1 = new CourseController();
+//		 c1.checkIndexes(10, 2, "Mh1812");
+//	 }
+//	
+	
+	
+	
 
 
 }

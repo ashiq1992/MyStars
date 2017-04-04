@@ -325,9 +325,53 @@ public class StarsPlannerApp {
 	}
 
 	public static void changeIndex() {
-		String matriculation;
-		System.out.println("Enter the Students Matriculation Id:");
-		matriculation=sc.next();
+		String courseCode=null;
+		int newIndex=0;
+		int oldIndex=0;
+		boolean result=false;
+		char value = 0;
+		
+		do{
+		System.out.print("Please enter the course code");
+		courseCode=sc.next();
+		courseCode=courseCode.toLowerCase();
+		
+
+		System.out.println("Please enter the current index");
+		oldIndex=sc.nextInt();
+		
+		System.out.println(" ");
+		
+		System.out.println("Please enter the index you wish to change to");
+		newIndex=sc.nextInt();
+		
+		result=Cd.checkCourseCode(courseCode,student.getMatriculationNumber(),oldIndex);
+		
+		if(result==false)
+		{
+			System.out.println("You are not enrolled in the course! ");
+			System.out.println("Do you want to continue ? ");
+			value=sc.next().charAt(0);
+		}
+		
+		
+				
+		}while(result !=true || value=='Y' || value=='y');
+		
+		
+		if(result)
+		{
+			
+			Sd.changeIndex(newIndex,oldIndex,courseCode, student.getMatriculationNumber());
+			
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 
