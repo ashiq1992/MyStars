@@ -112,7 +112,7 @@ public class CourseController {
 			int capacity, noOfSections, temp;
 
 			System.out.println("Please enter course code: ");
-			code = sc.nextLine();
+			code = sc.nextLine().toLowerCase();
 
 			System.out.println("Please enter course name: ");
 			name = sc.nextLine();

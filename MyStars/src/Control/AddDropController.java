@@ -25,12 +25,12 @@ public class AddDropController {
 	// private Student s1;
 	// private FileManager f1;
 	private CourseController Cc1 = new CourseController();
-	
+
 	public boolean addMethod(String courseCode, int index, String matricNum) {
 		boolean endResult = false;
 		List student;
 		AddDrop Add;
-		List waitList= new ArrayList();
+		List waitList = new ArrayList();
 		// Cc1.decreaseCourseIndexVacancy(courseCode, index);
 		try {
 			// ArrayList<AddDrop> a1 =Cc1.
@@ -73,13 +73,12 @@ public class AddDropController {
 			//
 			// }
 			AddDropController addd = new AddDropController();
-			
-			if(endResult==true){
-			addd.studentAddsCourse("src/courseAndStudent.txt", studentData, courseCode, index);
-			
-			}
-			else{
-				addd.studentAndCourseWaitList("src/waitlists/"+courseCode+".txt", waitList, courseCode, index);
+
+			if (endResult == true) {
+				addd.studentAddsCourse("src/courseAndStudent.txt", studentData, courseCode, index);
+
+			} else {
+				addd.studentAndCourseWaitList("src/waitlists/" + courseCode + ".txt", waitList, courseCode, index);
 			}
 
 			// AddDropController.studentAddsCourse();
@@ -94,16 +93,8 @@ public class AddDropController {
 		return endResult;
 
 	}
-	
-	public void waitList(){
-		
-	}
 
 	public void sendEmail() {
-	}
-
-	public void changeIndex() {
-
 	}
 
 	public void swapIndex() {
@@ -113,14 +104,14 @@ public class AddDropController {
 	public void checkClash() {
 
 	}
-	
-	public void studentAndCourseWaitList(String filename, List list, String courseCode, int index){
+
+	public void studentAndCourseWaitList(String filename, List list, String courseCode, int index) {
 		try {
 			List tempList = new ArrayList();
-			ArrayList listOfStudentInWait = readAllCourseAndStudent("src/waitlists/"+courseCode+".txt");
-			
-			if(listOfStudentInWait.isEmpty()){
-				
+			ArrayList listOfStudentInWait = readAllCourseAndStudent("src/waitlists/" + courseCode + ".txt");
+
+			if (listOfStudentInWait.isEmpty()) {
+
 				AddDrop addCourse = (AddDrop) list.get(0);
 				StringBuilder newBuild = new StringBuilder();
 
@@ -132,9 +123,9 @@ public class AddDropController {
 				newBuild.append(addCourse.getMatricNum());
 				newBuild.append(SEPARATOR);
 				tempList.add(newBuild.toString());
-				
+
 			}
-			
+
 			else {
 
 				ArrayList updated = new ArrayList();
@@ -195,25 +186,44 @@ public class AddDropController {
 
 			}
 			write(filename, tempList);
-			
-			
-			
-			
-			
-			
-			
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
-	
-	
-	
+
+	/* This method is to check waitlist and amend the waitList to student */
+	public String removeFromWaitList(String courseCode, int index) {
+
+		String matricNum = null;
+
+		try {
+			ArrayList listOfStudentInWait = readAllCourseAndStudent("src/waitlists/" + courseCode + ".txt");
+			for (int x = 0; x < listOfStudentInWait.size(); x++) {
+				AddDrop Drop = (AddDrop) listOfStudentInWait.get(x);
+
+				if (Drop.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && Drop.getIndex() == index) {
+					if (Drop.getList().isEmpty() != true) {
+						matricNum = Drop.getList().get(0);// get the matric num
+															// at index position
+															// 0 to add to the
+															// course
+						Drop.getList().remove(0);
+					}
+				}
+			}
+
+			this.saveAmendWaitList(listOfStudentInWait, courseCode);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return matricNum;
+
+	}
 
 	public void studentAddsCourse(String filename, List list, String courseCode, int index) throws IOException {
 
@@ -392,17 +402,17 @@ public class AddDropController {
 
 	public void dropMethod(String courseCode, int index, String matricNum) {
 		try {
-			List a2 = Cc1.readAllCourse("src/courses.txt");// read the data from
-															// the course txt.
-			List tempList = new ArrayList();
-			List stringArray = readAllCourseAndStudent("src/courseAndStudent.txt");
 
+			int vacancy = 0;
+			List a2 = Cc1.readAllCourse("src/courses.txt");// read the data from
+															// courses
+			List stringArray = readAllCourseAndStudent("src/courseAndStudent.txt");
+			String newMatricNum;
 			for (int i = 0; i < stringArray.size(); i++) {
 				AddDrop check = (AddDrop) stringArray.get(i);
 				if (check.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && check.getIndex() == index) {
 					for (int x = 0; x < check.getList().size(); x++) {
 						if (check.getList().get(x).toLowerCase().equals(matricNum.toLowerCase())) {
-							System.out.print("test");
 							check.getList().remove(x);
 							/*
 							 * triverse through the course and add back the
@@ -412,6 +422,13 @@ public class AddDropController {
 								Course course = (Course) a2.get(k);
 								if (course.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
 									course.increaseVacancy(index);
+									vacancy = course.getVacancy()[index - 1];// need
+																				// to
+																				// minus
+																				// the
+																				// index
+																				// position
+
 								}
 
 							}
@@ -420,27 +437,19 @@ public class AddDropController {
 					}
 				}
 			}
+			this.saveAmend(stringArray);
 			Cc1.saveCourseAmend("src/courses.txt", a2);
 
-			for (int i = 0; i < stringArray.size(); i++) {
-				StringBuilder st1 = new StringBuilder();
-				AddDrop a1 = (AddDrop) stringArray.get(i);
-
-				st1.append(a1.getCourseCode());
-				st1.append(INDEX_SEPARATOR);
-				st1.append(a1.getIndex());
-				st1.append(SEPARATOR);
-				for (int j = 0; j < a1.getList().size(); j++) {
-
-					st1.append(a1.getList().get(j));
-					st1.append(SEPARATOR);
-
+			/*
+			 * Only triggered when the vacany is 1 then the person form the wait
+			 * list is removed then added to the course
+			 */
+			if (vacancy == 1) {
+				newMatricNum = this.removeFromWaitList(courseCode, index);
+				if (newMatricNum != null) {
+					this.addMethod(courseCode, index, newMatricNum);
 				}
-				tempList.add(st1.toString());
 			}
-
-			write("src/courseAndStudent.txt", tempList);
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -476,9 +485,9 @@ public class AddDropController {
 		return index;
 
 	}
-	
-	/*Save the amended student and course file*/
-	public void saveAmend(List stringArray){
+
+	/* Save the amended student and course file */
+	public void saveAmend(List stringArray) {
 		List tempList = new ArrayList();
 		for (int i = 0; i < stringArray.size(); i++) {
 			StringBuilder st1 = new StringBuilder();
@@ -503,73 +512,197 @@ public class AddDropController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
-	
-	public boolean validateIndexOfCourseAndStudent(int index,String courseCode)
-	{
-		boolean state=false;
+
+	public void saveAmendWaitList(List stringArray, String courseCode) {
+		List tempList = new ArrayList();
+		for (int i = 0; i < stringArray.size(); i++) {
+			StringBuilder st1 = new StringBuilder();
+			AddDrop a1 = (AddDrop) stringArray.get(i);
+
+			st1.append(a1.getCourseCode());
+			st1.append(INDEX_SEPARATOR);
+			st1.append(a1.getIndex());
+			st1.append(SEPARATOR);
+			for (int j = 0; j < a1.getList().size(); j++) {
+
+				st1.append(a1.getList().get(j));
+				st1.append(SEPARATOR);
+
+			}
+			tempList.add(st1.toString());
+		}
+
+		try {
+			write("src/waitLists/" + courseCode + ".txt", tempList);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public boolean validateIndexOfCourseAndStudent(int index, String courseCode) {
+		boolean state = false;
 		try {
 			List data = readAllCourseAndStudent("src/courseAndStudent.txt");
-			
-			
-			for(int i=0;i<data.size();i++)
-			{
-				AddDrop validate= (AddDrop)data.get(i);
-				
-				if(validate.getIndex()==index && validate.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()))
-				{
-					
-					state=true;
+
+			for (int i = 0; i < data.size(); i++) {
+				AddDrop validate = (AddDrop) data.get(i);
+
+				if (validate.getIndex() == index
+						&& validate.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+
+					state = true;
 				}
 			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+		return state;
+
+	}
+	
+	public void dropWaitList(String courseCode,String matricNum,int Index)
+	
+	{
+		try {
+			List read = readAllCourseAndStudent("src/waitLists/"+courseCode+".txt");
+			
+			for(int x=0;x<read.size();x++){
+				AddDrop Drop=(AddDrop)read.get(x);
+				if(Drop.getIndex()==Index){
+					for(int k=0;k<Drop.getList().size();k++){
+						if(Drop.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())){
+							Drop.getList().remove(k);
+						}
+					}
+				}
+				
+				
+				
+			}
+			
+			this.saveAmendWaitList(read, courseCode);//saves the newly amended 
+			
+			
 			
 			
 		} catch (IOException e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		return state;
-		
 	}
-	
-	public boolean validateStudentAgainstCourseEnrolled(String matricNum,String courseCode,int index)
-	{
-		boolean state=false;
-		
+	public boolean validateStudentAgainstCourseEnrolled(String matricNum, String courseCode, int index) {
+		boolean state = false;
+
 		try {
-			List read= readAllCourseAndStudent("src/courseAndStudent.txt");
-			
-			
-			for(int i=0;i<read.size();i++)
-			{
+			List read = readAllCourseAndStudent("src/courseAndStudent.txt");
+
+			for (int i = 0; i < read.size(); i++) {
 				AddDrop a1 = (AddDrop) read.get(i);
-				if(a1.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && (a1.getIndex()==index))
-				{
-					
-					for(int j=0;j<a1.getList().size();j++)
-					{
-						if(a1.getList().get(j).toLowerCase().equals(matricNum.toLowerCase()))
-						{
-							state=true;
+				if (a1.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && (a1.getIndex() == index)) {
+
+					for (int j = 0; j < a1.getList().size(); j++) {
+						if (a1.getList().get(j).toLowerCase().equals(matricNum.toLowerCase())) {
+							state = true;
+						}
+					}
+
+				}
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+		return state;
+	}
+
+	
+	public void dropMasterCheck(String matricNum,String courseCode,int index){
+		
+		boolean check=false;
+		boolean waitCheck=false;
+		try {
+			List read = readAllCourseAndStudent("src/courseAndStudent.txt");
+			
+			List read2 = readAllCourseAndStudent("src/waitlists/"+courseCode+".txt");
+			
+			for(int k=0;k<read.size();k++){
+				AddDrop Drop=(AddDrop)read.get(k);
+				if(Drop.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && Drop.getIndex()==index){
+					for(int x=0;x<Drop.getList().size();x++){
+						if(Drop.getList().get(x).toLowerCase().equals(matricNum.toLowerCase())){
+							check=true;
 						}
 					}
 					
 				}
 			}
 			
-		} catch (IOException e) {
+			if(check==false){
+				for(int k=0;k<read2.size();k++){
+					AddDrop Drop=(AddDrop)read2.get(k);
+					if(Drop.getIndex()==index){
+						for(int x=0;x<Drop.getList().size();x++){
+							if(Drop.getList().get(x).toLowerCase().equals(matricNum.toLowerCase())){
+								waitCheck=true;
+							}
+						}
+						
+					}
+				}
+				
+			}
+			else{
+				
+				this.dropMethod(courseCode, index, matricNum);
+				System.out.println("Course hass been removed");
+				
+			}
 			
+			if(waitCheck==true){
+				this.dropWaitList(courseCode, matricNum, index);
+				System.out.println("Course hass been removed");
+			}
+			if(waitCheck==false && check==false){
+				
+				System.out.println("Error please register for the course first");
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return state;
+		
+		
+		
+		
 	}
-	
+
 	
 
+	public static void main(String args[]) {
+//		AddDropController Drop = new AddDropController();
+//		Drop.dropMethod("ce2005", 1, "u162");
+		// Drop.removeFromWaitList("ce2005",1);
+
+//	}
+	}
 }

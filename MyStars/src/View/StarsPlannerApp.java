@@ -321,7 +321,7 @@ public class StarsPlannerApp {
 		courseCode=sc.next();
 		index=addDrop.returnIndex(student.getMatriculationNumber(), courseCode);//get the index from the file 
 	
-		addDrop.dropMethod(courseCode, index, student.getMatriculationNumber());
+		addDrop.dropMasterCheck(student.getMatriculationNumber(), courseCode, index);
 		
 		
 
