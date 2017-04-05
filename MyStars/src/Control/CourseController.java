@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import Model.Course;
+import Model.Schedule;
 import Model.Student;
 
 public class CourseController {
@@ -103,8 +104,15 @@ public class CourseController {
 	public boolean addCourse() {
 		Scanner sc = new Scanner(System.in);
 		List courseSave = new ArrayList();
+		List scheduleList=new ArrayList();
+		String time,venue,day;
+		
+		
 		System.out.println("No of courses to be added");
 		int input = sc.nextInt();
+		int lec;
+		char lab=0,tut=0; 
+		int totalIndex=0;
 		String Temp = sc.nextLine();// to clear the \n buffer
 		for (int i = 0; i < input; i++) {
 
@@ -129,8 +137,59 @@ public class CourseController {
 				System.out.println("Please enter the capacity of index" + (g + 1) + ": ");
 				temp = sc.nextInt();
 				indices[g] = temp;
+				totalIndex=g+1;
 			}
 			Temp = sc.nextLine();// To eliminate the buffer
+			
+			//implement the schedule for each index and save into a txt file
+			for(int q=0;q<totalIndex;q++){
+				System.out.println("Index"+(q+1));
+				System.out.println("How many lectures does it have in a week:");
+				lec=sc.nextInt();
+				for(int p=0;p<lec;p++){
+				System.out.println("Enter fileds for"+(p+1)+"Lecture");
+				System.out.println("what is the lecture day?");
+				day=sc.next();
+				System.out.println("Where is the location?");
+				venue=sc.next();
+				System.out.println("What time is the lecture?");
+				time=sc.next();
+				Schedule schedule =new Schedule(code,(q+1),"lecture",day,venue,time);
+				scheduleList.add(schedule);
+				
+				}
+				do{
+				System.out.println("Does it have a Lab:? (y/n)");
+				lab=sc.next().toLowerCase().charAt(0);
+				System.out.println("Does it have a Tut:?(y/n)");
+				tut=sc.next().toLowerCase().charAt(0);
+				}while((lab!='y'||lab!='n')&&(tut!='y'||tut!='n'));
+				//Schedule schedule =new Schedule(code,(q+1),);
+				if(lab=='y'){
+					System.out.println("what is the lab day?");
+					day=sc.next();
+					System.out.println("Where is the location?");
+					venue=sc.next();
+					System.out.println("What time is the lab?");
+					time=sc.next();
+					Schedule schedule =new Schedule(code,(q+1),"lab",day,venue,time);
+				}
+				if(tut=='y'){
+					
+					System.out.println("what is the tut day?");
+					day=sc.next();
+					System.out.println("Where is the location?");
+					venue=sc.next();
+					System.out.println("What time is the tutorial?");
+					time=sc.next();
+					Schedule schedule =new Schedule(code,(q+1),"torial",day,venue,time);
+				}
+				
+				
+				
+			}
+			
+			
 			System.out.println("Please enter the start date of course: ");
 			startDate = sc.next();
 
