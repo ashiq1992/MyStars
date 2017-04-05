@@ -431,6 +431,69 @@ public class CourseController {
 	}
 	
 	
+	
+	public boolean checkIndexeAndCourseCode(int index,String courseCode)
+	{
+		
+		boolean courseCheck=false;
+		boolean indexCheck=false;
+		boolean finalCheck=false;
+		try {
+			List data=readAllCourse("src/courses.txt");
+			List indexData= new ArrayList();
+			
+			for(int i=0;i<data.size();i++)
+			{
+				Course course = (Course) data.get(i);
+				if(course.getCourseCode().toLowerCase().equals(courseCode))
+				{
+					courseCheck=true;
+					indexData.add(data.get(i));
+					break;
+			}
+			
+			}	
+			
+			if(courseCheck==true)
+			{
+				System.out.println("i am in");
+				for(int j=0;j<indexData.size();j++)
+				{
+					Course course = (Course) indexData.get(j);
+					for(int z=0;z<course.getIndices().length;z++)
+					{
+						if((z+1)==index)
+						{
+							indexCheck=true;
+						}
+					}
+				}
+			}
+			
+			
+			if(courseCheck==false)
+			{
+				System.out.println("Please re-check your courseid");
+			}
+			
+			if(indexCheck==false)
+			{
+				System.out.println("Please re-check your index ");
+			}
+			
+			else
+			{
+				finalCheck=true;
+			}
+				
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return finalCheck;
+	}
+	
+	
 	public boolean checkIndexes(int newIndex,int oldIndex,String courseCode)
 	{
 		int firstCheck=0;

@@ -34,8 +34,6 @@ public class StarsPlannerApp {
 			System.out.println("Type of user: ");
 			System.out.println("1) Student ");
 			System.out.println("2) Admin ");
-			
-			
 
 			try {
 				input = sc.nextInt();
@@ -254,9 +252,8 @@ public class StarsPlannerApp {
 
 	public static void viewMyCourses() {
 
-		
 		Sd.displayCourse(student.getMatriculationNumber());
-		
+
 	}
 
 	// =================================================================================
@@ -274,7 +271,7 @@ public class StarsPlannerApp {
 
 		System.out.println("Enter options:");
 		input = sc.nextInt();
-//test
+		// test
 		switch (input) {
 		case 1:
 			addACourse();
@@ -296,21 +293,28 @@ public class StarsPlannerApp {
 	public static void addACourse() {
 		String courseCode;
 		int index;
-		boolean result;
+		boolean result=false;
+		char value = 0;
+		
+		do{
+			value=0;
 		System.out.println("Enter Course Code: ");
 		courseCode = sc.next();
 		// add
 		Cd.showIndexByCourse(courseCode);
 		System.out.println("Enter index: ");
 		index = sc.nextInt();
-		result = addDrop.addMethod(courseCode, index, student.getMatriculationNumber());
-		// Cd.decreaseCourseIndexVacancy(courseCode, index);
-
-		if (result) {
-			System.out.println("Success");
-		} else {
-			System.err.println("Fail");
+		result=addDrop.AddMasterCheck(student.getMatriculationNumber().toLowerCase(), courseCode.toLowerCase(), index);
+		
+			
+		if (result == false) {
+			System.out.println("You are not enrolled in the course! ");
+			System.out.println("Do you want to continue ? ");
+			value = sc.next().charAt(0);
 		}
+		}
+		while (result != true || value == 'Y' || value == 'y');
+			
 
 	}
 
@@ -318,65 +322,53 @@ public class StarsPlannerApp {
 		String courseCode;
 		int index;
 		System.out.println("Enter CourseCode:");
-		courseCode=sc.next();
-		index=addDrop.returnIndex(student.getMatriculationNumber(), courseCode);//get the index from the file 
-	
+		courseCode = sc.next();
+		index = addDrop.returnIndex(student.getMatriculationNumber(), courseCode);// get
+																					// the
+																					// index
+																					// from
+																					// the
+																					// file
+
 		addDrop.dropMasterCheck(student.getMatriculationNumber(), courseCode, index);
-		
-		
 
 	}
 
 	public static void changeIndex() {
-		String courseCode=null;
-		int newIndex=0;
-		int oldIndex=0;
-		boolean result=false;
+		String courseCode = null;
+		int newIndex = 0;
+		int oldIndex = 0;
+		boolean result = false;
 		char value = 0;
-		
-		do{
-		System.out.print("Please enter the course code");
-		courseCode=sc.next();
-		courseCode=courseCode.toLowerCase();
-		
 
-		System.out.println("Please enter the current index");
-		oldIndex=sc.nextInt();
-		
-		System.out.println(" ");
-		
-		System.out.println("Please enter the index you wish to change to");
-		newIndex=sc.nextInt();
-		
-		result=Cd.checkCourseCode(courseCode,student.getMatriculationNumber(),oldIndex);
-		
-		if(result==false)
-		{
-			System.out.println("You are not enrolled in the course! ");
-			System.out.println("Do you want to continue ? ");
-			value=sc.next().charAt(0);
+		do {
+			System.out.print("Please enter the course code");
+			courseCode = sc.next();
+			courseCode = courseCode.toLowerCase();
+
+			System.out.println("Please enter the current index");
+			oldIndex = sc.nextInt();
+
+			System.out.println(" ");
+
+			System.out.println("Please enter the index you wish to change to");
+			newIndex = sc.nextInt();
+
+			result = Cd.checkCourseCode(courseCode, student.getMatriculationNumber(), oldIndex);
+
+			if (result == false) {
+				System.out.println("You are not enrolled in the course! ");
+				System.out.println("Do you want to continue ? ");
+				value = sc.next().charAt(0);
+			}
+
+		} while (result != true || value == 'Y' || value == 'y');
+
+		if (result) {
+
+			Sd.changeIndex(newIndex, oldIndex, courseCode, student.getMatriculationNumber());
+
 		}
-		
-		
-				
-		}while(result !=true || value=='Y' || value=='y');
-		
-		
-		if(result)
-		{
-			
-			Sd.changeIndex(newIndex,oldIndex,courseCode, student.getMatriculationNumber());
-			
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 	}
 }

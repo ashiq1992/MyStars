@@ -676,27 +676,96 @@ public class AddDropController {
 				System.out.println("Error please register for the course first");
 				
 				
-			}
-			
-			
-			
-			
-			
-			
-			
-			
+			}	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
 	}
 
+	public boolean AddMasterCheck(String matricNum,String courseCode,int index){
+		
+		
+		boolean check=false;
+		boolean waitCheck=false;
+		boolean courseCheck=true,indexCheck=true;
+		
+		boolean indexCourse=false;
+		
+		boolean finalCheck=false;
+		try {
+			
+			
+			indexCourse=Cc1.checkIndexeAndCourseCode(index, courseCode);
+			
+			if(indexCourse==true){
+				List read = readAllCourseAndStudent("src/courseAndStudent.txt");
+				
+				List read2 = readAllCourseAndStudent("src/waitlists/"+courseCode+".txt");
+				
+				
+			for(int x=0;x<read.size();x++){
+				AddDrop Add=(AddDrop)read.get(x);
+				if(Add.getCourseCode().toLowerCase().equals(courseCode.toString())){
+					for(int k=0;k<Add.getList().size();k++){
+						if(Add.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())){
+							check=true;
+						}
+					}
+				
+				
+			}
 	
+			}
+			
+			
+			if(check==true){
+				System.out.println("You have registered for the stated course!!!!");
+			}
+			else{
+				
+				
+				for(int x=0;x<read2.size();x++){
+					AddDrop Add=(AddDrop)read2.get(x);
+					if(Add.getCourseCode().toLowerCase().equals(courseCode) && Add.getIndex()==index){
+						for(int k=0;k<Add.getList().size();k++){
+							if(Add.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())){
+								waitCheck=true;
+							}
+						}
+					
+					
+				}
+		
+				}
+				
+				if(waitCheck==true){
+					System.out.println("You have registered for the stated course and you have been put to waitlist and caa't add the same course again!!!!");
+				}
+				
+				else{//after checking it will add the course to the student either to wait list or the course itself
+					this.addMethod(courseCode, index, matricNum);
+				}
+				
+				
+				
+				
+			}
+			finalCheck=true;
+		}
+			
+			else
+			{
+				finalCheck=false;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return finalCheck;
+	}
+	
+
 
 	public static void main(String args[]) {
 //		AddDropController Drop = new AddDropController();
