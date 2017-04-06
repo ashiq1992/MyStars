@@ -11,15 +11,17 @@ import Control.AdminController;
 import Control.CourseController;
 import Control.StudentController;
 import Model.Student;
+import Miscellaneous.ClearScreen;
 import Miscellaneous.MaskPassword;
 
 public class StarsPlannerApp {
-	static AdminController Ad = new AdminController();
+	static AdminController Ad =null;
 	static CourseController Cd = new CourseController();
 	static StudentController Sd = new StudentController();
 	static AddDropController addDrop = new AddDropController();
 	static Student student = new Student();
 	static MaskPassword mask = new MaskPassword();
+	static ClearScreen cls=null;
 
 	static boolean adddropEnable;
 	static Scanner sc = new Scanner(System.in);
@@ -33,19 +35,30 @@ public class StarsPlannerApp {
 		do {
 
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Type of user: ");
-			System.out.println("1) Student ");
-			System.out.println("2) Admin ");
-
+			System.out.println("============================");
+		    System.out.println("|       Stars Planner      |");
+		    System.out.println("============================");
+		    System.out.println("| Welcome!                 |");
+		    System.out.println("| Please Identify yourself,|");
+		    System.out.println("|                          |");
+		    System.out.println("|        1. Student        |");
+		    System.out.println("|        2. Admin          |");
+		    System.out.println("|        3. Exit           |");
+		    System.out.println("============================");
+		    
+			
 			try {
 				input = sc.nextInt();
 			} catch (InputMismatchException ex) {
 				System.out.println("Input choice is not an integer");
 			}
 			if (input == 1) {
-				System.out.println("Enter userId:");
-				userId = sc.next();
-				//System.out.println("Enter Password:");
+				cls.clearScreen();
+				System.out.println("Student Login,     ");
+				System.out.println("                   ");
+				System.out.println("Please enter your UserId:|");
+			    userId = sc.next();
+			    System.out.println("|Please enter your password:|");
 				password = mask.readPassword("Enter passwordd");
 				
 				result = Sd.checkAccount(userId, password);
@@ -66,19 +79,27 @@ public class StarsPlannerApp {
 //				System.out.println("Enter Password:");
 				password = mask.readPassword("Enter Passwordd");
 				System.out.println(password);
-				AdminController ad = new AdminController();
-				result = ad.checkAccount(userId, password);
+				Ad = new AdminController();
+				result = Ad.checkAccount(userId, password);
 				if (result == true) {
-					System.out.println("Sucess");
+					System.out.println("Welcome "+userId);
+					System.out.println("         ");
 					AdminMenu();
 
 				} else {
-					System.out.println("Failed");
+					System.out.println("User Authentication Failure");
 				}
+			}
+			
+			else if(input==3)
+			{
+				System.out.println("Thank you for using our system");
+				System.out.println("Have a great day,goodbye!");
+				break;
 			}
 
 			else {
-				System.out.println("Invalid Choice/Input! Re-enter");
+				System.out.println("You have entered an invalid choice,please try again!");
 
 			}
 		}
