@@ -5,10 +5,14 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Model.Course;
 import Model.Schedule;
@@ -18,6 +22,15 @@ public class CourseController {
 	// Properties
 	public static final String SEPARATOR = "|";
 	public static final String INDEX_SEPARATOR = "_";
+	private ScheduleController schedulecontroller=new ScheduleController();
+	private enum type { 
+	       LECTURE,LABORATORY,TUTORIAL; 
+	    } 
+	
+	
+	private enum weekdays { 
+	       MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY;
+	    } 
 
 	// Constructor
 	public CourseController() {
@@ -105,7 +118,7 @@ public class CourseController {
 		Scanner sc = new Scanner(System.in);
 		List courseSave = new ArrayList();
 		List scheduleList=new ArrayList();
-		String startTime,venue,day,endTime;//for the schedule
+		String startTime = null,venue,day = null,endTime = null;//for the schedule
 		String currentIndex;
 		
 		System.out.println("No of courses to be added");
@@ -134,7 +147,7 @@ public class CourseController {
 			int[] indices = new int[noOfSections];
 
 			for (int g = 0; g < noOfSections; g++) {
-				System.out.println("Please enter the capacity of index" + (g + 1) + ": ");
+				System.out.println("Please enter the capacity of index " + (g + 1) + ": ");
 				temp = sc.nextInt();
 				indices[g] = temp;
 				totalIndex=g+1;
@@ -145,21 +158,118 @@ public class CourseController {
 			
 			//implement the schedule for each index and save into a txt file
 			for(int q=0;q<totalIndex;q++){
-				System.out.println("Index"+(q+1));
+				System.out.println("Index "+(q+1));
 				System.out.println("How many lectures does it have in a week:");
 				lec=sc.nextInt();
 				for(int p=0;p<lec;p++){
 				System.out.println("Enter fileds for"+(p+1)+"Lecture");
-				System.out.println("what is the lecture day?");
-				day=sc.next();
+				
+				do{
+					System.out.println("The intended day to have the Lecture?");
+					
+					System.out.println("*********Options***********************");
+					System.out.println(" 1) Monday");
+					System.out.println(" 2) Tuesday");
+					System.out.println(" 3) Wednesday");
+					System.out.println(" 4) Thursday");
+					System.out.println(" 5) Friday");
+					System.out.println("*********End Of Options****************");
+					int inputDay=0;
+					try{
+						
+						inputDay=sc.nextInt();
+						
+					}catch (Exception ex)
+					{
+						inputDay=0;
+					}
+					
+					
+											
+					switch(inputDay)
+					
+					{
+					case 1: day=weekdays.MONDAY.toString();
+							break;
+							
+					case 2: day=weekdays.TUESDAY.toString();
+							break;
+					
+					case 3: day=weekdays.WEDNESDAY.toString();
+							break;
+					
+					case 4: day=weekdays.THURSDAY.toString();
+							break;
+					
+					case 5: day=weekdays.FRIDAY.toString();
+							break;
+							
+					
+					default : System.out.println("You have entered the wrong input");
+					}
+				}while(input ==0 || input >=6 );
+				
 				System.out.println("Where is the location?");
 				venue=sc.next();
-				System.out.println("What is the start time of the Lecture?");
-				startTime=sc.next();
-				System.out.println("What is the end time of the Lecture?");
-				endTime=sc.next();
+				boolean result=false;
+				do
+				{	result=false;
+					
+					String ip="";
+				    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+				    
+				    System.out.println("Enter the start time in the format HH:MM:SS");
+				    ip=sc.next();
+				    Pattern r = Pattern.compile(pattern);
+				     Matcher m = r.matcher(ip);
+				     if(m.find())
+				     {
+				         System.out.println("Time"+m.group(0));
+				         System.out.println("hh "+m.group(1));
+				         System.out.println("mm "+m.group(2));
+				         System.out.println("ss "+m.group(3));
+				         result=true;
+				         startTime=ip;
+				     }
+				     else
+				     {
+				         System.out.println("NO MATCH! format mismatch");
+				         result=false;
+				     }
+				}while(result==false);
+				
+				do
+				{	result=false;
+					
+					String ip="";
+				    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+				    
+				    System.out.println("Enter the end time in the format HH:MM:SS");
+				    ip=sc.next();
+				    Pattern r = Pattern.compile(pattern);
+				     Matcher m = r.matcher(ip);
+				     if(m.find())
+				     {
+				         System.out.println("Time"+m.group(0));
+				         System.out.println("hh "+m.group(1));
+				         System.out.println("mm "+m.group(2));
+				         System.out.println("ss "+m.group(3));
+				         result=true;
+				         endTime=ip;
+				     }
+				     else
+				     {
+				         System.out.println("NO MATCH! format mismatch");
+				         result=false;
+				     }
+				}while(result==false);
+				
+				
+				
 				currentIndex=""+q+1;
-				Schedule schedule =new Schedule(code,currentIndex,"lecture",day,venue,startTime,endTime);
+				Schedule schedule =new Schedule(code,currentIndex,type.LECTURE.toString(),day,venue,startTime,endTime);
 				scheduleList.add(schedule);
 				
 				}
@@ -168,45 +278,260 @@ public class CourseController {
 				lab=sc.next().toLowerCase().charAt(0);
 				System.out.println("Does it have a Tut:?(y/n)");
 				tut=sc.next().toLowerCase().charAt(0);
-				}while((lab!='y'||lab!='n')&&(tut!='y'||tut!='n'));
+				}while(!((lab!='y'&& tut !='n')||(lab=='y'&& tut !='n')||(lab!='y'&& tut =='n')||(lab=='y'&& tut =='n')));
 				//Schedule schedule =new Schedule(code,(q+1),);
 				if(lab=='y'){
-					System.out.println("what is the lab day?");
-					day=sc.next();
+					
+					
+					do{
+						System.out.println("The intended day to have the LAB?");
+						
+						System.out.println("*********Options***********************");
+						System.out.println(" 1) Monday");
+						System.out.println(" 2) Tuesday");
+						System.out.println(" 3) Wednesday");
+						System.out.println(" 4) Thursday");
+						System.out.println(" 5) Friday");
+						System.out.println("*********End Of Options****************");
+						int inputDay=0;
+						try{
+							
+							inputDay=sc.nextInt();
+							
+						}catch (Exception ex)
+						{
+							inputDay=0;
+						}
+						
+						
+												
+						switch(inputDay)
+						
+						{
+						case 1: day=weekdays.MONDAY.toString();
+								break;
+								
+						case 2: day=weekdays.TUESDAY.toString();
+								break;
+						
+						case 3: day=weekdays.WEDNESDAY.toString();
+								break;
+						
+						case 4: day=weekdays.THURSDAY.toString();
+								break;
+						
+						case 5: day=weekdays.FRIDAY.toString();
+								break;
+								
+						
+						default : System.out.println("You have entered the wrong input");
+						}
+					}while(input ==0 || input >=6 );
+					
+					
+					
+					
+					
+					
+					
 					System.out.println("Where is the location?");
 					venue=sc.next();
-					System.out.println("What is the start time is the lab?");
-					startTime=sc.next();
-					System.out.println("What is the end time is the lab?");
-					endTime=sc.next();
+					boolean result=false;
+					do
+					{	result=false;
+						
+						String ip="";
+					    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+					    
+					    System.out.println("Enter the start time in the format HH:MM:SS");
+					    ip=sc.next();
+					    Pattern r = Pattern.compile(pattern);
+					     Matcher m = r.matcher(ip);
+					     if(m.find())
+					     {
+					         System.out.println("Time"+m.group(0));
+					         System.out.println("hh "+m.group(1));
+					         System.out.println("mm "+m.group(2));
+					         System.out.println("ss "+m.group(3));
+					         result=true;
+					         startTime=ip;
+					     }
+					     else
+					     {
+					         System.out.println("NO MATCH! format mismatch");
+					         result=false;
+					     }
+					}while(result==false);
+					
+					do
+					{	result=false;
+						
+						String ip="";
+					    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+					    
+					    System.out.println("Enter the end time in the format HH:MM:SS");
+					    ip=sc.next();
+					    Pattern r = Pattern.compile(pattern);
+					     Matcher m = r.matcher(ip);
+					     if(m.find())
+					     {
+					         System.out.println("Time"+m.group(0));
+					         System.out.println("hh "+m.group(1));
+					         System.out.println("mm "+m.group(2));
+					         System.out.println("ss "+m.group(3));
+					         result=true;
+					         endTime=ip;
+					     }
+					     else
+					     {
+					         System.out.println("NO MATCH! format mismatch");
+					         result=false;
+					     }
+					}while(result==false);
+					
 					currentIndex=""+q+1;
-					Schedule schedule =new Schedule(code,currentIndex,"lab",day,venue,startTime,endTime);
+					Schedule schedule =new Schedule(code,currentIndex,type.LABORATORY.toString(),day,venue,startTime,endTime);
+					scheduleList.add(schedule);
 				}
 				if(tut=='y'){
 					
-					System.out.println("what is the tut day?");
-					day=sc.next();
+					do{
+						System.out.println("The intended day to have the Tutorial?");
+						
+						System.out.println("*********Options***********************");
+						System.out.println(" 1) Monday");
+						System.out.println(" 2) Tuesday");
+						System.out.println(" 3) Wednesday");
+						System.out.println(" 4) Thursday");
+						System.out.println(" 5) Friday");
+						System.out.println("*********End Of Options****************");
+						int inputDay=0;
+						try{
+							
+							inputDay=sc.nextInt();
+							
+						}catch (Exception ex)
+						{
+							inputDay=0;
+						}
+						
+						
+												
+						switch(inputDay)
+						
+						{
+						case 1: day=weekdays.MONDAY.toString();
+								break;
+								
+						case 2: day=weekdays.TUESDAY.toString();
+								break;
+						
+						case 3: day=weekdays.WEDNESDAY.toString();
+								break;
+						
+						case 4: day=weekdays.THURSDAY.toString();
+								break;
+						
+						case 5: day=weekdays.FRIDAY.toString();
+								break;
+								
+						
+						default : System.out.println("You have entered the wrong input");
+						}
+					}while(input ==0 || input >=6 );
 					System.out.println("Where is the location?");
 					venue=sc.next();
-					System.out.println("What is the start time is the tutorial?");
-					startTime=sc.next();
-					System.out.println("What is the end time is the tutorial?");
-					endTime=sc.next();
+					boolean result=false;
+					do
+					{	result=false;
+						
+						String ip="";
+					    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+					    
+					    System.out.println("Enter the start time in the format HH:MM:SS");
+					    ip=sc.next();
+					    Pattern r = Pattern.compile(pattern);
+					     Matcher m = r.matcher(ip);
+					     if(m.find())
+					     {
+					         System.out.println("Time"+m.group(0));
+					         System.out.println("hh "+m.group(1));
+					         System.out.println("mm "+m.group(2));
+					         System.out.println("ss "+m.group(3));
+					         result=true;
+					         startTime=ip;
+					     }
+					     else
+					     {
+					         System.out.println("NO MATCH! format mismatch");
+					         result=false;
+					     }
+					}while(result==false);
+					
+					do
+					{	result=false;
+						
+						String ip="";
+					    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+					    
+					    System.out.println("Enter the end time in the format HH:MM:SS");
+					    ip=sc.next();
+					    Pattern r = Pattern.compile(pattern);
+					     Matcher m = r.matcher(ip);
+					     if(m.find())
+					     {
+					         System.out.println("Time"+m.group(0));
+					         System.out.println("hh "+m.group(1));
+					         System.out.println("mm "+m.group(2));
+					         System.out.println("ss "+m.group(3));
+					         result=true;
+					         endTime=ip;
+					     }
+					     else
+					     {
+					         System.out.println("NO MATCH! format mismatch");
+					         result=false;
+					     }
+					}while(result==false);
 					currentIndex=""+q+1;
-					Schedule schedule =new Schedule(code,currentIndex,"torial",day,venue,startTime,endTime);
+					Schedule schedule =new Schedule(code,currentIndex,type.TUTORIAL.toString(),day,venue,startTime,endTime);
+					scheduleList.add(schedule);
 				}
 				
 				
 				
 			}
 			/*end of implementtion for the schedule*/
+			boolean dateResult=false;
 			
-			System.out.println("Please enter the start date of course: ");
-			startDate = sc.next();
-
-			System.out.println("Please enter the end date of course: ");
-			endDate = sc.next();
-
+			do{
+				dateResult=false;
+				
+				System.out.println("Please enter the start date of course in this format dd/mm/yyyy: ");
+				startDate = sc.next();
+				dateResult=validateDate(startDate);
+			}
+			while(dateResult!=true);
+			
+			do{
+				dateResult=false;
+				
+				System.out.println("Please enter the end date of course in this format dd/mm/yyyy: ");
+				endDate = sc.next();
+				dateResult=validateDate(endDate);
+				System.out.println(dateResult);
+			}
+			while(dateResult!=true);
+			
+			
+			
+			schedulecontroller.saveSchedule(scheduleList, code);//add the schedule implementation here
+		
+	
 			Course course = new Course(code, name, school, startDate, endDate, indices);
 
 			courseSave.add(course);
@@ -673,12 +998,43 @@ public class CourseController {
 	}
 	
 	
+	public boolean validateDate(String ip)
+	{
+		boolean result=true;
+			
+		   
+		 if (ip == null || !ip.matches("^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$"))
+		 {
+			 System.out.println("date input error");
+			 result=false;
+		 }
+		 if(result==true)
+		 {
+			 SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+			    df.setLenient(false);
+			    try {
+			        df.parse(ip);
+			        result=true;
+			    } catch (ParseException ex) {
+			    	result=false;
+			    }
+		 }
+		 
+		 else
+		 {
+			 result=false;
+		 }
+		 
+		    
+		    return result;
+	}
+	
+	
 //	 public static void main(String args[])
 //	 {
-//		 CourseController c1 = new CourseController();
-//		 c1.checkIndexes(10, 2, "Mh1812");
+//
 //	 }
-//	
+	
 	
 	
 	

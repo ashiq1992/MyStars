@@ -138,7 +138,6 @@ public class StarsPlannerApp {
 
 	public static void AddStudent() {
 		boolean result;
-
 		result = Ad.AddStudent();
 		if (result == true) {
 			System.out.println("Success");
