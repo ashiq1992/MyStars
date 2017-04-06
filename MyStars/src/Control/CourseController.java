@@ -105,8 +105,8 @@ public class CourseController {
 		Scanner sc = new Scanner(System.in);
 		List courseSave = new ArrayList();
 		List scheduleList=new ArrayList();
-		String time,venue,day;
-		
+		String startTime,venue,day,endTime;//for the schedule
+		String currentIndex;
 		
 		System.out.println("No of courses to be added");
 		int input = sc.nextInt();
@@ -141,6 +141,8 @@ public class CourseController {
 			}
 			Temp = sc.nextLine();// To eliminate the buffer
 			
+			
+			
 			//implement the schedule for each index and save into a txt file
 			for(int q=0;q<totalIndex;q++){
 				System.out.println("Index"+(q+1));
@@ -152,9 +154,12 @@ public class CourseController {
 				day=sc.next();
 				System.out.println("Where is the location?");
 				venue=sc.next();
-				System.out.println("What time is the lecture?");
-				time=sc.next();
-				Schedule schedule =new Schedule(code,(q+1),"lecture",day,venue,time);
+				System.out.println("What is the start time of the Lecture?");
+				startTime=sc.next();
+				System.out.println("What is the end time of the Lecture?");
+				endTime=sc.next();
+				currentIndex=""+q+1;
+				Schedule schedule =new Schedule(code,currentIndex,"lecture",day,venue,startTime,endTime);
 				scheduleList.add(schedule);
 				
 				}
@@ -170,9 +175,12 @@ public class CourseController {
 					day=sc.next();
 					System.out.println("Where is the location?");
 					venue=sc.next();
-					System.out.println("What time is the lab?");
-					time=sc.next();
-					Schedule schedule =new Schedule(code,(q+1),"lab",day,venue,time);
+					System.out.println("What is the start time is the lab?");
+					startTime=sc.next();
+					System.out.println("What is the end time is the lab?");
+					endTime=sc.next();
+					currentIndex=""+q+1;
+					Schedule schedule =new Schedule(code,currentIndex,"lab",day,venue,startTime,endTime);
 				}
 				if(tut=='y'){
 					
@@ -180,15 +188,18 @@ public class CourseController {
 					day=sc.next();
 					System.out.println("Where is the location?");
 					venue=sc.next();
-					System.out.println("What time is the tutorial?");
-					time=sc.next();
-					Schedule schedule =new Schedule(code,(q+1),"torial",day,venue,time);
+					System.out.println("What is the start time is the tutorial?");
+					startTime=sc.next();
+					System.out.println("What is the end time is the tutorial?");
+					endTime=sc.next();
+					currentIndex=""+q+1;
+					Schedule schedule =new Schedule(code,currentIndex,"torial",day,venue,startTime,endTime);
 				}
 				
 				
 				
 			}
-			
+			/*end of implementtion for the schedule*/
 			
 			System.out.println("Please enter the start date of course: ");
 			startDate = sc.next();
