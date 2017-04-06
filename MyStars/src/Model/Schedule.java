@@ -7,11 +7,11 @@ public class Schedule {
 	private String Venue;
 	private String day;
 	private String type;
-	private String index;
+	private int index;
 	private String courseCode;
 	private String startTime, endTime;
 
-	public Schedule(String courseCode, String index, String type, String day, String venue, String startTime,
+	public Schedule(String courseCode, int index, String type, String day, String venue, String startTime,
 			String endTime) {
 		this.courseCode = courseCode;
 		this.day = day;
@@ -23,11 +23,11 @@ public class Schedule {
 
 	}
 
-	public String getIndex() {
+	public int getIndex() {
 		return index;
 	}
 
-	public void setIndex(String index) {
+	public void setIndex(int index) {
 		this.index = index;
 	}
 
