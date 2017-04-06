@@ -178,19 +178,20 @@ public class AdminController {
 			String hashedValue=null;
 			try {
 				hashedValue=h1.hashString(password,userId);
+				System.out.println(hashedValue);
 			} catch (Exception e) {
 			
 				e.printStackTrace();
 			}
 			
-			
-			int userVal=a1.get(i).getUserId().compareTo(userId);
+			//System.out.println("database"+a1.get(i).getName());
+			int userVal=a1.get(i).getUserId().toLowerCase().compareTo(userId.toLowerCase());
 			int passVal=a1.get(i).getPassword().compareTo(hashedValue);
-
 			
+			System.out.println(userVal);
 			if((userVal == passVal))
 			{
-			
+				System.out.println("yes");
 				valid=1;
 				System.out.println("Account accessed");
 				System.out.println("Gender: " + a1.get(i).getGender());

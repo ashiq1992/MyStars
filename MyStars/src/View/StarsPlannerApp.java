@@ -65,6 +65,7 @@ public class StarsPlannerApp {
 				userId = sc.next();
 //				System.out.println("Enter Password:");
 				password = mask.readPassword("Enter Passwordd");
+				System.out.println(password);
 				AdminController ad = new AdminController();
 				result = ad.checkAccount(userId, password);
 				if (result == true) {

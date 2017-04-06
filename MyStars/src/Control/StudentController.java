@@ -218,6 +218,7 @@ public class StudentController {
 			String hashedValue=null;
 			try {
 				hashedValue=h1.hashString(password,matriculationNumber);
+				System.out.println(hashedValue);
 			} catch (Exception e) {
 			
 				e.printStackTrace();
