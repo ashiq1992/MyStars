@@ -58,6 +58,7 @@ public class StarsPlannerApp {
 					System.out.println("Failed");
 				}
 			}
+			
 
 			else if (input == 2) {
 				System.out.println("Enter userId:");
