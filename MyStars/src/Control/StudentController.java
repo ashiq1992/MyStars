@@ -216,6 +216,8 @@ public class StudentController {
 
 			
 			String hashedValue=null;
+			System.out.println(password);
+			System.out.println(matriculationNumber);
 			try {
 				hashedValue=h1.hashString(password,matriculationNumber);
 				System.out.println(hashedValue);

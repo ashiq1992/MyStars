@@ -101,6 +101,7 @@ public class AdminController {
 			  System.out.println("Please enter student user id : ");
 			  String userId=sc.next();
 			  student.setUserId(userId);
+			
 			  
 			  System.out.println("Please enter student password: ");
 			  String clearPass=sc.next();
@@ -176,6 +177,7 @@ public class AdminController {
 		for(int i=0;i<a1.size();i++)	
 		{
 			String hashedValue=null;
+			
 			try {
 				hashedValue=h1.hashString(password,userId);
 				System.out.println(hashedValue);
