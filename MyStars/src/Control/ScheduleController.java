@@ -20,7 +20,7 @@ import Model.Course;
 import Model.Schedule;
 
 public class ScheduleController {
-	
+	AddDropController check=new AddDropController();
 	// Properties
 		public static final String SEPARATOR = "|";
 		public static final String INDEX_SEPARATOR = "_";
@@ -140,6 +140,29 @@ public class ScheduleController {
 		} finally {
 			out.close();
 		}
+	}
+	
+	
+	
+	
+	public boolean clashTimeValidate(String newcourseCode,int index){
+		ArrayList oldData;
+		ArrayList check;
+		
+		try {
+			=check.readAllCourseAndStudent("src/courseAndStudent.txt");
+			
+			
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 	
 //	public static void main(String [] args){
