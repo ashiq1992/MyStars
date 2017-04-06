@@ -11,6 +11,7 @@ import Control.AdminController;
 import Control.CourseController;
 import Control.StudentController;
 import Model.Student;
+import Miscellaneous.MaskPassword;
 
 public class StarsPlannerApp {
 	static AdminController Ad = new AdminController();
@@ -18,6 +19,7 @@ public class StarsPlannerApp {
 	static StudentController Sd = new StudentController();
 	static AddDropController addDrop = new AddDropController();
 	static Student student = new Student();
+	static MaskPassword mask = new MaskPassword();
 
 	static boolean adddropEnable;
 	static Scanner sc = new Scanner(System.in);
@@ -43,9 +45,9 @@ public class StarsPlannerApp {
 			if (input == 1) {
 				System.out.println("Enter userId:");
 				userId = sc.next();
-				System.out.println("Enter Password:");
-				password = sc.next();
-
+				//System.out.println("Enter Password:");
+				password = mask.readPassword("Enter passwordd");
+				
 				result = Sd.checkAccount(userId, password);
 				if (result == true) {
 					System.out.println("Sucess");
@@ -60,8 +62,8 @@ public class StarsPlannerApp {
 			else if (input == 2) {
 				System.out.println("Enter userId:");
 				userId = sc.next();
-				System.out.println("Enter Password:");
-				password = sc.next();
+//				System.out.println("Enter Password:");
+				password = mask.readPassword("Enter Passwordd");
 				AdminController ad = new AdminController();
 				result = ad.checkAccount(userId, password);
 				if (result == true) {
