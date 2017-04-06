@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import Miscellaneous.Hash;
 import Model.Admin;
 import Model.Student;
 
 public class AdminController {
 	public static final String SEPARATOR = "|";
+	private Hash h1 = new Hash();
 	
 	public static ArrayList readAllAdmins(String filename) throws IOException {
 		// read String from text file
@@ -97,10 +99,19 @@ public class AdminController {
 			  
 			  
 			  System.out.println("Please enter student user id : ");
-			  student.setUserId(sc.next());
+			  String userId=sc.next();
+			  student.setUserId(userId);
 			  
 			  System.out.println("Please enter student password: ");
-			  student.setPassword(sc.next());
+			  String clearPass=sc.next();
+			  String hashedPass=null;
+			try {
+				hashedPass = h1.hashString(clearPass,userId);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			  student.setPassword(hashedPass);
 			  
 			  System.out.println("Please enter student nationality: ");
 			  student.setNationality(sc.next());
@@ -160,12 +171,22 @@ public class AdminController {
 		int valid=0;
 		ArrayList<Admin> a1 = retriveAllAdmins();
 		
+		
+		
 		for(int i=0;i<a1.size();i++)	
 		{
+			String hashedValue=null;
+			try {
+				hashedValue=h1.hashString(password,userId);
+			} catch (Exception e) {
+			
+				e.printStackTrace();
+			}
+			
+			
 			int userVal=a1.get(i).getUserId().compareTo(userId);
-			int passVal=a1.get(i).getPassword().compareTo(password);
-			//System.out.println(userVal);
-			//System.out.println(passVal);
+			int passVal=a1.get(i).getPassword().compareTo(hashedValue);
+
 			
 			if((userVal == passVal))
 			{

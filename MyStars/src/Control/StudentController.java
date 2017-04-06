@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import Miscellaneous.Hash;
 import Model.AddDrop;
 import Model.Admin;
 import Model.Course;
@@ -18,6 +19,7 @@ public class StudentController {
 	public static final String SEPARATOR = "|";
 	private AddDropController addDrop = new AddDropController();
 	private CourseController Cc1 = new CourseController();
+	private Hash h1 = new Hash();
 
 	public static ArrayList readAllStudents(String filename) throws IOException {
 		// read String from text file
@@ -210,10 +212,19 @@ public class StudentController {
 		ArrayList<Student> a1 = retriveAllStudent();
 
 		for (int i = 0; i < a1.size(); i++) {
+			
+
+			
+			String hashedValue=null;
+			try {
+				hashedValue=h1.hashString(password,matriculationNumber);
+			} catch (Exception e) {
+			
+				e.printStackTrace();
+			}
+			
 			int userVal = a1.get(i).getMatriculationNumber().compareTo(matriculationNumber);
-			int passVal = a1.get(i).getPassword().compareTo(password);
-			// System.out.println(userVal);
-			// System.out.println(passVal);
+			int passVal = a1.get(i).getPassword().compareTo(hashedValue);
 
 			if (userVal == 0 && passVal == 0) {
 

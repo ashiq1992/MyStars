@@ -4,10 +4,10 @@ import java.security.MessageDigest;
 
 public class Hash {
 	
-	public static String hashString(String password, String salt, String pepper) throws Exception{
+	public static String hashString(String password, String salt) throws Exception{
 		
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update((password + salt + pepper).getBytes());
+        md.update((password + salt ).getBytes());
  
         byte byteData[] = md.digest();
         
@@ -23,18 +23,7 @@ public class Hash {
 	}
 	
 	
-	 public static void passwordExample() {        
-	        Console console = System.console();
-	        if (console == null) {
-	            System.out.println("Couldn't get Console instance");
-	            System.exit(0);
-	        }
 
-	        console.printf("Testing password%n");
-	        char passwordArray[] = console.readPassword("Enter your secret password: ");
-	        console.printf("Password entered was: %s%n", new String(passwordArray));
-
-	    }
 	
 	public static void main(String args[])
 	{
@@ -45,6 +34,5 @@ public class Hash {
 //			e.printStackTrace();
 //		}
 		
-		passwordExample();
 	}
 }
