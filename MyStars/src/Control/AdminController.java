@@ -94,13 +94,14 @@ public class AdminController {
 			  
 			  System.out.println("Please enter student Matriculation Number: ");
 			 // String matriculationNumber=sc.next();
-			  student.setMatriculationNumber(sc.nextLine());
+			  String userId=sc.next();
+			  student.setMatriculationNumber(userId);
 			  
 			  
 			  
 			  System.out.println("Please enter student user id : ");
-			  String userId=sc.next();
-			  student.setUserId(userId);
+			  String emailId=sc.next();
+			  student.setUserId(emailId);
 			
 			  
 			  System.out.println("Please enter student password: ");
