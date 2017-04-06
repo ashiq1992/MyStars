@@ -268,8 +268,8 @@ public class CourseController {
 				
 				
 				
-				currentIndex=""+q+1;
-				Schedule schedule =new Schedule(code,currentIndex,type.LECTURE.toString(),day,venue,startTime,endTime);
+				//currentIndex=""+q+1;
+				Schedule schedule =new Schedule(code,(q+1),type.LECTURE.toString(),day,venue,startTime,endTime);
 				scheduleList.add(schedule);
 				
 				}
@@ -391,8 +391,8 @@ public class CourseController {
 					     }
 					}while(result==false);
 					
-					currentIndex=""+q+1;
-					Schedule schedule =new Schedule(code,currentIndex,type.LABORATORY.toString(),day,venue,startTime,endTime);
+					//currentIndex=""+q+1;
+					Schedule schedule =new Schedule(code,(q+1),type.LABORATORY.toString(),day,venue,startTime,endTime);
 					scheduleList.add(schedule);
 				}
 				if(tut=='y'){
@@ -497,8 +497,8 @@ public class CourseController {
 					         result=false;
 					     }
 					}while(result==false);
-					currentIndex=""+q+1;
-					Schedule schedule =new Schedule(code,currentIndex,type.TUTORIAL.toString(),day,venue,startTime,endTime);
+					//currentIndex=""+q+1;
+					Schedule schedule =new Schedule(code,(q+1),type.TUTORIAL.toString(),day,venue,startTime,endTime);
 					scheduleList.add(schedule);
 				}
 				
