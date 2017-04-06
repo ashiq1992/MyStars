@@ -22,7 +22,7 @@ public class CourseController {
 	// Properties
 	public static final String SEPARATOR = "|";
 	public static final String INDEX_SEPARATOR = "_";
-	private ScheduleController schedulecontroller=new ScheduleController();
+	private ScheduleController schedulecontroller=null;;
 	private enum type { 
 	       LECTURE,LABORATORY,TUTORIAL; 
 	    } 
@@ -529,8 +529,8 @@ public class CourseController {
 			
 			
 			
+			schedulecontroller =new ScheduleController();
 			schedulecontroller.saveSchedule(scheduleList, code);//add the schedule implementation here
-		
 	
 			Course course = new Course(code, name, school, startDate, endDate, indices);
 
@@ -851,7 +851,7 @@ public class CourseController {
 			
 			if(courseCheck==true)
 			{
-				System.out.println("i am in");
+				//System.out.println("i am in");
 				for(int j=0;j<indexData.size();j++)
 				{
 					Course course = (Course) indexData.get(j);

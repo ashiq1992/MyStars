@@ -143,9 +143,11 @@ public class ScheduleController {
 	}
 	
 	
+	public boolean ClashDay(String newcourseCode,int newIndex,String matricNum){
+		
+	}
 	
-	
-	public boolean clashTimeValidate(String newcourseCode,int index){
+	public boolean clashTimeValidate(String newcourseCode,int newIndex,String matricNum){
 		ArrayList oldData;
 		ArrayList check;
 		

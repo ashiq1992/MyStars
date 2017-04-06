@@ -724,7 +724,7 @@ public class AddDropController {
 			}
 			else{
 				
-				
+				//implement the clash check here 
 				for(int x=0;x<read2.size();x++){
 					AddDrop Add=(AddDrop)read2.get(x);
 					if(Add.getCourseCode().toLowerCase().equals(courseCode) && Add.getIndex()==index){
@@ -746,7 +746,7 @@ public class AddDropController {
 				else{//after checking it will add the course to the student either to wait list or the course itself
 					this.addMethod(courseCode, index, matricNum);
 				}
-				
+				///else condition for the clash check will be plced here
 				
 				
 				
@@ -765,6 +765,21 @@ public class AddDropController {
 		return finalCheck;
 	}
 	
+	public List returnCourseRegistered(String matricNum){
+		try {
+			List StringArray = this.readAllCourseAndStudent("src/courseAndStudent.txt");
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+	}
 
 
 	public static void main(String args[]) {
