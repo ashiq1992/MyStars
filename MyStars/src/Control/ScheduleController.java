@@ -16,6 +16,7 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Model.AddDrop;
 import Model.Course;
 import Model.Schedule;
 
@@ -113,11 +114,11 @@ public class ScheduleController {
 		
 	}
 	
-	public 
+	
 	
 	
 	/** Read the contents of the given file. */
-	public static List read(String fileName) throws IOException {
+	public List read(String fileName) throws IOException {
 		List data = new ArrayList();
 		Scanner scanner = new Scanner(new FileInputStream(fileName));
 		try {
@@ -143,32 +144,117 @@ public class ScheduleController {
 	}
 	
 	
-	public boolean ClashDay(String newcourseCode,int newIndex,String matricNum){
-		
-	}
 	
-	public boolean clashTimeValidate(String newcourseCode,int newIndex,String matricNum){
-		ArrayList oldData;
-		ArrayList check;
+	
+	
+	
+	public boolean clashcheck(String newCourseCode,int newIndex,String matricNum){
+		boolean clash=false;
+		List timeTable;
+		List newTimeTable;
+		int courseindex;
+		List courses=new ArrayList();
+		List index=new ArrayList();
+		String starts,ends,newStarts,newEnds;
+		int start,end,newStart,newEnd;
+		int durationOld,durationNew;
+	List day=new ArrayList();
+	List startTime=new ArrayList();
+	List endTime=new ArrayList();
 		
-		try {
-			=check.readAllCourseAndStudent("src/courseAndStudent.txt");
+		courses=check.returnCourseRegistered(matricNum);
+		/*Rtrive all the data  for timetable of the student*/
+		for(int x=0;x<courses.size();x+=2){
+			
+			courseindex=Integer.parseInt(courses.get(x+1).toString());
+			timeTable= this.readSchedule(courses.get(x).toString());
+			
+			for(int k=0;k<timeTable.size();k++){
+				
+			Schedule s=(Schedule)timeTable.get(k);
+			if(s.getCourseCode().toLowerCase().equals(courses.get(x))&&(s.getIndex()==courseindex)){
+			day.add(s.getDay());
+			startTime.add(s.getStartTime());
+			endTime.add(s.getEndTime());
+			System.out.println(s.getCourseCode()+" "+s.getIndex()+" "+startTime.get(k)+" "+endTime.get(k));
+			}
 			
 			
+			}
+			
+		}
+		
+		newTimeTable= this.readSchedule(newCourseCode);
+		for(int k=0;k<day.size();k++){
+			starts=startTime.get(k).toString();
+			starts=starts.substring(0,2);
+			start=Integer.parseInt(starts);
+			ends=endTime.get(k).toString();
+			ends=ends.substring(0,2);
+			end=Integer.parseInt(ends);
+			durationOld=end-start;//get the duration of the session
+			
+		for(int x=0;x<newTimeTable.size();x++){
+			Schedule s=(Schedule)newTimeTable.get(x);
+			if(s.getDay().toLowerCase().equals(day.get(k).toString().toLowerCase())){
+				newStarts=s.getStartTime();
+				newStarts=newStarts.substring(0,2);
+				newStart=Integer.parseInt(newStarts);
+				newEnds=s.getEndTime();
+				newEnds=newEnds.substring(0,2);
+				newEnd=Integer.parseInt(newEnds);
+				durationNew=newEnd-newStart;
+				
+				
+				//condition for checking for clashes
+				
+				if(newStart>start){
+					System.out.println(newStart+" "+ start);
+					if(newStart>(start+durationOld)){
+						clash=false;//success
+						System.out.println(newStart+" "+ start+" test 5");
+					}
+					else{
+						System.out.println(newStart+" "+ start+" test 6");
+						clash=true;//clash
+						break;
+					}
+				}
+				else{
+					System.out.println(newStart+" "+ start+" test 7");
+					if((newStart+durationNew)<start){
+						clash=false;//success
+						System.out.println(newStart+" "+ start+" test 8");
+					}
+					else{	System.out.println(newStart+" "+ start+" test 9");
+						clash=true;//clash
+						break;
+					}
+				}
+				
+				
+				
+				
+			}
 			
 			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		
+
+		}
+		
+	return clash;	
 		
 	}
 	
+	
+	
+	
+	
 //	public static void main(String [] args){
 //		ScheduleController n=new ScheduleController();
+//		boolean check;
 //		ArrayList test;
 //		test=n.readSchedule("ce3005");
 //		for(int x=0;x<test.size();x++){
@@ -178,8 +264,14 @@ public class ScheduleController {
 //			
 //			
 //		}
-//		
-//		
+		
+//		check=n.clashcheck("ce3005", 1, "u163");
+//		if(check){
+//			System.out.println(" clash");
+//		}
+//		else{
+//			System.out.println("no Clash");
+//		}
 //	}
 //	
 	}

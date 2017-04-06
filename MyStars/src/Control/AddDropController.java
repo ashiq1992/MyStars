@@ -765,10 +765,23 @@ public class AddDropController {
 		return finalCheck;
 	}
 	
+	
+	
 	public List returnCourseRegistered(String matricNum){
+		List courseCode=new ArrayList();
 		try {
-			List StringArray = this.readAllCourseAndStudent("src/courseAndStudent.txt");
 			
+			List StringArray = this.readAllCourseAndStudent("src/courseAndStudent.txt");
+			for (int x = 0; x < StringArray.size(); x++) {
+				AddDrop addDrop = (AddDrop) StringArray.get(x);
+				for (int k = 0; k < addDrop.getList().size(); k++) {
+					if (addDrop.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())) {
+						courseCode.add(addDrop.getCourseCode());
+						courseCode.add(addDrop.getIndex());
+					}
+				}
+
+			}
 			
 			
 		} catch (IOException e) {
@@ -777,7 +790,7 @@ public class AddDropController {
 		}
 		
 		
-		
+		return courseCode;
 		
 	}
 

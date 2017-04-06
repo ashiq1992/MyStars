@@ -639,6 +639,9 @@ public class CourseController {
 					
 					File f = new File("src/waitlists/"+mat+".txt");
 					f.delete();
+					
+					File d = new File("src/schedule/"+mat+".txt");//to delete the schedule
+					d.delete();
 				}
 
 			}

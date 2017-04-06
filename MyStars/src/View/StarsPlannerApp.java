@@ -9,6 +9,7 @@ import Model.AddDrop;
 import Control.AddDropController;
 import Control.AdminController;
 import Control.CourseController;
+import Control.ScheduleController;
 import Control.StudentController;
 import Model.Student;
 import Miscellaneous.ClearScreen;
@@ -19,6 +20,7 @@ public class StarsPlannerApp {
 	static CourseController Cd = new CourseController();
 	static StudentController Sd = new StudentController();
 	static AddDropController addDrop = new AddDropController();
+	static ScheduleController SCD=new ScheduleController();
 	static Student student = new Student();
 	static MaskPassword mask = new MaskPassword();
 	static ClearScreen cls=null;
@@ -318,18 +320,26 @@ public class StarsPlannerApp {
 		String courseCode;
 		int index;
 		boolean result=false;
+		boolean clashCheck;
 		char value = 0;
 		
 		do{
 			value=0;
 		System.out.println("Enter Course Code: ");
-		courseCode = sc.next();
+		courseCode = sc.next().toLowerCase();
 		// add
 		Cd.showIndexByCourse(courseCode);
 		System.out.println("Enter index: ");
 		index = sc.nextInt();
-		result=addDrop.AddMasterCheck(student.getMatriculationNumber().toLowerCase(), courseCode.toLowerCase(), index);
 		
+		clashCheck=SCD.clashcheck(courseCode, index, student.getMatriculationNumber());//clash check implementation
+		if(clashCheck){
+		
+		result=addDrop.AddMasterCheck(student.getMatriculationNumber().toLowerCase(), courseCode.toLowerCase(), index);
+		}
+		else{
+			System.out.println("TimeTable Clash Choose another index for the course!!");
+		}
 			
 		if (result == false) {
 			System.out.println("You are not enrolled in the course! ");
