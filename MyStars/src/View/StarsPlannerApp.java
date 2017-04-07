@@ -2,10 +2,18 @@ package View;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Model.AddDrop;
+import Control.AccessController;
 import Control.AddDropController;
 import Control.AdminController;
 import Control.CourseController;
@@ -16,26 +24,59 @@ import Miscellaneous.ClearScreen;
 import Miscellaneous.MaskPassword;
 
 public class StarsPlannerApp {
-	static AdminController Ad =null;
-	static CourseController Cd = new CourseController();
+	static AdminController Ad=null;
+	static CourseController Cd=null;
+	static AccessController access=null;
 	static StudentController Sd = new StudentController();
 	static AddDropController addDrop = new AddDropController();
 	static ScheduleController SCD=new ScheduleController();
 	static Student student = new Student();
 	static MaskPassword mask = new MaskPassword();
-	static ClearScreen cls=null;
-
+	final static DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+	
 	static boolean adddropEnable;
 	static Scanner sc = new Scanner(System.in);
-
+	
 	public static void main(String args[]) {
 		adddropEnable = true;
 		int input = -1; // Takes in user input;
 		int valid = 1;
-		boolean result;
+		boolean result=false;
+		boolean accessResult=false;
 		String password, userId;
 		do {
+			accessResult=false;
+			access = new AccessController();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate localDate = LocalDate.now();
+			String currentDate=dtf.format(localDate);
+			Date cDate=new Date();
+			cDate.parse(currentDate);
 
+			
+			DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+			DateFormat format1 = new SimpleDateFormat("HH:mm");
+			Calendar now = Calendar.getInstance();
+			
+			Date date=null;
+			Date date1=new Date();
+			try {
+				date = format.parse(dtf.format(localDate));
+				String test2=dateFormat.format(now.getTime());
+				date1=format1.parse(test2);
+
+			} catch (ParseException e) {
+		
+				e.printStackTrace();
+			}
+
+			AccessController a1 = new AccessController();
+			try {
+				accessResult=a1.checkStudentAccess(cDate,date1);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
 			Scanner sc = new Scanner(System.in);
 			System.out.println("============================");
 		    System.out.println("|       Stars Planner      |");
@@ -55,7 +96,7 @@ public class StarsPlannerApp {
 				System.out.println("Input choice is not an integer");
 			}
 			if (input == 1) {
-				cls.clearScreen();
+				
 				System.out.println("Student Login,     ");
 				System.out.println("                   ");
 				System.out.println("Please enter your UserId:|");
@@ -65,9 +106,21 @@ public class StarsPlannerApp {
 				
 				result = Sd.checkAccount(userId, password);
 				if (result == true) {
-					System.out.println("Sucess");
-					student.setMatriculationNumber(userId);
-					StudentMenu();
+					
+					if(accessResult==true)
+					{
+						System.out.println("Sucess");
+						student.setMatriculationNumber(userId);
+						StudentMenu();
+						
+					}
+					
+					else
+					{
+						System.out.println("Access denied");
+					}
+					
+					
 
 				} else {
 					System.out.println("Failed");
@@ -125,7 +178,7 @@ public class StarsPlannerApp {
 		System.out.println("4)Print by index.");
 		System.out.println("5)Print by Course.");
 		System.out.println("6) Remove Student");
-		System.out.println("7) Enable/Disable Add/Drop");
+		System.out.println("7) Student Access Period");
 		System.out.println("8)Show available vacancy for course/index.");
 		System.out.println("10)LogOut.");
 
@@ -160,7 +213,7 @@ public class StarsPlannerApp {
 				break;
 
 			case 7:
-				adddrop();
+				studentAccessPeriod();
 				break;
 
 			case 8:
@@ -196,12 +249,12 @@ public class StarsPlannerApp {
 	}
 
 	public static void removeCourse() {
-		boolean result;
+		boolean result=false;
 		Scanner sc = new Scanner(System.in);
-		CourseController cd = new CourseController();
+		Cd = new CourseController();
 		System.out.println("Enter CourseCode:");
-		String id = sc.nextLine();
-		result = cd.deleteCourse("src/course.txt", id);
+		String id = sc.next();
+		result = Cd.deleteCourse("src/courses.txt",id);
 		if (result == true) {
 			System.out.println("Success");
 		} else {
@@ -211,10 +264,10 @@ public class StarsPlannerApp {
 
 	public static void removeStudent() {
 		boolean result;
-		StudentController s1 = new StudentController();
+		Sd = new StudentController();
 		System.out.println("Enter Student MatricID:");
 		String id = sc.nextLine();
-		result = s1.deleteStudent("src/student.txt", id);
+		result = Sd.deleteStudent("src/student.txt", id);
 		if (result == true) {
 			System.out.println("Success");
 		} else {
@@ -222,40 +275,44 @@ public class StarsPlannerApp {
 		}
 	}
 
-	public static void adddrop() {
-		int input;
-		System.out.println("Current Add/Drop Status, Enabled: " + adddropEnable);
-
-		if (adddropEnable) {
-			System.out.println("Do you want to disable Add/Drop?\n1. Yes\n2. No");
-			input = sc.nextInt();
-			if (input == 1) {
-				adddropEnable = false;
-			}
-		} else {
-			System.out.println("Do you want to enable Add/Drop?\n1. Yes\n2. No");
-			input = sc.nextInt();
-			if (input == 1) {
-				adddropEnable = true;
-			}
+	public static void studentAccessPeriod() {
+		access=new AccessController();
+		boolean result=false;
+		
+		char input = 0;
+		do{
+		
+		result=access.accessPeriod();
+		if(result==false)
+		{
+			input=0;
+			System.out.println("Do you want to continue? Y/N ");
+			input=sc.next().toLowerCase().charAt(0);
+		
 		}
-
+		
+		else
+		{
+			System.out.println("Successfully made the amendments");
+		}
+		
+		}while(input =='y' || result==false );
+		
 	}
 
 	public static void displayVacancy(){
 		String courseCode;
 		char check;
 		Ad=new AdminController();
-		System.out.println("Enter course course Code:");
-		courseCode=sc.next();
+		
 		boolean result=false;
 		do{
 			System.out.println("Enter the course code to view the vacancy:");
-			courseCode=sc.nextLine();
+			courseCode=sc.next();
 			result=Ad.vacancy(courseCode);
 			if(result ==false){
 				System.out.println("Do you wish to exit (y/n)?");
-				check=sc.nextLine().toLowerCase().charAt(0);
+				check=sc.next().toLowerCase().charAt(0);
 				if(check=='y'){
 					result=false;
 				}
@@ -274,29 +331,70 @@ public class StarsPlannerApp {
 		
 	}
 		public static void printByCourseCode(){
-			String courseCode;
-
-				System.out.println("Enter the course code to view the student:");
-				//String temp=sc.next();
-				courseCode=sc.nextLine();
-				Ad.printByCourseCode(courseCode);
 				
-			
+				String courseCode;
+				boolean state=false;
+				char input=0;
+				
+				while(state==false || input=='y')
+				{
+					input=0;
+				
+				System.out.println("Enter the course code to view the student:");
+				courseCode=sc.next();
+				
+				state=Ad.printByCourseCode(courseCode);
+				
+				if(state==false)
+				{
+					System.out.println("Do you want to continue? Y/N");
+					input=sc.next().toLowerCase().charAt(0);
+				}
+				
+				if(input=='n'){
+					state=true;
+				}
+				
+				}
 		}
 		
 		
 	public static void printByIndex(){
-		
+		boolean state=false;
 		String courseCode;
-		int index;
-	
+		int index=0;
+		char input=0;
+		
+		while(state==false || input=='y')
+		{
+			input=0;
 			System.out.println("Enter the course code to view the student:");
-			//String temp=sc.next();
-			courseCode=sc.nextLine();
+			courseCode=sc.next();
 			System.out.println("Enter the index of the course:");
+			try{
+				
 			index=sc.nextInt();
-			Ad.printByIndex(courseCode, index);
-
+			state=Ad.printByIndex(courseCode, index);
+			}
+			
+			catch(InputMismatchException e)
+			{
+				System.out.println("Please enter a valid input");
+			}
+			
+			
+			if(state==false)
+			{
+				System.out.println("Do you want to continue? Y/N");
+				
+				input=sc.next().toLowerCase().charAt(0);
+//				sc.nextLine();
+			}
+			
+			if(input=='n'){
+				state=true;
+			}
+		}
 		
 		
 	}

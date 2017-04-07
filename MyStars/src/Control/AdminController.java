@@ -11,12 +11,14 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import Miscellaneous.Hash;
+import Model.Access;
 import Model.Admin;
 import Model.Student;
 
 public class AdminController {
 	public static final String SEPARATOR = "|";
 	private Hash h1 = new Hash();
+	
 	
 	public static ArrayList readAllAdmins(String filename) throws IOException {
 		// read String from text file
@@ -181,7 +183,6 @@ public class AdminController {
 			
 			try {
 				hashedValue=h1.hashString(password,userId);
-				System.out.println(hashedValue);
 			} catch (Exception e) {
 			
 				e.printStackTrace();
@@ -229,17 +230,20 @@ public class AdminController {
 	
 	}
 	
-	public void printByCourseCode(String courseCode){
+	public boolean printByCourseCode(String courseCode){
 		
 		CourseController display=new CourseController();
-		display.adminPrintByCourseCode(courseCode);
+		boolean state=display.adminPrintByCourseCode(courseCode);
 		
-		
+		return state;
 	}
 	
-	public void printByIndex(String courseCode,int index){
+
+	
+	public boolean printByIndex(String courseCode,int index){
 		CourseController display=new CourseController();
-		display.adminPrintByCourseCodeAndIndex(courseCode, index);
+		boolean state=display.adminPrintByCourseCodeAndIndex(courseCode, index);
+		return state;
 	}
 	public static void main(String args[]){
 		Scanner sc=new Scanner(System.in);

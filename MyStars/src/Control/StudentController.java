@@ -14,12 +14,14 @@ import Miscellaneous.Hash;
 import Model.AddDrop;
 import Model.Admin;
 import Model.Course;
+import Model.Schedule;
 import Model.Student;
 
 public class StudentController {
 	public static final String SEPARATOR = "|";
 	private AddDropController addDrop = new AddDropController();
 	private CourseController Cc1 = new CourseController();
+	private ScheduleController schedule=new ScheduleController();
 	private Hash h1 = new Hash();
 
 	public static ArrayList readAllStudents(String filename) throws IOException {
@@ -221,7 +223,6 @@ public class StudentController {
 			System.out.println(matriculationNumber);
 			try {
 				hashedValue=h1.hashString(password,matriculationNumber);
-				System.out.println(hashedValue);
 			} catch (Exception e) {
 			
 				e.printStackTrace();
@@ -258,18 +259,38 @@ public class StudentController {
 
 	public void displayCourse(String matriculationNum) {
 		try {
+			String courseCode = null;
 			List StringArray = addDrop.readAllCourseAndStudent("src/courseAndStudent.txt");
-
+			int index = 0;
 			for (int x = 0; x < StringArray.size(); x++) {
 				AddDrop addDrop = (AddDrop) StringArray.get(x);
 				for (int k = 0; k < addDrop.getList().size(); k++) {
 					if (addDrop.getList().get(k).toLowerCase().equals(matriculationNum.toLowerCase())) {
+						courseCode=addDrop.getCourseCode();
+						index=addDrop.getIndex();
 						System.out.println("Course Code: " + addDrop.getCourseCode() + " Index: " + addDrop.getIndex());
+						
+						List StringArray2 = schedule.readSchedule(courseCode);
+						for(int q=0;q<StringArray2.size();q++){
+							Schedule s=(Schedule)StringArray2.get(q);
+							if(courseCode.toLowerCase().equals(s.getCourseCode().toLowerCase())&&s.getIndex()==index){
+								System.out.println("Day: "+s.getDay()+" venue: "+s.getVenue());
+								System.out.println("Type: "+s.getType()+" StartTime: "+s.getStartTime()+" EndTime: "+s.getEndTime());
+								
+				
+							}
+							
+						}
+
+
+						System.out.println("========================end of line============================================");
+						
+						
 					}
 				}
 
 			}
-
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

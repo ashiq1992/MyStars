@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -609,7 +610,9 @@ public class CourseController {
 		try {
 
 			ArrayList<Course> a1 = readAllCourse(file);
-
+			System.out.println(file);
+			System.out.println(courseCode);
+			System.out.println(a1.size());
 			List l2 = new ArrayList();
 			for (int i = 0; i < a1.size(); i++) {
 
@@ -860,16 +863,27 @@ public class CourseController {
 			if (check) {
 				for (int x = 0; x < a2.size(); x++) {
 					AddDrop Add = (AddDrop) a2.get(x);
-					System.out.println("CourseCode: " + Add.getCourseCode() + " Index: " + Add.getIndex());
+					System.out.println("                                               ");
+					System.out.println("                                               ");
+					System.out.println("===============================================");
+				    System.out.println("  Courses for Index       :"+Add.getIndex());
+				    System.out.println("  Course Code             :"+Add.getCourseCode());
+				    System.out.println("***********************************************");
+					//System.out.println("CourseCode: " + Add.getCourseCode() + " Index: " + Add.getIndex());
 					for (int z = 0; z < Add.getList().size(); z++) {
 						for (int k = 0; k < studentCheck.size(); k++) {
 							Student s1 = (Student) studentCheck.get(k);
 
 							if (Add.getList().get(z).toLowerCase().equals(s1.getMatriculationNumber().toLowerCase())) {
-								System.out.println(s1.getName() + " " + s1.getGender() + " " + s1.getNationality());
+								System.out.println("                           ");
+							    System.out.println("  Student Name            :"+s1.getName());
+							    System.out.println("  Gender                  :"+s1.getGender());
+							    System.out.println("  Nationality             :"+s1.getNationality());
+								//System.out.println(s1.getName() + " " + s1.getGender() + " " + s1.getNationality());
 							}
 						}
 					}
+					System.out.println("===============================================");
 
 				}
 			} else {
@@ -910,17 +924,31 @@ public class CourseController {
 			if (check) {
 				for (int x = 0; x < a2.size(); x++) {
 					AddDrop Add = (AddDrop) a2.get(x);
-					System.out.println("CourseCode: " + Add.getCourseCode() + " Index: " + Add.getIndex());
+					System.out.println("===============================================");
+				    System.out.println("  Courses for Index       :"+Add.getIndex());
+				    System.out.println("  Course Code             :"+Add.getCourseCode());
+				    System.out.println("***********************************************");
+				   
+				    
+				    
+					
+					//System.out.println("CourseCode: " + Add.getCourseCode() + " Index: " + Add.getIndex());
 					for (int z = 0; z < Add.getList().size(); z++) {
 						for (int k = 0; k < studentCheck.size(); k++) {
 							Student s1 = (Student) studentCheck.get(k);
 
 							if (Add.getList().get(z).toLowerCase().equals(s1.getMatriculationNumber().toLowerCase())) {
-								System.out.println(s1.getName() + " " + s1.getGender() + " " + s1.getNationality());
+								//System.out.println(s1.getName() + " " + s1.getGender() + " " + s1.getNationality());
+									System.out.println("                           ");
+								    System.out.println("  Student Name            :"+s1.getName());
+								    System.out.println("  Gender                  :"+s1.getGender());
+								    System.out.println("  Nationality             :"+s1.getNationality());
+								    
 							}
 						}
+						
 					}
-
+					System.out.println("===============================================");
 				}
 			} else {
 				System.out.println("There is no student registered for the spcecific index of the given course/check entered Index !!");
@@ -931,6 +959,12 @@ public class CourseController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		 catch (InputMismatchException e) {
+				
+			 System.out.println("Enter correct inputs");
+				//e.printStackTrace();
+			}
 
 		return check;
 	}
@@ -1128,10 +1162,5 @@ public class CourseController {
 
 		return result;
 	}
-
-	// public static void main(String args[])
-	// {
-	//
-	// }
 
 }
