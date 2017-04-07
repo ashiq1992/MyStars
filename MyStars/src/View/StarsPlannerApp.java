@@ -507,6 +507,7 @@ public class StarsPlannerApp {
 		if(clashCheck){
 		
 		result=addDrop.AddMasterCheck(student.getMatriculationNumber().toLowerCase(), courseCode.toLowerCase(), index);
+		//Add the method inside the addMaster()
 		}
 		else{
 			System.out.println("TimeTable Clash Choose another index for the course!!");
@@ -536,7 +537,7 @@ public class StarsPlannerApp {
 																					// file
 
 		addDrop.dropMasterCheck(student.getMatriculationNumber(), courseCode, index);
-
+//add the send email inside the DropMaster
 	}
 
 	public static void changeIndex() {

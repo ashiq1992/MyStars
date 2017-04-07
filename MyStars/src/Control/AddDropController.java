@@ -186,7 +186,7 @@ public class AddDropController {
 	}
 
 	/* This method is to check waitlist and amend the waitList to student */
-	public String removeFromWaitList(String courseCode, int index) {
+	public String getMatricNum(String courseCode, int index) {
 
 		String matricNum = null;
 
@@ -201,7 +201,7 @@ public class AddDropController {
 															// at index position
 															// 0 to add to the
 															// course
-						Drop.getList().remove(0);
+						//Drop.getList().remove(0);
 					}
 				}
 			}
@@ -436,9 +436,10 @@ public class AddDropController {
 			 * list is removed then added to the course
 			 */
 			if (vacancy == 1) {
-				newMatricNum = this.removeFromWaitList(courseCode, index);
+				newMatricNum = this.getMatricNum(courseCode, index);
 				if (newMatricNum != null) {
 					this.addMethod(courseCode, index, newMatricNum);
+					//add the method to send for email here
 				}
 			}
 		} catch (IOException e) {
@@ -654,13 +655,14 @@ public class AddDropController {
 			else{
 				
 				this.dropMethod(courseCode, index, matricNum);
-				System.out.println("Course hass been removed");
+				//check inside the Drop method to add the send email to the person who is being transfered from wait list to courselist.
+				System.out.println("Course has been removed");
 				
 			}
 			
 			if(waitCheck==true){
 				this.dropWaitList(courseCode, matricNum, index);
-				System.out.println("Course hass been removed");
+				System.out.println("Course has been removed");
 			}
 			if(waitCheck==false && check==false){
 				
@@ -701,6 +703,7 @@ public class AddDropController {
 					for(int k=0;k<Add.getList().size();k++){
 						if(Add.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())){
 							check=true;
+							//add the email send here
 						}
 					}
 				
