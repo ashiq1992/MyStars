@@ -308,7 +308,7 @@ public class StudentController {
 			String courseID = null;
 			int retIndex=0;
 
-			List StringArray = addDrop.readAllCourseAndStudent("src/courseAndStudent.txt");
+			List StringArray = addDrop.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			for (int x = 0; x < StringArray.size(); x++) {
 				AddDrop changeIndex = (AddDrop) StringArray.get(x);
 				/* To remove the matric number from old index number */
@@ -319,7 +319,7 @@ public class StudentController {
 							changeIndex.getList().remove(k);
 							courseIndex = changeIndex.getIndex();
 							courseID = changeIndex.getCourseCode();
-							System.out.println("triggered");
+							//System.out.println("triggered");
 						}
 					}
 
@@ -332,7 +332,7 @@ public class StudentController {
 
 			}
 
-			List readCourse = Cc1.readAllCourse("src/courses.txt");
+			List readCourse = Cc1.readAllCourse("DataBase/courses.txt");
 
 			for (int i = 0; i < readCourse.size(); i++) {
 				Course course = (Course) readCourse.get(i);
@@ -376,7 +376,7 @@ public class StudentController {
 				addDrop.saveAmend(StringArray);
 			}
 			
-			Cc1.saveCourseAmend("src/courses.txt", readCourse);
+			Cc1.saveCourseAmend("DataBase/courses.txt", readCourse);
 
 			
 

@@ -254,7 +254,7 @@ public class StarsPlannerApp {
 		Cd = new CourseController();
 		System.out.println("Enter CourseCode:");
 		String id = sc.next();
-		result = Cd.deleteCourse("src/courses.txt",id);
+		result = Cd.deleteCourse("DataBase/courses.txt",id);
 		if (result == true) {
 			System.out.println("Success");
 		} else {
@@ -267,7 +267,7 @@ public class StarsPlannerApp {
 		Sd = new StudentController();
 		System.out.println("Enter Student MatricID:");
 		String id = sc.nextLine();
-		result = Sd.deleteStudent("src/student.txt", id);
+		result = Sd.deleteStudent("DataBase/student.txt", id);
 		if (result == true) {
 			System.out.println("Success");
 		} else {
@@ -443,7 +443,7 @@ public class StarsPlannerApp {
 	}
 
 	public static void viewAllCourses() {
-
+		Cd=new CourseController();
 		Cd.showAllCourses();
 	}
 

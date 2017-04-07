@@ -518,7 +518,7 @@ public class CourseController {
 
 			courseSave.add(course);
 			Temp = sc.nextLine();// To eliminate the buffer
-			File f = new File("src/waitlists/" + code + ".txt");
+			File f = new File("DataBase/waitlists/" + code + ".txt");
 			try {
 				f.createNewFile();
 			} catch (IOException e) {
@@ -529,7 +529,7 @@ public class CourseController {
 		}
 
 		try {
-			saveCourse("src/courses.txt", courseSave);
+			saveCourse("DataBase/courses.txt", courseSave);
 
 			return true;
 		} catch (IOException e) {
@@ -625,10 +625,10 @@ public class CourseController {
 					a1.remove(i);
 					deleted = true;
 
-					File f = new File("src/waitlists/" + mat + ".txt");
+					File f = new File("DataBase/waitlists/" + mat + ".txt");
 					f.delete();
 
-					File d = new File("src/schedule/" + mat + ".txt");// to
+					File d = new File("DataBase/schedule/" + mat + ".txt");// to
 																		// delete
 																		// the
 																		// schedule
@@ -722,7 +722,7 @@ public class CourseController {
 
 	public void showAllCourses() {
 		try {
-			ArrayList<Course> a1 = readAllCourse("src/courses.txt");
+			ArrayList<Course> a1 = readAllCourse("DataBase/courses.txt");
 			for (int x = 0; x < a1.size(); x++) {
 				System.out.println("Course code: " + a1.get(x).getCourseCode());
 				System.out.println("Course name: " + a1.get(x).getCourseName());
@@ -741,30 +741,8 @@ public class CourseController {
 	public void showIndexByCourse(String courseCode) {
 		try {
 
-			ArrayList a1 = readAllCourse("src/courses.txt");
+			ArrayList a1 = readAllCourse("DataBase/courses.txt");
 			ArrayList a2 = new ArrayList();
-
-			// for(int j=0;j<a1.get(j).getIndices().length;j++)
-			// {
-			// System.out.println("Index "+(j+1)+":
-			// "+a1.get(j).getVacancy()[j]);
-			// }
-
-			// for(int z=0;z<a1.size();z++)
-			// {
-			// System.out.println("Display coursecode:
-			// "+a1.get(z).getCourseCode());
-			// System.out.println("Display coursename:
-			// "+a1.get(z).getCourseName());
-			// System.out.println("Display school: "+a1.get(z).getSchool());
-			// System.out.println("Display start date:
-			// "+a1.get(z).getStartDate());
-			// System.out.println("Display end date: "+a1.get(z).getEndDate());
-			//
-			//
-			//
-			//
-			// }
 
 			courseCode = courseCode.toLowerCase();
 
@@ -799,7 +777,7 @@ public class CourseController {
 		boolean check = false;
 		try {
 
-			ArrayList a1 = readAllCourse("src/courses.txt");
+			ArrayList a1 = readAllCourse("DataBase/courses.txt");
 			ArrayList a2 = new ArrayList();
 
 			courseCode = courseCode.toLowerCase();
@@ -844,8 +822,8 @@ public class CourseController {
 		try {
 			AddDropController checkStudent = new AddDropController();
 			StudentController s = new StudentController();
-			ArrayList student = checkStudent.readAllCourseAndStudent("src/courseAndStudent.txt");
-			ArrayList studentCheck = s.readAllStudents("src/student.txt");
+			ArrayList student = checkStudent.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
+			ArrayList studentCheck = s.readAllStudents("DataBase/student.txt");
 
 			ArrayList a2 = new ArrayList();
 			ArrayList a3 = new ArrayList();
@@ -905,8 +883,8 @@ public class CourseController {
 		try {
 			AddDropController checkStudent = new AddDropController();
 			StudentController s = new StudentController();
-			ArrayList student = checkStudent.readAllCourseAndStudent("src/courseAndStudent.txt");
-			ArrayList studentCheck = s.readAllStudents("src/student.txt");
+			ArrayList student = checkStudent.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
+			ArrayList studentCheck = s.readAllStudents("DataBase/student.txt");
 
 			ArrayList a2 = new ArrayList();
 			ArrayList a3 = new ArrayList();
@@ -975,7 +953,7 @@ public class CourseController {
 		boolean endResult = false;
 		try {
 
-			ArrayList<Course> a1 = readAllCourse("src/courses.txt");
+			ArrayList<Course> a1 = readAllCourse("DataBase/courses.txt");
 			List data = new ArrayList();
 
 			for (int x = 0; x < a1.size(); x++) {
@@ -994,7 +972,7 @@ public class CourseController {
 				data.add(a1.get(x));
 			}
 
-			CourseController.saveCourseAmend("src/courses.txt", data);
+			CourseController.saveCourseAmend("DataBase/courses.txt", data);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -1009,7 +987,7 @@ public class CourseController {
 		boolean indexCheck = false;
 		boolean finalCheck = false;
 		try {
-			List data = readAllCourse("src/courses.txt");
+			List data = readAllCourse("DataBase/courses.txt");
 			List indexData = new ArrayList();
 
 			for (int i = 0; i < data.size(); i++) {
@@ -1057,7 +1035,7 @@ public class CourseController {
 		int secondCheck = 0;
 		boolean state = false;
 		try {
-			List data = readAllCourse("src/courses.txt");
+			List data = readAllCourse("DataBase/courses.txt");
 
 			for (int i = 0; i < data.size(); i++) {
 				Course course = (Course) data.get(i);
@@ -1110,7 +1088,7 @@ public class CourseController {
 
 		try {
 
-			List data = readAllCourse("src/courses.txt");
+			List data = readAllCourse("DataBase/courses.txt");
 
 			for (int i = 0; i < data.size(); i++) {
 

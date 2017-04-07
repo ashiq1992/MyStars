@@ -129,7 +129,7 @@ public class AdminController {
 		  
 		  try {
 			 
-			StudentController.saveStudent("src/student.txt", studentSave);
+			StudentController.saveStudent("DataBase/student.txt", studentSave);
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -145,7 +145,7 @@ public class AdminController {
 		ArrayList<Admin> a2 = new ArrayList<Admin>();
 		
 		AdminController txtDB = new AdminController();
-    	String filename = "src/admin.txt" ;
+    	String filename = "DataBase/admin.txt" ;
 		try {
 			// read file containing Professor records.
 			ArrayList al = AdminController.readAllAdmins(filename) ;

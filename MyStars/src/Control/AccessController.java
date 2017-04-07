@@ -150,7 +150,7 @@ public class AccessController {
 		acc.add(st.toString());
 				
 		try {
-			write("src/AccessPeriod.txt",acc);
+			write("DataBase/AccessPeriod.txt",acc);
 			state=true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -163,7 +163,7 @@ public class AccessController {
 	public ArrayList readAccess() throws IOException
 	{
 		
-		ArrayList access1 = (ArrayList) read("src/AccessPeriod.txt");
+		ArrayList access1 = (ArrayList) read("DataBase/AccessPeriod.txt");
 		ArrayList data= new ArrayList();
 		
 		String st = (String) access1.get(0);

@@ -38,7 +38,7 @@ public class AddDropController {
 			// course then save it to a txt file
 			List studentData = new ArrayList();
 
-			ArrayList a1 = Cc1.readAllCourse("src/courses.txt");
+			ArrayList a1 = Cc1.readAllCourse("DataBase/courses.txt");
 			// Comment: Reads all the data from courses.txt file and stores it
 			// into an ArrayList
 
@@ -75,14 +75,14 @@ public class AddDropController {
 			AddDropController addd = new AddDropController();
 
 			if (endResult == true) {
-				addd.studentAddsCourse("src/courseAndStudent.txt", studentData, courseCode, index);
+				addd.studentAddsCourse("DataBase/courseAndStudent.txt", studentData, courseCode, index);
 
 			} else {
-				addd.studentAndCourseWaitList("src/waitlists/" + courseCode + ".txt", waitList, courseCode, index);
+				addd.studentAndCourseWaitList("DataBase/waitlists/" + courseCode + ".txt", waitList, courseCode, index);
 			}
 
 			// AddDropController.studentAddsCourse();
-			Cc1.saveCourseAmend("src/courses.txt", data);
+			Cc1.saveCourseAmend("DataBase/courses.txt", data);
 			endResult = true;
 
 		} catch (IOException e) {
@@ -94,21 +94,12 @@ public class AddDropController {
 
 	}
 
-	public void sendEmail() {
-	}
 
-	public void swapIndex() {
-
-	}
-
-	public void checkClash() {
-
-	}
 
 	public void studentAndCourseWaitList(String filename, List list, String courseCode, int index) {
 		try {
 			List tempList = new ArrayList();
-			ArrayList listOfStudentInWait = readAllCourseAndStudent("src/waitlists/" + courseCode + ".txt");
+			ArrayList listOfStudentInWait = readAllCourseAndStudent("DataBase/waitlists/" + courseCode + ".txt");
 
 			if (listOfStudentInWait.isEmpty()) {
 
@@ -200,7 +191,7 @@ public class AddDropController {
 		String matricNum = null;
 
 		try {
-			ArrayList listOfStudentInWait = readAllCourseAndStudent("src/waitlists/" + courseCode + ".txt");
+			ArrayList listOfStudentInWait = readAllCourseAndStudent("DataBase/waitlists/" + courseCode + ".txt");
 			for (int x = 0; x < listOfStudentInWait.size(); x++) {
 				AddDrop Drop = (AddDrop) listOfStudentInWait.get(x);
 
@@ -228,7 +219,7 @@ public class AddDropController {
 	public void studentAddsCourse(String filename, List list, String courseCode, int index) throws IOException {
 
 		List tempList = new ArrayList();
-		ArrayList listOfEnrolledStudents = readAllCourseAndStudent("src/courseAndStudent.txt");
+		ArrayList listOfEnrolledStudents = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 
 		// ArrayList<Course> a1 = readAllCourse(file);
 
@@ -404,9 +395,9 @@ public class AddDropController {
 		try {
 
 			int vacancy = 0;
-			List a2 = Cc1.readAllCourse("src/courses.txt");// read the data from
+			List a2 = Cc1.readAllCourse("DataBase/courses.txt");// read the data from
 															// courses
-			List stringArray = readAllCourseAndStudent("src/courseAndStudent.txt");
+			List stringArray = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			String newMatricNum;
 			for (int i = 0; i < stringArray.size(); i++) {
 				AddDrop check = (AddDrop) stringArray.get(i);
@@ -438,7 +429,7 @@ public class AddDropController {
 				}
 			}
 			this.saveAmend(stringArray);
-			Cc1.saveCourseAmend("src/courses.txt", a2);
+			Cc1.saveCourseAmend("DataBase/courses.txt", a2);
 
 			/*
 			 * Only triggered when the vacany is 1 then the person form the wait
@@ -462,7 +453,7 @@ public class AddDropController {
 		int index = 0;
 		try {
 
-			stringArray = readAllCourseAndStudent("src/courseAndStudent.txt");
+			stringArray = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 
 			for (int i = 0; i < stringArray.size(); i++) {
 				AddDrop check = (AddDrop) stringArray.get(i);
@@ -507,7 +498,7 @@ public class AddDropController {
 		}
 
 		try {
-			write("src/courseAndStudent.txt", tempList);
+			write("DataBase/courseAndStudent.txt", tempList);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -535,7 +526,7 @@ public class AddDropController {
 		}
 
 		try {
-			write("src/waitLists/" + courseCode + ".txt", tempList);
+			write("DataBase/waitLists/" + courseCode + ".txt", tempList);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -546,7 +537,7 @@ public class AddDropController {
 	public boolean validateIndexOfCourseAndStudent(int index, String courseCode) {
 		boolean state = false;
 		try {
-			List data = readAllCourseAndStudent("src/courseAndStudent.txt");
+			List data = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 
 			for (int i = 0; i < data.size(); i++) {
 				AddDrop validate = (AddDrop) data.get(i);
@@ -571,7 +562,7 @@ public class AddDropController {
 	
 	{
 		try {
-			List read = readAllCourseAndStudent("src/waitLists/"+courseCode+".txt");
+			List read = readAllCourseAndStudent("DataBase/waitLists/"+courseCode+".txt");
 			
 			for(int x=0;x<read.size();x++){
 				AddDrop Drop=(AddDrop)read.get(x);
@@ -601,7 +592,7 @@ public class AddDropController {
 		boolean state = false;
 
 		try {
-			List read = readAllCourseAndStudent("src/courseAndStudent.txt");
+			List read = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 
 			for (int i = 0; i < read.size(); i++) {
 				AddDrop a1 = (AddDrop) read.get(i);
@@ -630,9 +621,9 @@ public class AddDropController {
 		boolean check=false;
 		boolean waitCheck=false;
 		try {
-			List read = readAllCourseAndStudent("src/courseAndStudent.txt");
+			List read = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			
-			List read2 = readAllCourseAndStudent("src/waitlists/"+courseCode+".txt");
+			List read2 = readAllCourseAndStudent("DataBase/waitlists/"+courseCode+".txt");
 			
 			for(int k=0;k<read.size();k++){
 				AddDrop Drop=(AddDrop)read.get(k);
@@ -699,9 +690,9 @@ public class AddDropController {
 			indexCourse=Cc1.checkIndexeAndCourseCode(index, courseCode);
 			
 			if(indexCourse==true){
-				List read = readAllCourseAndStudent("src/courseAndStudent.txt");
+				List read = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 				
-				List read2 = readAllCourseAndStudent("src/waitlists/"+courseCode+".txt");
+				List read2 = readAllCourseAndStudent("DataBase/waitlists/"+courseCode+".txt");
 				
 				
 			for(int x=0;x<read.size();x++){
@@ -740,7 +731,7 @@ public class AddDropController {
 				}
 				
 				if(waitCheck==true){
-					System.out.println("You have registered for the stated course and you have been put to waitlist and caa't add the same course again!!!!");
+					System.out.println("You have registered for the stated course and you have been put to waitlist and can't add the same course again!!!!");
 				}
 				
 				else{//after checking it will add the course to the student either to wait list or the course itself
@@ -771,7 +762,7 @@ public class AddDropController {
 		List courseCode=new ArrayList();
 		try {
 			
-			List StringArray = this.readAllCourseAndStudent("src/courseAndStudent.txt");
+			List StringArray = this.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			for (int x = 0; x < StringArray.size(); x++) {
 				AddDrop addDrop = (AddDrop) StringArray.get(x);
 				for (int k = 0; k < addDrop.getList().size(); k++) {

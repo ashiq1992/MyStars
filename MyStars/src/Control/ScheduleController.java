@@ -33,7 +33,7 @@ public class ScheduleController {
 	
 	
 	public void saveSchedule(List schedule,String courseCode){
-		File f = new File("src/schedule/"+courseCode+".txt");//creates the file in the folder
+		File f = new File("dataBase/schedule/"+courseCode+".txt");//creates the file in the folder
 		//coursecode_index|type|day|venue|starttime|endTime|
 		//index
 		//type
@@ -68,7 +68,7 @@ public class ScheduleController {
 		
 		
 		try {
-			write("src/schedule/"+courseCode+".txt",tempList);
+			write("DataBase/schedule/"+courseCode+".txt",tempList);
 		} catch (IOException e) {
 			
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class ScheduleController {
 		
 		
 		try {
-			ArrayList stringArray = (ArrayList) read("src/schedule/"+courseCode+".txt");
+			ArrayList stringArray = (ArrayList) read("DataBase/schedule/"+courseCode+".txt");
 			for(int x=0;x<stringArray.size();x++){
 				
 			String st = (String) stringArray.get(x);
