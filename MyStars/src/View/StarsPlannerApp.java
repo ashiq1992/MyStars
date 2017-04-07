@@ -126,6 +126,7 @@ public class StarsPlannerApp {
 		System.out.println("5)Print by Course.");
 		System.out.println("6) Remove Student");
 		System.out.println("7) Enable/Disable Add/Drop");
+		System.out.println("8)Show available vacancy for course/index.");
 		System.out.println("10)LogOut.");
 
 		// System.out.println("Enter options:");
@@ -147,6 +148,12 @@ public class StarsPlannerApp {
 			case 3:
 				removeCourse();
 				break;
+			case 4:
+				printByIndex();
+				break;
+			case 5:
+				printByCourseCode();
+				break;
 
 			case 6:
 				removeStudent();
@@ -154,6 +161,10 @@ public class StarsPlannerApp {
 
 			case 7:
 				adddrop();
+				break;
+
+			case 8:
+				dsiplayVacancy();
 				break;
 
 			default:
@@ -231,6 +242,68 @@ public class StarsPlannerApp {
 
 	}
 
+	public static void displayVacancy(){
+		String courseCode;
+		char check;
+		Ad=new AdminController();
+		System.out.println("Enter course course Code:");
+		courseCode=sc.next();
+		boolean result=false;
+		do{
+			System.out.println("Enter the course code to view the vacancy:");
+			courseCode=sc.nextLine();
+			result=Ad.vacancy(courseCode);
+			if(result ==false){
+				System.out.println("Do you wish to exit (y/n)?");
+				check=sc.nextLine().toLowerCase().charAt(0);
+				if(check=='y'){
+					result=false;
+				}
+				else if(check=='n'){
+					result=true;
+				}
+				else{
+					System.out.println("You have entered a wrong input value");
+					System.out.println("Key in courseCode again");
+				}
+				
+			}
+			
+		}while(result==false);
+		System.out.println("You have exited the loop");
+		
+	}
+		public static void printByCourseCode(){
+			String courseCode;
+
+				System.out.println("Enter the course code to view the student:");
+				//String temp=sc.next();
+				courseCode=sc.nextLine();
+				Ad.printByCourseCode(courseCode);
+				
+			
+		}
+		
+		
+	public static void printByIndex(){
+		
+		String courseCode;
+		int index;
+	
+			System.out.println("Enter the course code to view the student:");
+			//String temp=sc.next();
+			courseCode=sc.nextLine();
+			System.out.println("Enter the index of the course:");
+			index=sc.nextInt();
+			Ad.printByIndex(courseCode, index);
+
+		
+		
+	}
+	
+	
+	
+	
 	// =================================================================================
 	// =================================================================================
 	// STUDENT MENU

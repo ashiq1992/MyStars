@@ -19,24 +19,18 @@ public class Course {
 	//Constructor
 	public Course(){}
 	
-	public Course(String courseCode, String courseName, String school,String startDate, String endDate,int[] indices){
+	public Course(String courseCode, String courseName, String school,String startDate, String endDate,int[]vacancy,int[] indices){
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.school 	= school;
 		this.indices 	= indices;//total
-		this.vacancy	= indices;//updated to stdudent
+		this.vacancy	= vacancy;//updated to stdudent
 		this.startDate 	= startDate;
 		this.endDate 	= endDate;
 		
 		int nOfIndex = 0;
 		for(int i=0; i<indices.length;i++)
 			nOfIndex++;
-		
-		this.waitlist = new LinkedList[nOfIndex];
-		
-		for(int i=0; i<nOfIndex; i++){
-			this.waitlist[i] = new LinkedList();
-		}
 	}
 	
 	//Methods	

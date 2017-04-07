@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Model.AddDrop;
 import Model.Course;
 import Model.Schedule;
 import Model.Student;
@@ -22,15 +23,15 @@ public class CourseController {
 	// Properties
 	public static final String SEPARATOR = "|";
 	public static final String INDEX_SEPARATOR = "_";
-	private ScheduleController schedulecontroller=null;;
-	private enum type { 
-	       LECTURE,LABORATORY,TUTORIAL; 
-	    } 
-	
-	
-	private enum weekdays { 
-	       MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY;
-	    } 
+	private ScheduleController schedulecontroller = null;;
+
+	private enum type {
+		LECTURE, LABORATORY, TUTORIAL;
+	}
+
+	private enum weekdays {
+		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
+	}
 
 	// Constructor
 	public CourseController() {
@@ -66,6 +67,7 @@ public class CourseController {
 			counter = star.countTokens();
 
 			int[] retrievedIndex = new int[counter];
+			int[] retrievedTotal = new int[counter];
 
 			// Algorithm to breakdown indexes and vacancies separately
 			for (int j = 0; j < counter; j++) {
@@ -74,23 +76,29 @@ public class CourseController {
 				StringBuilder modifyIndex = new StringBuilder(index);
 				index = modifyIndex.deleteCharAt(0).toString();
 
-				String vacancy = star.nextToken("|").trim();
+				String vacancy = star.nextToken("_").trim();
 
 				StringBuilder modifyVacancy = new StringBuilder(vacancy);
-				vacancy = modifyVacancy.deleteCharAt(0).toString();
+				vacancy = modifyVacancy.toString();
 
+				String total = star.nextToken("|").trim();
+
+				StringBuilder modifyTotal = new StringBuilder(total);
+				total = modifyTotal.deleteCharAt(0).toString();
+
+				retrievedTotal[j] = Integer.parseInt(total);
 				retrievedIndex[j] = Integer.parseInt(vacancy);
 
 			}
-			
-//			for(int j=0;j<retrievedIndex.length;j++)
-//			{
-//				
-//				System.out.println("Index "+(j+1)+": "+retrievedIndex[j]);
-//			}
-			
 
-			Course course = new Course(courseCode, courseName, school, startDate, endDate, retrievedIndex);
+			// for(int j=0;j<retrievedIndex.length;j++)
+			// {
+			//
+			// System.out.println("Index "+(j+1)+": "+retrievedIndex[j]);
+			// }
+
+			Course course = new Course(courseCode, courseName, school, startDate, endDate, retrievedIndex,
+					retrievedTotal);
 			// Course course = new
 			// Course(courseCode,courseName,school,capacity,startDate,endDate);
 
@@ -117,15 +125,16 @@ public class CourseController {
 	public boolean addCourse() {
 		Scanner sc = new Scanner(System.in);
 		List courseSave = new ArrayList();
-		List scheduleList=new ArrayList();
-		String startTime = null,venue,day = null,endTime = null;//for the schedule
+		List scheduleList = new ArrayList();
+		String startTime = null, venue, day = null, endTime = null;// for the
+																	// schedule
 		String currentIndex;
-		
+
 		System.out.println("No of courses to be added");
 		int input = sc.nextInt();
 		int lec;
-		char lab=0,tut=0; 
-		int totalIndex=0;
+		char lab = 0, tut = 0;
+		int totalIndex = 0;
 		String Temp = sc.nextLine();// to clear the \n buffer
 		for (int i = 0; i < input; i++) {
 
@@ -150,142 +159,133 @@ public class CourseController {
 				System.out.println("Please enter the capacity of index " + (g + 1) + ": ");
 				temp = sc.nextInt();
 				indices[g] = temp;
-				totalIndex=g+1;
+				totalIndex = g + 1;
 			}
 			Temp = sc.nextLine();// To eliminate the buffer
-			
-			
-			
-			//implement the schedule for each index and save into a txt file
-			for(int q=0;q<totalIndex;q++){
-				System.out.println("Index "+(q+1));
+
+			// implement the schedule for each index and save into a txt file
+			for (int q = 0; q < totalIndex; q++) {
+				System.out.println("Index " + (q + 1));
 				System.out.println("How many lectures does it have in a week:");
-				lec=sc.nextInt();
-				for(int p=0;p<lec;p++){
-				System.out.println("Enter fileds for"+(p+1)+"Lecture");
-				
-				do{
-					System.out.println("The intended day to have the Lecture?");
-					
-					System.out.println("*********Options***********************");
-					System.out.println(" 1) Monday");
-					System.out.println(" 2) Tuesday");
-					System.out.println(" 3) Wednesday");
-					System.out.println(" 4) Thursday");
-					System.out.println(" 5) Friday");
-					System.out.println("*********End Of Options****************");
-					int inputDay=0;
-					try{
-						
-						inputDay=sc.nextInt();
-						
-					}catch (Exception ex)
-					{
-						inputDay=0;
-					}
-					
-					
-											
-					switch(inputDay)
-					
-					{
-					case 1: day=weekdays.MONDAY.toString();
-							break;
-							
-					case 2: day=weekdays.TUESDAY.toString();
-							break;
-					
-					case 3: day=weekdays.WEDNESDAY.toString();
-							break;
-					
-					case 4: day=weekdays.THURSDAY.toString();
-							break;
-					
-					case 5: day=weekdays.FRIDAY.toString();
-							break;
-							
-					
-					default : System.out.println("You have entered the wrong input");
-					}
-				}while(input ==0 || input >=6 );
-				
-				System.out.println("Where is the location?");
-				venue=sc.next();
-				boolean result=false;
-				do
-				{	result=false;
-					
-					String ip="";
-				    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+				lec = sc.nextInt();
+				for (int p = 0; p < lec; p++) {
+					System.out.println("Enter fileds for" + (p + 1) + "Lecture");
 
-				    
-				    System.out.println("Enter the start time in the format HH:MM:SS");
-				    ip=sc.next();
-				    Pattern r = Pattern.compile(pattern);
-				     Matcher m = r.matcher(ip);
-				     if(m.find())
-				     {
-				         System.out.println("Time"+m.group(0));
-				         System.out.println("hh "+m.group(1));
-				         System.out.println("mm "+m.group(2));
-				         System.out.println("ss "+m.group(3));
-				         result=true;
-				         startTime=ip;
-				     }
-				     else
-				     {
-				         System.out.println("NO MATCH! format mismatch");
-				         result=false;
-				     }
-				}while(result==false);
-				
-				do
-				{	result=false;
-					
-					String ip="";
-				    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+					do {
+						System.out.println("The intended day to have the Lecture?");
 
-				    
-				    System.out.println("Enter the end time in the format HH:MM:SS");
-				    ip=sc.next();
-				    Pattern r = Pattern.compile(pattern);
-				     Matcher m = r.matcher(ip);
-				     if(m.find())
-				     {
-				         System.out.println("Time"+m.group(0));
-				         System.out.println("hh "+m.group(1));
-				         System.out.println("mm "+m.group(2));
-				         System.out.println("ss "+m.group(3));
-				         result=true;
-				         endTime=ip;
-				     }
-				     else
-				     {
-				         System.out.println("NO MATCH! format mismatch");
-				         result=false;
-				     }
-				}while(result==false);
-				
-				
-				
-				//currentIndex=""+q+1;
-				Schedule schedule =new Schedule(code,(q+1),type.LECTURE.toString(),day,venue,startTime,endTime);
-				scheduleList.add(schedule);
-				
+						System.out.println("*********Options***********************");
+						System.out.println(" 1) Monday");
+						System.out.println(" 2) Tuesday");
+						System.out.println(" 3) Wednesday");
+						System.out.println(" 4) Thursday");
+						System.out.println(" 5) Friday");
+						System.out.println("*********End Of Options****************");
+						int inputDay = 0;
+						try {
+
+							inputDay = sc.nextInt();
+
+						} catch (Exception ex) {
+							inputDay = 0;
+						}
+
+						switch (inputDay)
+
+						{
+						case 1:
+							day = weekdays.MONDAY.toString();
+							break;
+
+						case 2:
+							day = weekdays.TUESDAY.toString();
+							break;
+
+						case 3:
+							day = weekdays.WEDNESDAY.toString();
+							break;
+
+						case 4:
+							day = weekdays.THURSDAY.toString();
+							break;
+
+						case 5:
+							day = weekdays.FRIDAY.toString();
+							break;
+
+						default:
+							System.out.println("You have entered the wrong input");
+						}
+					} while (input == 0 || input >= 6);
+
+					System.out.println("Where is the location?");
+					venue = sc.next();
+					boolean result = false;
+					do {
+						result = false;
+
+						String ip = "";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+						System.out.println("Enter the start time in the format HH:MM:SS");
+						ip = sc.next();
+						Pattern r = Pattern.compile(pattern);
+						Matcher m = r.matcher(ip);
+						if (m.find()) {
+							System.out.println("Time" + m.group(0));
+							System.out.println("hh " + m.group(1));
+							System.out.println("mm " + m.group(2));
+							System.out.println("ss " + m.group(3));
+							result = true;
+							startTime = ip;
+						} else {
+							System.out.println("NO MATCH! format mismatch");
+							result = false;
+						}
+					} while (result == false);
+
+					do {
+						result = false;
+
+						String ip = "";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+						System.out.println("Enter the end time in the format HH:MM:SS");
+						ip = sc.next();
+						Pattern r = Pattern.compile(pattern);
+						Matcher m = r.matcher(ip);
+						if (m.find()) {
+							System.out.println("Time" + m.group(0));
+							System.out.println("hh " + m.group(1));
+							System.out.println("mm " + m.group(2));
+							System.out.println("ss " + m.group(3));
+							result = true;
+							endTime = ip;
+						} else {
+							System.out.println("NO MATCH! format mismatch");
+							result = false;
+						}
+					} while (result == false);
+
+					// currentIndex=""+q+1;
+					Schedule schedule = new Schedule(code, (q + 1), type.LECTURE.toString(), day, venue, startTime,
+							endTime);
+					scheduleList.add(schedule);
+
 				}
-				do{
-				System.out.println("Does it have a Lab:? (y/n)");
-				lab=sc.next().toLowerCase().charAt(0);
-				System.out.println("Does it have a Tut:?(y/n)");
-				tut=sc.next().toLowerCase().charAt(0);
-				}while(!((lab!='y'&& tut !='n')||(lab=='y'&& tut !='n')||(lab!='y'&& tut =='n')||(lab=='y'&& tut =='n')));
-				//Schedule schedule =new Schedule(code,(q+1),);
-				if(lab=='y'){
-					
-					
-					do{
+				do {
+					System.out.println("Does it have a Lab:? (y/n)");
+					lab = sc.next().toLowerCase().charAt(0);
+					System.out.println("Does it have a Tut:?(y/n)");
+					tut = sc.next().toLowerCase().charAt(0);
+				} while (!((lab != 'y' && tut != 'n') || (lab == 'y' && tut != 'n') || (lab != 'y' && tut == 'n')
+						|| (lab == 'y' && tut == 'n')));
+				// Schedule schedule =new Schedule(code,(q+1),);
+				if (lab == 'y') {
+
+					do {
 						System.out.println("The intended day to have the LAB?");
-						
+
 						System.out.println("*********Options***********************");
 						System.out.println(" 1) Monday");
 						System.out.println(" 2) Tuesday");
@@ -293,113 +293,102 @@ public class CourseController {
 						System.out.println(" 4) Thursday");
 						System.out.println(" 5) Friday");
 						System.out.println("*********End Of Options****************");
-						int inputDay=0;
-						try{
-							
-							inputDay=sc.nextInt();
-							
-						}catch (Exception ex)
-						{
-							inputDay=0;
+						int inputDay = 0;
+						try {
+
+							inputDay = sc.nextInt();
+
+						} catch (Exception ex) {
+							inputDay = 0;
 						}
-						
-						
-												
-						switch(inputDay)
-						
+
+						switch (inputDay)
+
 						{
-						case 1: day=weekdays.MONDAY.toString();
-								break;
-								
-						case 2: day=weekdays.TUESDAY.toString();
-								break;
-						
-						case 3: day=weekdays.WEDNESDAY.toString();
-								break;
-						
-						case 4: day=weekdays.THURSDAY.toString();
-								break;
-						
-						case 5: day=weekdays.FRIDAY.toString();
-								break;
-								
-						
-						default : System.out.println("You have entered the wrong input");
+						case 1:
+							day = weekdays.MONDAY.toString();
+							break;
+
+						case 2:
+							day = weekdays.TUESDAY.toString();
+							break;
+
+						case 3:
+							day = weekdays.WEDNESDAY.toString();
+							break;
+
+						case 4:
+							day = weekdays.THURSDAY.toString();
+							break;
+
+						case 5:
+							day = weekdays.FRIDAY.toString();
+							break;
+
+						default:
+							System.out.println("You have entered the wrong input");
 						}
-					}while(input ==0 || input >=6 );
-					
-					
-					
-					
-					
-					
-					
+					} while (input == 0 || input >= 6);
+
 					System.out.println("Where is the location?");
-					venue=sc.next();
-					boolean result=false;
-					do
-					{	result=false;
-						
-						String ip="";
-					    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+					venue = sc.next();
+					boolean result = false;
+					do {
+						result = false;
 
-					    
-					    System.out.println("Enter the start time in the format HH:MM:SS");
-					    ip=sc.next();
-					    Pattern r = Pattern.compile(pattern);
-					     Matcher m = r.matcher(ip);
-					     if(m.find())
-					     {
-					         System.out.println("Time"+m.group(0));
-					         System.out.println("hh "+m.group(1));
-					         System.out.println("mm "+m.group(2));
-					         System.out.println("ss "+m.group(3));
-					         result=true;
-					         startTime=ip;
-					     }
-					     else
-					     {
-					         System.out.println("NO MATCH! format mismatch");
-					         result=false;
-					     }
-					}while(result==false);
-					
-					do
-					{	result=false;
-						
-						String ip="";
-					    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+						String ip = "";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-					    
-					    System.out.println("Enter the end time in the format HH:MM:SS");
-					    ip=sc.next();
-					    Pattern r = Pattern.compile(pattern);
-					     Matcher m = r.matcher(ip);
-					     if(m.find())
-					     {
-					         System.out.println("Time"+m.group(0));
-					         System.out.println("hh "+m.group(1));
-					         System.out.println("mm "+m.group(2));
-					         System.out.println("ss "+m.group(3));
-					         result=true;
-					         endTime=ip;
-					     }
-					     else
-					     {
-					         System.out.println("NO MATCH! format mismatch");
-					         result=false;
-					     }
-					}while(result==false);
-					
-					//currentIndex=""+q+1;
-					Schedule schedule =new Schedule(code,(q+1),type.LABORATORY.toString(),day,venue,startTime,endTime);
+						System.out.println("Enter the start time in the format HH:MM:SS");
+						ip = sc.next();
+						Pattern r = Pattern.compile(pattern);
+						Matcher m = r.matcher(ip);
+						if (m.find()) {
+							System.out.println("Time" + m.group(0));
+							System.out.println("hh " + m.group(1));
+							System.out.println("mm " + m.group(2));
+							System.out.println("ss " + m.group(3));
+							result = true;
+							startTime = ip;
+						} else {
+							System.out.println("NO MATCH! format mismatch");
+							result = false;
+						}
+					} while (result == false);
+
+					do {
+						result = false;
+
+						String ip = "";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+						System.out.println("Enter the end time in the format HH:MM:SS");
+						ip = sc.next();
+						Pattern r = Pattern.compile(pattern);
+						Matcher m = r.matcher(ip);
+						if (m.find()) {
+							System.out.println("Time" + m.group(0));
+							System.out.println("hh " + m.group(1));
+							System.out.println("mm " + m.group(2));
+							System.out.println("ss " + m.group(3));
+							result = true;
+							endTime = ip;
+						} else {
+							System.out.println("NO MATCH! format mismatch");
+							result = false;
+						}
+					} while (result == false);
+
+					// currentIndex=""+q+1;
+					Schedule schedule = new Schedule(code, (q + 1), type.LABORATORY.toString(), day, venue, startTime,
+							endTime);
 					scheduleList.add(schedule);
 				}
-				if(tut=='y'){
-					
-					do{
+				if (tut == 'y') {
+
+					do {
 						System.out.println("The intended day to have the Tutorial?");
-						
+
 						System.out.println("*********Options***********************");
 						System.out.println(" 1) Monday");
 						System.out.println(" 2) Tuesday");
@@ -407,149 +396,140 @@ public class CourseController {
 						System.out.println(" 4) Thursday");
 						System.out.println(" 5) Friday");
 						System.out.println("*********End Of Options****************");
-						int inputDay=0;
-						try{
-							
-							inputDay=sc.nextInt();
-							
-						}catch (Exception ex)
-						{
-							inputDay=0;
+						int inputDay = 0;
+						try {
+
+							inputDay = sc.nextInt();
+
+						} catch (Exception ex) {
+							inputDay = 0;
 						}
-						
-						
-												
-						switch(inputDay)
-						
+
+						switch (inputDay)
+
 						{
-						case 1: day=weekdays.MONDAY.toString();
-								break;
-								
-						case 2: day=weekdays.TUESDAY.toString();
-								break;
-						
-						case 3: day=weekdays.WEDNESDAY.toString();
-								break;
-						
-						case 4: day=weekdays.THURSDAY.toString();
-								break;
-						
-						case 5: day=weekdays.FRIDAY.toString();
-								break;
-								
-						
-						default : System.out.println("You have entered the wrong input");
+						case 1:
+							day = weekdays.MONDAY.toString();
+							break;
+
+						case 2:
+							day = weekdays.TUESDAY.toString();
+							break;
+
+						case 3:
+							day = weekdays.WEDNESDAY.toString();
+							break;
+
+						case 4:
+							day = weekdays.THURSDAY.toString();
+							break;
+
+						case 5:
+							day = weekdays.FRIDAY.toString();
+							break;
+
+						default:
+							System.out.println("You have entered the wrong input");
 						}
-					}while(input ==0 || input >=6 );
+					} while (input == 0 || input >= 6);
 					System.out.println("Where is the location?");
-					venue=sc.next();
-					boolean result=false;
-					do
-					{	result=false;
-						
-						String ip="";
-					    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+					venue = sc.next();
+					boolean result = false;
+					do {
+						result = false;
 
-					    
-					    System.out.println("Enter the start time in the format HH:MM:SS");
-					    ip=sc.next();
-					    Pattern r = Pattern.compile(pattern);
-					     Matcher m = r.matcher(ip);
-					     if(m.find())
-					     {
-					         System.out.println("Time"+m.group(0));
-					         System.out.println("hh "+m.group(1));
-					         System.out.println("mm "+m.group(2));
-					         System.out.println("ss "+m.group(3));
-					         result=true;
-					         startTime=ip;
-					     }
-					     else
-					     {
-					         System.out.println("NO MATCH! format mismatch");
-					         result=false;
-					     }
-					}while(result==false);
-					
-					do
-					{	result=false;
-						
-						String ip="";
-					    String pattern="^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+						String ip = "";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-					    
-					    System.out.println("Enter the end time in the format HH:MM:SS");
-					    ip=sc.next();
-					    Pattern r = Pattern.compile(pattern);
-					     Matcher m = r.matcher(ip);
-					     if(m.find())
-					     {
-					         System.out.println("Time"+m.group(0));
-					         System.out.println("hh "+m.group(1));
-					         System.out.println("mm "+m.group(2));
-					         System.out.println("ss "+m.group(3));
-					         result=true;
-					         endTime=ip;
-					     }
-					     else
-					     {
-					         System.out.println("NO MATCH! format mismatch");
-					         result=false;
-					     }
-					}while(result==false);
-					//currentIndex=""+q+1;
-					Schedule schedule =new Schedule(code,(q+1),type.TUTORIAL.toString(),day,venue,startTime,endTime);
+						System.out.println("Enter the start time in the format HH:MM:SS");
+						ip = sc.next();
+						Pattern r = Pattern.compile(pattern);
+						Matcher m = r.matcher(ip);
+						if (m.find()) {
+							System.out.println("Time" + m.group(0));
+							System.out.println("hh " + m.group(1));
+							System.out.println("mm " + m.group(2));
+							System.out.println("ss " + m.group(3));
+							result = true;
+							startTime = ip;
+						} else {
+							System.out.println("NO MATCH! format mismatch");
+							result = false;
+						}
+					} while (result == false);
+
+					do {
+						result = false;
+
+						String ip = "";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+
+						System.out.println("Enter the end time in the format HH:MM:SS");
+						ip = sc.next();
+						Pattern r = Pattern.compile(pattern);
+						Matcher m = r.matcher(ip);
+						if (m.find()) {
+							System.out.println("Time" + m.group(0));
+							System.out.println("hh " + m.group(1));
+							System.out.println("mm " + m.group(2));
+							System.out.println("ss " + m.group(3));
+							result = true;
+							endTime = ip;
+						} else {
+							System.out.println("NO MATCH! format mismatch");
+							result = false;
+						}
+					} while (result == false);
+					// currentIndex=""+q+1;
+					Schedule schedule = new Schedule(code, (q + 1), type.TUTORIAL.toString(), day, venue, startTime,
+							endTime);
 					scheduleList.add(schedule);
 				}
-				
-				
-				
+
 			}
-			/*end of implementtion for the schedule*/
-			boolean dateResult=false;
-			
-			do{
-				dateResult=false;
-				
+			/* end of implementtion for the schedule */
+			boolean dateResult = false;
+
+			do {
+				dateResult = false;
+
 				System.out.println("Please enter the start date of course in this format dd/mm/yyyy: ");
 				startDate = sc.next();
-				dateResult=validateDate(startDate);
-			}
-			while(dateResult!=true);
-			
-			do{
-				dateResult=false;
-				
+				dateResult = validateDate(startDate);
+			} while (dateResult != true);
+
+			do {
+				dateResult = false;
+
 				System.out.println("Please enter the end date of course in this format dd/mm/yyyy: ");
 				endDate = sc.next();
-				dateResult=validateDate(endDate);
+				dateResult = validateDate(endDate);
 				System.out.println(dateResult);
-			}
-			while(dateResult!=true);
-			
-			
-			
-			schedulecontroller =new ScheduleController();
-			schedulecontroller.saveSchedule(scheduleList, code);//add the schedule implementation here
-	
-			Course course = new Course(code, name, school, startDate, endDate, indices);
+			} while (dateResult != true);
+
+			schedulecontroller = new ScheduleController();
+			schedulecontroller.saveSchedule(scheduleList, code);// add the
+																// schedule
+																// implementation
+																// here
+
+			Course course = new Course(code, name, school, startDate, endDate, indices, indices);
 
 			courseSave.add(course);
 			Temp = sc.nextLine();// To eliminate the buffer
-			File f = new File("src/waitlists/"+code+".txt");
+			File f = new File("src/waitlists/" + code + ".txt");
 			try {
 				f.createNewFile();
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
-			
+
 		}
-		
 
 		try {
 			saveCourse("src/courses.txt", courseSave);
-		
+
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -575,8 +555,11 @@ public class CourseController {
 			st.append(SEPARATOR);
 			st.append(course.getEndDate().trim());
 			st.append(SEPARATOR);
+			/* to store the vacancy and the total space in the course */
 			for (int j = 0; j < course.getIndices().length; j++) {
 				st.append(j + 1);
+				st.append(INDEX_SEPARATOR);
+				st.append(course.getVacancy()[j]);
 				st.append(INDEX_SEPARATOR);
 				st.append(course.getIndices()[j]);
 				st.append(SEPARATOR);
@@ -584,6 +567,8 @@ public class CourseController {
 
 				{
 					st.append(j + 1);
+					st.append(INDEX_SEPARATOR);
+					st.append(course.getVacancy()[j]);
 					st.append(INDEX_SEPARATOR);
 					st.append(course.getIndices()[j]);
 				}
@@ -622,25 +607,28 @@ public class CourseController {
 		boolean deleted = false;
 
 		try {
-			
+
 			ArrayList<Course> a1 = readAllCourse(file);
-		
+
 			List l2 = new ArrayList();
 			for (int i = 0; i < a1.size(); i++) {
-				
+
 				Course course = (Course) a1.get(i);
 
 				String mat = course.getCourseCode().toLowerCase();
-				
+
 				if (mat.equals(courseCode.toLowerCase())) {
 
 					a1.remove(i);
 					deleted = true;
-					
-					File f = new File("src/waitlists/"+mat+".txt");
+
+					File f = new File("src/waitlists/" + mat + ".txt");
 					f.delete();
-					
-					File d = new File("src/schedule/"+mat+".txt");//to delete the schedule
+
+					File d = new File("src/schedule/" + mat + ".txt");// to
+																		// delete
+																		// the
+																		// schedule
 					d.delete();
 				}
 
@@ -705,12 +693,16 @@ public class CourseController {
 			for (int j = 0; j < course.getIndices().length; j++) {
 				st.append(j + 1);
 				st.append(INDEX_SEPARATOR);
+				st.append(course.getVacancy()[j]);
+				st.append(INDEX_SEPARATOR);
 				st.append(course.getIndices()[j]);
 				st.append(SEPARATOR);
 				if (j == course.getIndices().length)
 
 				{
 					st.append(j + 1);
+					st.append(INDEX_SEPARATOR);
+					st.append(course.getVacancy()[j]);
 					st.append(INDEX_SEPARATOR);
 					st.append(course.getIndices()[j]);
 				}
@@ -748,30 +740,33 @@ public class CourseController {
 
 			ArrayList a1 = readAllCourse("src/courses.txt");
 			ArrayList a2 = new ArrayList();
-			
-			
-//			for(int j=0;j<a1.get(j).getIndices().length;j++)
-//			{
-//				System.out.println("Index "+(j+1)+": "+a1.get(j).getVacancy()[j]);
-//			}
-			
-//			for(int z=0;z<a1.size();z++)
-//			{
-//				System.out.println("Display coursecode: "+a1.get(z).getCourseCode());
-//				System.out.println("Display coursename: "+a1.get(z).getCourseName());
-//				System.out.println("Display school: "+a1.get(z).getSchool());
-//				System.out.println("Display start date: "+a1.get(z).getStartDate());
-//				System.out.println("Display end date: "+a1.get(z).getEndDate());
-//				
-//				
-//				
-//				
-//			}
 
-			courseCode=courseCode.toLowerCase();
+			// for(int j=0;j<a1.get(j).getIndices().length;j++)
+			// {
+			// System.out.println("Index "+(j+1)+":
+			// "+a1.get(j).getVacancy()[j]);
+			// }
+
+			// for(int z=0;z<a1.size();z++)
+			// {
+			// System.out.println("Display coursecode:
+			// "+a1.get(z).getCourseCode());
+			// System.out.println("Display coursename:
+			// "+a1.get(z).getCourseName());
+			// System.out.println("Display school: "+a1.get(z).getSchool());
+			// System.out.println("Display start date:
+			// "+a1.get(z).getStartDate());
+			// System.out.println("Display end date: "+a1.get(z).getEndDate());
+			//
+			//
+			//
+			//
+			// }
+
+			courseCode = courseCode.toLowerCase();
 
 			for (int i = 0; i < a1.size(); i++) {
-					Course course = (Course)a1.get(i);
+				Course course = (Course) a1.get(i);
 				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
 					a2.add(a1.get(i));
 				}
@@ -779,13 +774,14 @@ public class CourseController {
 			}
 
 			for (int x = 0; x < a2.size(); x++) {
-				Course course = (Course)a2.get(x);
+				Course course = (Course) a2.get(x);
 				System.out.println("Course code: " + course.getCourseCode());
 				System.out.println("Course name: " + course.getCourseName());
-				//System.out.println("spots: "+a2.get(x).getVacancy().length);
-				//System.out.println("spots: "+a2.size());
+				// System.out.println("spots: "+a2.get(x).getVacancy().length);
+				// System.out.println("spots: "+a2.size());
 				for (int j = 0; j < course.getVacancy().length; j++) {
-					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + course.getVacancy()[j]);
+					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + course.getVacancy()[j]
+							+ "Total size of " + course.getIndices()[j]);
 				}
 
 			}
@@ -795,6 +791,151 @@ public class CourseController {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean adminShowCourse(String courseCode) {
+		boolean check = false;
+		try {
+
+			ArrayList a1 = readAllCourse("src/courses.txt");
+			ArrayList a2 = new ArrayList();
+
+			courseCode = courseCode.toLowerCase();
+
+			for (int i = 0; i < a1.size(); i++) {
+				Course course = (Course) a1.get(i);
+				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
+					a2.add(a1.get(i));
+					check = true;
+				}
+
+			}
+			if (check) {
+				for (int x = 0; x < a2.size(); x++) {
+					Course course = (Course) a2.get(x);
+					System.out.println("Course code: " + course.getCourseCode());
+					System.out.println("Course name: " + course.getCourseName());
+					// System.out.println("spots:
+					// "+a2.get(x).getVacancy().length);
+					// System.out.println("spots: "+a2.size());
+					for (int j = 0; j < course.getVacancy().length; j++) {
+						System.out.println(" Available index: " + (j + 1) + " Vacancy: " + course.getVacancy()[j]
+								+ " / " + course.getIndices()[j]);
+					}
+
+				}
+			} else {
+				System.out.println("There is no such course .Re-enter the coursecode!!");
+
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return check;
+	}
+
+	public boolean adminPrintByCourseCode(String courseCode) {
+		boolean check = false;
+		try {
+			AddDropController checkStudent = new AddDropController();
+			StudentController s = new StudentController();
+			ArrayList student = checkStudent.readAllCourseAndStudent("src/courseAndStudent.txt");
+			ArrayList studentCheck = s.readAllStudents("src/student.txt");
+
+			ArrayList a2 = new ArrayList();
+			ArrayList a3 = new ArrayList();
+
+			courseCode = courseCode.toLowerCase();
+
+			for (int i = 0; i < student.size(); i++) {
+				AddDrop Add = (AddDrop) student.get(i);
+				if (Add.getCourseCode().toLowerCase().equals(courseCode)) {
+					a2.add(student.get(i));
+					check = true;
+				}
+
+			}
+			if (check) {
+				for (int x = 0; x < a2.size(); x++) {
+					AddDrop Add = (AddDrop) a2.get(x);
+					System.out.println("CourseCode: " + Add.getCourseCode() + " Index: " + Add.getIndex());
+					for (int z = 0; z < Add.getList().size(); z++) {
+						for (int k = 0; k < studentCheck.size(); k++) {
+							Student s1 = (Student) studentCheck.get(k);
+
+							if (Add.getList().get(z).toLowerCase().equals(s1.getMatriculationNumber().toLowerCase())) {
+								System.out.println(s1.getName() + " " + s1.getGender() + " " + s1.getNationality());
+							}
+						}
+					}
+
+				}
+			} else {
+				System.out.println("There is no student registered for the course/check your course code entered!!");
+
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return check;
+	}
+	
+	public boolean adminPrintByCourseCodeAndIndex(String courseCode,int index) {
+		boolean check = false;
+		int status;
+		try {
+			AddDropController checkStudent = new AddDropController();
+			StudentController s = new StudentController();
+			ArrayList student = checkStudent.readAllCourseAndStudent("src/courseAndStudent.txt");
+			ArrayList studentCheck = s.readAllStudents("src/student.txt");
+
+			ArrayList a2 = new ArrayList();
+			ArrayList a3 = new ArrayList();
+
+			courseCode = courseCode.toLowerCase();
+
+			for (int i = 0; i < student.size(); i++) {
+				AddDrop Add = (AddDrop) student.get(i);
+				if (Add.getCourseCode().toLowerCase().equals(courseCode)&& Add.getIndex()==index) {
+					a2.add(student.get(i));
+					check = true;
+				}
+
+			}
+			if (check) {
+				for (int x = 0; x < a2.size(); x++) {
+					AddDrop Add = (AddDrop) a2.get(x);
+					System.out.println("CourseCode: " + Add.getCourseCode() + " Index: " + Add.getIndex());
+					for (int z = 0; z < Add.getList().size(); z++) {
+						for (int k = 0; k < studentCheck.size(); k++) {
+							Student s1 = (Student) studentCheck.get(k);
+
+							if (Add.getList().get(z).toLowerCase().equals(s1.getMatriculationNumber().toLowerCase())) {
+								System.out.println(s1.getName() + " " + s1.getGender() + " " + s1.getNationality());
+							}
+						}
+					}
+
+				}
+			} else {
+				System.out.println("There is no student registered for the spcecific index of the given course/check entered Index !!");
+
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return check;
+	}
+	
+	
 
 	public boolean decreaseCourseIndexVacancy(String courseCode, int index) {
 		boolean endResult = false;
@@ -827,220 +968,170 @@ public class CourseController {
 		}
 		return endResult;
 	}
-	
-	
-	
-	public boolean checkIndexeAndCourseCode(int index,String courseCode)
-	{
-		
-		boolean courseCheck=false;
-		boolean indexCheck=false;
-		boolean finalCheck=false;
+
+	public boolean checkIndexeAndCourseCode(int index, String courseCode) {
+
+		boolean courseCheck = false;
+		boolean indexCheck = false;
+		boolean finalCheck = false;
 		try {
-			List data=readAllCourse("src/courses.txt");
-			List indexData= new ArrayList();
-			
-			for(int i=0;i<data.size();i++)
-			{
+			List data = readAllCourse("src/courses.txt");
+			List indexData = new ArrayList();
+
+			for (int i = 0; i < data.size(); i++) {
 				Course course = (Course) data.get(i);
-				if(course.getCourseCode().toLowerCase().equals(courseCode))
-				{
-					courseCheck=true;
+				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
+					courseCheck = true;
 					indexData.add(data.get(i));
 					break;
+				}
+
 			}
-			
-			}	
-			
-			if(courseCheck==true)
-			{
-				//System.out.println("i am in");
-				for(int j=0;j<indexData.size();j++)
-				{
+
+			if (courseCheck == true) {
+				// System.out.println("i am in");
+				for (int j = 0; j < indexData.size(); j++) {
 					Course course = (Course) indexData.get(j);
-					for(int z=0;z<course.getIndices().length;z++)
-					{
-						if((z+1)==index)
-						{
-							indexCheck=true;
+					for (int z = 0; z < course.getIndices().length; z++) {
+						if ((z + 1) == index) {
+							indexCheck = true;
 						}
 					}
 				}
 			}
-			
-			
-			if(courseCheck==false)
-			{
+
+			if (courseCheck == false) {
 				System.out.println("Please re-check your courseid");
 			}
-			
-			if(indexCheck==false)
-			{
+
+			if (indexCheck == false) {
 				System.out.println("Please re-check your index ");
 			}
-			
-			else
-			{
-				finalCheck=true;
+
+			else {
+				finalCheck = true;
 			}
-				
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return finalCheck;
 	}
-	
-	
-	public boolean checkIndexes(int newIndex,int oldIndex,String courseCode)
-	{
-		int firstCheck=0;
-		int secondCheck=0;
-		boolean state=false;
+
+	public boolean checkIndexes(int newIndex, int oldIndex, String courseCode) {
+		int firstCheck = 0;
+		int secondCheck = 0;
+		boolean state = false;
 		try {
-			List data=readAllCourse("src/courses.txt");
-			
-			for(int i=0;i<data.size();i++)
-			{
+			List data = readAllCourse("src/courses.txt");
+
+			for (int i = 0; i < data.size(); i++) {
 				Course course = (Course) data.get(i);
-				if(course.getCourseCode().equals(courseCode))
-				{
-					
-					for(int j=0;j<course.getIndices().length;j++)
-					{
-						
-						if((j+1)==oldIndex)
-						{
-							firstCheck=1;
+				if (course.getCourseCode().equals(courseCode)) {
+
+					for (int j = 0; j < course.getIndices().length; j++) {
+
+						if ((j + 1) == oldIndex) {
+							firstCheck = 1;
 						}
-						
+
 					}
-					
-					for(int j=0;j<course.getIndices().length;j++)
-					{
-						
-						if((j+1)==newIndex)
-						{
-							secondCheck=1;
+
+					for (int j = 0; j < course.getIndices().length; j++) {
+
+						if ((j + 1) == newIndex) {
+							secondCheck = 1;
 						}
-						
+
 					}
-					
-					
+
 				}
 			}
-			
-			if(firstCheck!=1)
-			{
+
+			if (firstCheck != 1) {
 				System.out.println("Please re-check your old index");
 			}
-			
-			if(secondCheck!=1)
-			{
+
+			if (secondCheck != 1) {
 				System.out.println("Please re-check your new index");
 			}
-			
-			if(firstCheck==1 && secondCheck==1)
-			{
-				state=true;
+
+			if (firstCheck == 1 && secondCheck == 1) {
+				state = true;
 			}
-			
-		
-			
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		return state;
-		
-		
+
 	}
-	
-	public boolean checkCourseCode(String courseCode,String matricNum,int index)
-	{	
-		
-		boolean state=false;
-		boolean result=false;
-		
+
+	public boolean checkCourseCode(String courseCode, String matricNum, int index) {
+
+		boolean state = false;
+		boolean result = false;
+
 		try {
-			
-			List data=readAllCourse("src/courses.txt");
-			
-			for(int i=0;i<data.size();i++)
-			{
-				
-				Course course = (Course)data.get(i);
-				
-				if(course.getCourseCode().toLowerCase().equals(courseCode))
-				{
-					
-//				
-					state=true;
-					
+
+			List data = readAllCourse("src/courses.txt");
+
+			for (int i = 0; i < data.size(); i++) {
+
+				Course course = (Course) data.get(i);
+
+				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
+
+					//
+					state = true;
+
 				}
-				
+
 			}
-			
-			
-			
-			
+
 		} catch (IOException e) {
-		
+
 			e.printStackTrace();
 		}
-		
-		if(state)
-		{
+
+		if (state) {
 			AddDropController invoke = new AddDropController();
-			result=invoke.validateStudentAgainstCourseEnrolled(matricNum, courseCode, index);
-			
+			result = invoke.validateStudentAgainstCourseEnrolled(matricNum, courseCode, index);
+
 		}
 		return result;
 	}
-	
-	
-	public boolean validateDate(String ip)
-	{
-		boolean result=true;
-			
-		   
-		 if (ip == null || !ip.matches("^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$"))
-		 {
-			 System.out.println("date input error");
-			 result=false;
-		 }
-		 if(result==true)
-		 {
-			 SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-			    df.setLenient(false);
-			    try {
-			        df.parse(ip);
-			        result=true;
-			    } catch (ParseException ex) {
-			    	result=false;
-			    }
-		 }
-		 
-		 else
-		 {
-			 result=false;
-		 }
-		 
-		    
-		    return result;
-	}
-	
-	
-//	 public static void main(String args[])
-//	 {
-//
-//	 }
-	
-	
-	
-	
 
+	public boolean validateDate(String ip) {
+		boolean result = true;
+
+		if (ip == null || !ip.matches("^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$")) {
+			System.out.println("date input error");
+			result = false;
+		}
+		if (result == true) {
+			SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+			df.setLenient(false);
+			try {
+				df.parse(ip);
+				result = true;
+			} catch (ParseException ex) {
+				result = false;
+			}
+		}
+
+		else {
+			result = false;
+		}
+
+		return result;
+	}
+
+	// public static void main(String args[])
+	// {
+	//
+	// }
 
 }

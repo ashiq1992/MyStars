@@ -222,7 +222,58 @@ public class AdminController {
 		
 	}
 	
+	public boolean vacancy(String courseCode){
+		
+		CourseController display=new CourseController();
+		return display.adminShowCourse(courseCode);
 	
+	}
 	
+	public void printByCourseCode(String courseCode){
+		
+		CourseController display=new CourseController();
+		display.adminPrintByCourseCode(courseCode);
+		
+		
+	}
+	
+	public void printByIndex(String courseCode,int index){
+		CourseController display=new CourseController();
+		display.adminPrintByCourseCodeAndIndex(courseCode, index);
+	}
+	public static void main(String args[]){
+		Scanner sc=new Scanner(System.in);
+		String courseCode;
+		int index;
+		char s;
+		AdminController ad=new AdminController();
+		boolean result=false;
+		do{
+			System.out.println("Enter the course code to view the student:");
+			//String temp=sc.next();
+			courseCode=sc.nextLine();
+			System.out.println("Enter the index of the course:");
+			index=sc.nextInt();
+			ad.printByIndex(courseCode, index);
+			
+//			if(result ==false){
+//				System.out.println("Do you wish to exit (y/n)?");
+//				s=sc.nextLine().toLowerCase().charAt(0);
+//				if(s=='y'){
+//					result=false;
+//				}
+//				else if(s=='n'){
+//					result=true;
+//				}
+//				else{
+//					System.out.println("You have entered a wrong input value");
+//				}
+//				
+//			}
+			
+		}while(result==false);
+		System.out.println("You have exited the loop");
+		
+	}
 
 }
