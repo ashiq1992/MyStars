@@ -164,7 +164,7 @@ public class StarsPlannerApp {
 				break;
 
 			case 8:
-				dsiplayVacancy();
+				displayVacancy();
 				break;
 
 			default:
