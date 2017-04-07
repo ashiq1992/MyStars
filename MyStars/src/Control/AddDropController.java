@@ -13,6 +13,7 @@ import Model.Admin;
 import Model.Course;
 import Control.CourseController;
 import Control.FileManager;
+import Miscellaneous.EmailSender;
 import Model.Student;
 import Model.AddDrop;
 
@@ -25,6 +26,8 @@ public class AddDropController {
 	// private Student s1;
 	// private FileManager f1;
 	private CourseController Cc1 = new CourseController();
+	private EmailSender email;
+	
 
 	public boolean addMethod(String courseCode, int index, String matricNum) {
 		boolean endResult = false;
@@ -438,8 +441,25 @@ public class AddDropController {
 			if (vacancy == 1) {
 				newMatricNum = this.getMatricNum(courseCode, index);
 				if (newMatricNum != null) {
+					email = new EmailSender();
 					this.addMethod(courseCode, index, newMatricNum);
 					//add the method to send for email here
+					List studentEmailAddress = readAllCourseAndStudent("DataBase/student.txt");
+					String[] receipient= new String[1];
+					String name=null;
+					for(int i=0;i<studentEmailAddress.size();i++)
+					{
+						Student student = (Student)studentEmailAddress.get(i);
+						if(student.getMatriculationNumber().equals(newMatricNum))
+						{
+							receipient[0]=student.getUserId();
+							name=student.getName();
+							break;
+						}
+					}
+					String message="Dear "+name+","+"\n" +"We are pleased to inform you that you have been accepted into "+courseCode +"\n"+"Regards,"+"\n"+"StarsPlanner Administrator";
+					
+					email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Notification: Acceptance into course",message);
 				}
 			}
 		} catch (IOException e) {
@@ -704,6 +724,22 @@ public class AddDropController {
 						if(Add.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())){
 							check=true;
 							//add the email send here
+							List studentEmailAddress = readAllCourseAndStudent("DataBase/student.txt");
+							String[] receipient= new String[1];
+							String name=null;
+							for(int i=0;i<studentEmailAddress.size();i++)
+							{
+								Student student = (Student)studentEmailAddress.get(i);
+								if(student.getMatriculationNumber().toLowerCase().equals(matricNum.toLowerCase()))
+								{
+									receipient[0]=student.getUserId();
+									name=student.getName();
+									break;
+								}
+							}
+							String message="Dear "+name+","+"\n" +"We are pleased to inform you that your registration for the following course is successful "+courseCode +"\n"+"Regards,"+"\n"+"Stars Planner Administrator";
+							
+							email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
 						}
 					}
 				
