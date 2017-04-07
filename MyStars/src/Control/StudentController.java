@@ -1,5 +1,6 @@
 package Control;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -189,7 +190,7 @@ public class StudentController {
 
 	public ArrayList<Student> retriveAllStudent() {
 		ArrayList<Student> a2 = new ArrayList<Student>();
-
+		 //String filename = new File("src/student.txt").g
 		String filename = "src/student.txt";
 		try {
 			// read file containing Professor records.
