@@ -222,6 +222,11 @@ public class ScheduleController {
 						}
 
 					}
+					
+					else{
+						clash=false;
+						
+					}
 
 				}
 

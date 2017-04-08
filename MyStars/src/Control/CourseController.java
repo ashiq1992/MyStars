@@ -1179,4 +1179,13 @@ public class CourseController {
 		return result;
 	}
 
+	
+	
+//	public static void main(String args[]){
+//		
+//		CourseController n=new CourseController();
+//		n.showIndexByCourse("mh1813");
+//		
+//	}
+	
 }

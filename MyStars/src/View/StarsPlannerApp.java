@@ -37,7 +37,7 @@ public class StarsPlannerApp {
 	static boolean adddropEnable;
 	static Scanner sc = new Scanner(System.in);
 
-	public static void main(String args[]) {
+  /*public static void main(String args[]) {
 		adddropEnable = true;
 		int input = -1; // Takes in user input;
 		int valid = 1;
@@ -154,7 +154,7 @@ public class StarsPlannerApp {
 		while (valid != 0);
 
 	}
-
+*/
 	// =================================================================================
 	// =================================================================================
 	// ADMIN MENU
