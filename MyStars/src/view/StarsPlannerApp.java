@@ -20,7 +20,6 @@ import Control.CourseController;
 import Control.ScheduleController;
 import Control.StudentController;
 import Model.Student;
-import Miscellaneous.ClearScreen;
 import Miscellaneous.MaskPassword;
 
 public class StarsPlannerApp {
