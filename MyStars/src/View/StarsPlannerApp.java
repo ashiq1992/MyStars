@@ -504,7 +504,7 @@ public class StarsPlannerApp {
 		index = sc.nextInt();
 		
 		clashCheck=SCD.clashcheck(courseCode, index, student.getMatriculationNumber());//clash check implementation
-		if(clashCheck){
+		if(clashCheck==false){
 		
 		result=addDrop.AddMasterCheck(student.getMatriculationNumber().toLowerCase(), courseCode.toLowerCase(), index);
 		//Add the method inside the addMaster()
