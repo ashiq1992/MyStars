@@ -1116,6 +1116,44 @@ public class CourseController {
 		return result;
 	}
 
+	public boolean checkCourseCode(String courseCode, String matricNum, String newMatricId) {
+
+		boolean state = false;
+		boolean result = false;
+
+		try {
+
+			List data = readAllCourse("DataBase/courses.txt");
+
+			for (int i = 0; i < data.size(); i++) {
+
+				Course course = (Course) data.get(i);
+
+				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
+
+					//
+					state = true;
+
+				}
+
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+		if (state) {
+			AddDropController invoke = new AddDropController();
+			result = invoke.validateStudentAgainstCourse(matricNum, courseCode);
+			result = invoke.validateStudentAgainstCourse(newMatricId, courseCode);
+
+		}
+		return result;
+	}
+	
+	
+	
 	public boolean validateDate(String ip) {
 		boolean result = true;
 

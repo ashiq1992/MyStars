@@ -21,7 +21,7 @@ public class StudentController {
 	public static final String SEPARATOR = "|";
 	private AddDropController addDrop = new AddDropController();
 	private CourseController Cc1 = new CourseController();
-	private ScheduleController schedule=new ScheduleController();
+	private ScheduleController schedule = new ScheduleController();
 	private Hash h1 = new Hash();
 
 	public static ArrayList readAllStudents(String filename) throws IOException {
@@ -192,7 +192,7 @@ public class StudentController {
 
 	public ArrayList<Student> retriveAllStudent() {
 		ArrayList<Student> a2 = new ArrayList<Student>();
-		 //String filename = new File("src/student.txt").g
+		// String filename = new File("src/student.txt").g
 		String filename = "DataBase/student.txt";
 		try {
 			// read file containing Professor records.
@@ -215,19 +215,17 @@ public class StudentController {
 		ArrayList<Student> a1 = retriveAllStudent();
 
 		for (int i = 0; i < a1.size(); i++) {
-			
 
-			
-			String hashedValue=null;
+			String hashedValue = null;
 			System.out.println(password);
 			System.out.println(matriculationNumber);
 			try {
-				hashedValue=h1.hashString(password,matriculationNumber);
+				hashedValue = h1.hashString(password, matriculationNumber);
 			} catch (Exception e) {
-			
+
 				e.printStackTrace();
 			}
-			
+
 			int userVal = a1.get(i).getMatriculationNumber().compareTo(matriculationNumber);
 			int passVal = a1.get(i).getPassword().compareTo(hashedValue);
 
@@ -266,31 +264,31 @@ public class StudentController {
 				AddDrop addDrop = (AddDrop) StringArray.get(x);
 				for (int k = 0; k < addDrop.getList().size(); k++) {
 					if (addDrop.getList().get(k).toLowerCase().equals(matriculationNum.toLowerCase())) {
-						courseCode=addDrop.getCourseCode();
-						index=addDrop.getIndex();
+						courseCode = addDrop.getCourseCode();
+						index = addDrop.getIndex();
 						System.out.println("Course Code: " + addDrop.getCourseCode() + " Index: " + addDrop.getIndex());
-						
+
 						List StringArray2 = schedule.readSchedule(courseCode);
-						for(int q=0;q<StringArray2.size();q++){
-							Schedule s=(Schedule)StringArray2.get(q);
-							if(courseCode.toLowerCase().equals(s.getCourseCode().toLowerCase())&&s.getIndex()==index){
-								System.out.println("Day: "+s.getDay()+" venue: "+s.getVenue());
-								System.out.println("Type: "+s.getType()+" StartTime: "+s.getStartTime()+" EndTime: "+s.getEndTime());
-								
-				
+						for (int q = 0; q < StringArray2.size(); q++) {
+							Schedule s = (Schedule) StringArray2.get(q);
+							if (courseCode.toLowerCase().equals(s.getCourseCode().toLowerCase())
+									&& s.getIndex() == index) {
+								System.out.println("Day: " + s.getDay() + " venue: " + s.getVenue());
+								System.out.println("Type: " + s.getType() + " StartTime: " + s.getStartTime()
+										+ " EndTime: " + s.getEndTime());
+
 							}
-							
+
 						}
 
+						System.out.println(
+								"========================end of line============================================");
 
-						System.out.println("========================end of line============================================");
-						
-						
 					}
 				}
 
 			}
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -306,7 +304,7 @@ public class StudentController {
 
 			int courseIndex = 0;
 			String courseID = null;
-			int retIndex=0;
+			int retIndex = 0;
 
 			List StringArray = addDrop.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			for (int x = 0; x < StringArray.size(); x++) {
@@ -319,14 +317,14 @@ public class StudentController {
 							changeIndex.getList().remove(k);
 							courseIndex = changeIndex.getIndex();
 							courseID = changeIndex.getCourseCode();
-							//System.out.println("triggered");
+							// System.out.println("triggered");
 						}
 					}
 
 				}
 				if (changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())
 						&& changeIndex.getIndex() == index) {
-						retIndex=x;
+					retIndex = x;
 					changeIndex.setList(list);
 				}
 
@@ -336,49 +334,112 @@ public class StudentController {
 
 			for (int i = 0; i < readCourse.size(); i++) {
 				Course course = (Course) readCourse.get(i);
-				//System.out.println("Course Id: " + course.getCourseCode());
+				// System.out.println("Course Id: " + course.getCourseCode());
 				// System.out.println(courseIndex);
 
 				for (int j = 0; j < course.getVacancy().length; j++) {
-					//System.out.println("Index " + (j + 1));
+					// System.out.println("Index " + (j + 1));
 
 					if ((j + 1) == courseIndex && courseID.toLowerCase().equals(course.getCourseCode().toLowerCase())) {
 						course.increaseVacancy(courseIndex);
-						//System.out.println("INcreased");
+						// System.out.println("INcreased");
 					}
 
 					if ((j + 1) == index && (courseID.toLowerCase().equals(course.getCourseCode().toLowerCase()))) {
 						course.decreaseVacancy(index);
-						//System.out.println("Decreased");
+						// System.out.println("Decreased");
 					}
 
 				}
 
-				
-
 			}
-			
-			
-			if(addDrop.validateIndexOfCourseAndStudent(index, courseCode))
-			{
+
+			if (addDrop.validateIndexOfCourseAndStudent(index, courseCode)) {
 				addDrop.saveAmend(StringArray);
 			}
-			
-			else
-			{
-				System.out.println("Index >>>>>>>"+index);
+
+			else {
+				System.out.println("Index >>>>>>>" + index);
 				List newArray = new ArrayList();
-				//newArray.add(StringArray.get(retIndex));
-				List matric=new ArrayList();
+				// newArray.add(StringArray.get(retIndex));
+				List matric = new ArrayList();
 				matric.add(matricNum);
-				AddDrop a1=new AddDrop(courseCode,index,matric);
+				AddDrop a1 = new AddDrop(courseCode, index, matric);
 				StringArray.add(a1);
 				addDrop.saveAmend(StringArray);
 			}
-			
+
 			Cc1.saveCourseAmend("DataBase/courses.txt", readCourse);
 
-			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void changeMatricId(String courseCode, String matricNum, String newMatricId) {
+		try {
+			int newIndex = 0,oldIndex=0;
+			int temp;
+			boolean check;
+			ScheduleController SDC = new ScheduleController();
+			List StringArray = addDrop.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
+			for (int x = 0; x < StringArray.size(); x++) {
+				AddDrop changeIndex = (AddDrop) StringArray.get(x);
+				/* To remove the matric number from old index number */
+				if (changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+					for (int k = 0; k < changeIndex.getList().size(); k++) {
+						if (changeIndex.getList().get(k).toLowerCase().equals(newMatricId.toLowerCase())) {
+
+							newIndex = changeIndex.getIndex();
+							check = SDC.clashcheck(courseCode, newIndex, matricNum);
+							if (check == true) {
+								newIndex = 0;
+								System.out.println(
+										"TimeTable Clash cannot swap with the student you have clash of timetable");
+							}
+							// System.out.println("triggered");
+						}
+						if (changeIndex.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())) {
+
+							oldIndex = changeIndex.getIndex();
+							check = SDC.clashcheck(courseCode, newIndex, newMatricId);
+							if (check == true) {
+								oldIndex = 0;
+								System.out.println(
+										"TimeTable Clash cannot swap with the student ,the other student has clash with timeTable");
+							}
+						}
+
+					}
+
+				}
+
+			}
+
+			if (newIndex != 0 && oldIndex!=0) {
+				for (int x = 0; x < StringArray.size(); x++) {
+
+					AddDrop changeIndex = (AddDrop) StringArray.get(x);
+					if (changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+						for (int k = 0; k < changeIndex.getList().size(); k++) {
+							if (changeIndex.getList().get(k).toLowerCase().equals(newMatricId.toLowerCase())&&changeIndex.getIndex()==newIndex) {
+								changeIndex.getList().remove(k);
+								changeIndex.getList().add(k, matricNum);
+
+							}
+							if (changeIndex.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())&& changeIndex.getIndex()==oldIndex) {
+								changeIndex.getList().remove(k);
+								changeIndex.getList().add(k, newMatricId);
+
+							}
+						}
+
+					}
+				}
+			}
+
+			addDrop.saveAmend(StringArray);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -387,7 +448,10 @@ public class StudentController {
 	}
 
 	/* for testing display course by student */
-
-
+	
+//	public static void main(String args[]){
+//		StudentController n=new StudentController();
+//		n.changeMatricId("mh1812", "u165", "u163");
+//	}
 
 }

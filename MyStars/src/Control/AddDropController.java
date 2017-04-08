@@ -636,6 +636,33 @@ public class AddDropController {
 		return state;
 	}
 
+	public boolean validateStudentAgainstCourse(String matricNum, String courseCode) {
+		boolean state = false;
+
+		try {
+			List read = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
+
+			for (int i = 0; i < read.size(); i++) {
+				AddDrop a1 = (AddDrop) read.get(i);
+				if (a1.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+
+					for (int j = 0; j < a1.getList().size(); j++) {
+						if (a1.getList().get(j).toLowerCase().equals(matricNum.toLowerCase())) {
+							state = true;
+						}
+					}
+
+				}
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+		return state;
+	}
+	
 	
 	public void dropMasterCheck(String matricNum,String courseCode,int index){
 		

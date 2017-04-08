@@ -168,8 +168,8 @@ public class ScheduleController {
 						day.add(s.getDay());
 						startTime.add(s.getStartTime());
 						endTime.add(s.getEndTime());
-						System.out.println(
-								s.getCourseCode() + " " + s.getIndex() + " " + startTime.get(k) + " " + endTime.get(k));
+//						System.out.println(
+//								s.getCourseCode() + " " + s.getIndex() + " " + startTime.get(k) + " " + endTime.get(k));
 					}
 
 				}
@@ -200,22 +200,22 @@ public class ScheduleController {
 						// condition for checking for clashes
 
 						if (newStart > start) {
-							System.out.println(newStart + " " + start);
+							//System.out.println(newStart + " " + start);
 							if (newStart > (start + durationOld)) {
 								clash = false;// success
-								System.out.println(newStart + " " + start + " test 5");
+								//System.out.println(newStart + " " + start + " test 5");
 							} else {
-								System.out.println(newStart + " " + start + " test 6");
+								//System.out.println(newStart + " " + start + " test 6");
 								clash = true;// clash
 								break;
 							}
 						} else {
-							System.out.println(newStart + " " + start + " test 7");
+							//System.out.println(newStart + " " + start + " test 7");
 							if ((newStart + durationNew) < start) {
 								clash = false;// success
-								System.out.println(newStart + " " + start + " test 8");
+								//System.out.println(newStart + " " + start + " test 8");
 							} else {
-								System.out.println(newStart + " " + start + " test 9");
+								//System.out.println(newStart + " " + start + " test 9");
 								clash = true;// clash
 								break;
 							}
