@@ -477,6 +477,7 @@ public class StarsPlannerApp {
 		char value = 0;
 
 		do {
+			
 			value = 0;
 			System.out.println("Enter Course Code: ");
 			courseCode = sc.next().toLowerCase();
