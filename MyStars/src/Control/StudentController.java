@@ -193,7 +193,7 @@ public class StudentController {
 	public ArrayList<Student> retriveAllStudent() {
 		ArrayList<Student> a2 = new ArrayList<Student>();
 		 //String filename = new File("src/student.txt").g
-		String filename = "src/student.txt";
+		String filename = "DataBase/student.txt";
 		try {
 			// read file containing Professor records.
 			ArrayList al = StudentController.readAllStudents(filename);
@@ -260,7 +260,7 @@ public class StudentController {
 	public void displayCourse(String matriculationNum) {
 		try {
 			String courseCode = null;
-			List StringArray = addDrop.readAllCourseAndStudent("src/courseAndStudent.txt");
+			List StringArray = addDrop.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			int index = 0;
 			for (int x = 0; x < StringArray.size(); x++) {
 				AddDrop addDrop = (AddDrop) StringArray.get(x);
