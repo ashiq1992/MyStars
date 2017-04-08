@@ -444,16 +444,17 @@ public class AddDropController {
 					email = new EmailSender();
 					this.addMethod(courseCode, index, newMatricNum);
 					//add the method to send for email here
-					List studentEmailAddress = readAllCourseAndStudent("DataBase/student.txt");
+					StudentController student=new StudentController();
+					List studentEmailAddress = student.readAllStudents("DataBase/student.txt");
 					String[] receipient= new String[1];
 					String name=null;
 					for(int i=0;i<studentEmailAddress.size();i++)
 					{
-						Student student = (Student)studentEmailAddress.get(i);
-						if(student.getMatriculationNumber().equals(newMatricNum))
+						Student student1 = (Student)studentEmailAddress.get(i);
+						if(student1.getMatriculationNumber().toLowerCase().equals(newMatricNum.toLowerCase()))
 						{
-							receipient[0]=student.getUserId();
-							name=student.getName();
+							receipient[0]=student1.getUserId();
+							name=student1.getName();
 							break;
 						}
 					}
@@ -751,22 +752,7 @@ public class AddDropController {
 						if(Add.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())){
 							check=true;
 							//add the email send here
-							List studentEmailAddress = readAllCourseAndStudent("DataBase/student.txt");
-							String[] receipient= new String[1];
-							String name=null;
-							for(int i=0;i<studentEmailAddress.size();i++)
-							{
-								Student student = (Student)studentEmailAddress.get(i);
-								if(student.getMatriculationNumber().toLowerCase().equals(matricNum.toLowerCase()))
-								{
-									receipient[0]=student.getUserId();
-									name=student.getName();
-									break;
-								}
-							}
-							String message="Dear "+name+","+"\n" +"We are pleased to inform you that your registration for the following course is successful "+courseCode +"\n"+"Regards,"+"\n"+"Stars Planner Administrator";
-							
-							email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
+						
 						}
 					}
 				
@@ -802,6 +788,23 @@ public class AddDropController {
 				
 				else{//after checking it will add the course to the student either to wait list or the course itself
 					this.addMethod(courseCode, index, matricNum);
+					StudentController std=new StudentController();
+					List studentEmailAddress = std.readAllStudents("DataBase/student.txt");
+					String[] receipient= new String[1];
+					String name=null;
+					for(int i=0;i<studentEmailAddress.size();i++)
+					{
+						Student student = (Student)studentEmailAddress.get(i);
+						if(student.getMatriculationNumber().toLowerCase().equals(matricNum.toLowerCase()))
+						{
+							receipient[0]=student.getUserId();
+							name=student.getName();
+							break;
+						}
+					}
+					String message="Dear "+name+","+"\n"+"\n" +"We are pleased to inform you that your registration for the following course is successful "+courseCode+"\n" +"\n"+"Regards,"+"\n"+"Stars Planner Administrator";
+					
+					email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
 				}
 				///else condition for the clash check will be plced here
 				
@@ -857,6 +860,10 @@ public class AddDropController {
 //		Drop.dropMethod("ce2005", 1, "u162");
 		// Drop.removeFromWaitList("ce2005",1);
 
-//	}
+//	
+//		
+		AddDropController Drop = new AddDropController();
+		Drop.dropMasterCheck("u12345B", "Ce2003",1);
+		
 	}
 }

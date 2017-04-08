@@ -239,7 +239,7 @@ public class StarsPlannerApp {
 
 	public static void addCourse() {
 		boolean result;
-
+		Cd=new CourseController();
 		result = Cd.addCourse();
 		if (result == true) {
 			System.out.println("Success");
@@ -464,6 +464,7 @@ public class StarsPlannerApp {
 		System.out.println("1)Add a course.");
 		System.out.println("2)Drop a course.");
 		System.out.println("3)Change index number.");
+		System.out.println("4)Change with another student");
 		System.out.println("0)Back.");
 
 		System.out.println("Enter options:");
@@ -481,6 +482,9 @@ public class StarsPlannerApp {
 		case 3:
 			changeIndex();
 			break;
+		case 4:
+			changeIndexWithAnotherStudent();
+			break;
 
 		default:
 			System.err.println("Input error");
@@ -493,8 +497,8 @@ public class StarsPlannerApp {
 		boolean result=false;
 		boolean clashCheck;
 		char value = 0;
+		Cd=new CourseController();
 		
-		do{
 			value=0;
 		System.out.println("Enter Course Code: ");
 		courseCode = sc.next().toLowerCase();
@@ -504,7 +508,7 @@ public class StarsPlannerApp {
 		index = sc.nextInt();
 		
 		clashCheck=SCD.clashcheck(courseCode, index, student.getMatriculationNumber());//clash check implementation
-		if(clashCheck){
+		if(clashCheck==false){
 		
 		result=addDrop.AddMasterCheck(student.getMatriculationNumber().toLowerCase(), courseCode.toLowerCase(), index);
 		//Add the method inside the addMaster()
@@ -514,12 +518,11 @@ public class StarsPlannerApp {
 		}
 			
 		if (result == false) {
-			System.out.println("You are not enrolled in the course! ");
-			System.out.println("Do you want to continue ? ");
-			value = sc.next().charAt(0);
+			System.out.println("You are directed to the previous menu choose your options again ");
+			
+			
 		}
-		}
-		while (result != true || value == 'Y' || value == 'y');
+		
 			
 
 	}
@@ -531,7 +534,7 @@ public class StarsPlannerApp {
 		courseCode = sc.next();
 		index = addDrop.returnIndex(student.getMatriculationNumber(), courseCode);// get
 																					// the
-																					// index
+																				// index
 																					// from
 																					// the
 																					// file
@@ -546,8 +549,7 @@ public class StarsPlannerApp {
 		int oldIndex = 0;
 		boolean result = false;
 		char value = 0;
-
-		do {
+		Cd=new CourseController();
 			System.out.print("Please enter the course code");
 			courseCode = sc.next();
 			courseCode = courseCode.toLowerCase();
@@ -564,11 +566,12 @@ public class StarsPlannerApp {
 
 			if (result == false) {
 				System.out.println("You are not enrolled in the course! ");
-				System.out.println("Do you want to continue ? ");
-				value = sc.next().charAt(0);
+				System.out.println("re-enter options");
+//				System.out.println("Do you want to continue (y/n)? ");
+//				value = sc.next().toLowerCase().charAt(0);
 			}
+		
 
-		} while (result != true || value == 'Y' || value == 'y');
 
 		if (result) {
 
@@ -585,7 +588,7 @@ public class StarsPlannerApp {
 		String newMatricId ;
 		boolean result = false;
 		char value = 0;
-
+		Cd=new CourseController();
 		do {
 			System.out.print("Please enter the course code");
 			courseCode = sc.next();

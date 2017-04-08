@@ -25,14 +25,14 @@ public class Hash {
 	
 
 	
-	public static void main(String args[])
-	{
+//	public static void main(String args[])
+//	{
 //		try {
-//			System.out.println(hashString("test","hello","bye"));
+//			System.out.println(hashString("123456","N1234567B"));
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
-	}
+//		
+//	}
 }
