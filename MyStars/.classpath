@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="src/|lib/" kind="src" path=""/>
+	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Users/Ashiq Ali/git/MyStars/MyStars/MyStars/Email/dsn.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ashiq Ali/git/MyStars/MyStars/MyStars/Email/imap.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ashiq Ali/git/MyStars/MyStars/MyStars/Email/mail.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ashiq Ali/git/MyStars/MyStars/MyStars/Email/mailapi.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ashiq Ali/git/MyStars/MyStars/MyStars/Email/pop3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ashiq Ali/git/MyStars/MyStars/MyStars/Email/smtp.jar"/>
+	<classpathentry kind="lib" path="lib/dsn.jar"/>
+	<classpathentry kind="lib" path="lib/imap.jar"/>
+	<classpathentry kind="lib" path="lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="lib/pop3.jar"/>
+	<classpathentry kind="lib" path="lib/smtp.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
