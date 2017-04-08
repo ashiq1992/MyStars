@@ -1,36 +1,60 @@
 package Model;
-
+/**
+ * 
+ * An entity class,student object is created
+ * 
+ * @author Ameen
+ * @version 1.0
+ * @since 2017-04-01
+ */
 public class Student extends Person{
-	//Properties
+	
+	/**
+	 * MatriculationNumber of the Student
+	 */
 	private String matriculationNumber;
 	
-	
-	//Constructor
+	/**
+	 * 
+	 * An Empty Constructor
+	 */
 	public Student()
 	{
 		
 	}
+	
+	/**
+	 * Creates a student based on the following fields,
+	 * and inherits attributs from the Parent class Person
+	 * 
+	 * @param matriculationNumber
+	 * @param name
+	 * @param userId
+	 * @param password
+	 * @param nationality
+	 * @param gender
+	 */
 	public Student(String matriculationNumber,String name,String userId,String password,String nationality,String gender) {
 		super(gender, name, nationality, userId, password);
 		this.matriculationNumber=matriculationNumber;
 	}
 
 	
-	//Methods
+	/**
+	 * Gets the matriculationNumber of the student
+	 * @return
+	 */
 	public String getMatriculationNumber() {
 		return matriculationNumber;
 	}
-
+	
+	/**
+	 * 
+	 * Sets the matriculation number of the student
+	 * @param matriculationNumber
+	 */
 	public void setMatriculationNumber(String matriculationNumber) {
 		this.matriculationNumber = matriculationNumber;
 	}
 	
-	public String checkCourseRegistered(){
-		return null;
-	}
-	
-	public String printCourseRegistered(){
-		return null;
-	}
-
 }
