@@ -483,6 +483,7 @@ public class StarsPlannerApp {
 			Cd=new CourseController();
 			//asd
 			// add
+			//fhjf
 			Cd.showIndexByCourse(courseCode);
 			System.out.println("Enter index: ");
 			index = sc.nextInt();
