@@ -556,7 +556,14 @@ public class AddDropController {
 		}
 
 	}
-
+	
+	/**
+	 * This method saves the amended List of students who are in the wait list for a course
+	 * 
+	 * 
+	 * @param stringArray -->Takes in a list to be written onto the file
+	 * @param courseCode -->Takes the course code of a particular course
+	 */
 	public void saveAmendWaitList(List stringArray, String courseCode) {
 		List tempList = new ArrayList();
 		for (int i = 0; i < stringArray.size(); i++) {
@@ -579,12 +586,18 @@ public class AddDropController {
 		try {
 			write("DataBase/waitLists/" + courseCode + ".txt", tempList);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-
+	
+	/**
+	 * A method that checks whether there is an index for a particular courseCode
+	 * 
+	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @param courseCode --> The course code based on a particular course
+	 * @return --> True, when such an index exists for a course else false if otherwise
+	 */
 	public boolean validateIndexOfCourseAndStudent(int index, String courseCode) {
 		boolean state = false;
 		try {
@@ -609,6 +622,14 @@ public class AddDropController {
 
 	}
 	
+	/**
+	 * This method when invoked allows the student to be dropped from the wait list.
+	 * 
+	 * 
+	 * @param courseCode -->Takes in a course code of a particular course
+	 * @param matricNum --> Matriculation number of the student
+	 * @param Index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 */
 	public void dropWaitList(String courseCode,String matricNum,int Index)
 	
 	{
@@ -635,10 +656,18 @@ public class AddDropController {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * This method validates the student against a course to check if the student is enrolled in the course
+	 * 
+	 * @param matricNum -->Matriculation number of the student
+	 * @param courseCode --> The course code of a particular course
+	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @return --> True if the student is enrolled in the course,False if otherwise
+	 */
 	public boolean validateStudentAgainstCourseEnrolled(String matricNum, String courseCode, int index) {
 		boolean state = false;
 
@@ -665,7 +694,13 @@ public class AddDropController {
 
 		return state;
 	}
-
+	
+	/**
+	 * 
+	 * @param matricNum
+	 * @param courseCode
+	 * @return
+	 */
 	public boolean validateStudentAgainstCourse(String matricNum, String courseCode) {
 		boolean state = false;
 
