@@ -376,10 +376,18 @@ public class StudentController {
 
 			if (addDrop.validateIndexOfCourseAndStudent(index, courseCode)) {
 				addDrop.saveAmend(StringArray);
+				System.out.println("You index for the course is changed to :" + index);
+//				List newArray = new ArrayList();
+//				// newArray.add(StringArray.get(retIndex));
+//				List matric = new ArrayList();
+//				matric.add(matricNum);
+//				AddDrop a1 = new AddDrop(courseCode, index, matric);
+//				StringArray.add(a1);
+//				addDrop.saveAmend(StringArray);
 			}
 
 			else {
-				System.out.println("Index >>>>>>>" + index);
+				
 				List newArray = new ArrayList();
 				// newArray.add(StringArray.get(retIndex));
 				List matric = new ArrayList();
@@ -423,7 +431,7 @@ public class StudentController {
 						if (changeIndex.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())) {
 
 							oldIndex = changeIndex.getIndex();
-							check = SDC.clashcheck(courseCode, newIndex, newMatricId);
+							check = SDC.clashcheck(courseCode, oldIndex, newMatricId);
 							if (check == true) {
 								oldIndex = 0;
 								System.out.println(
@@ -459,6 +467,8 @@ public class StudentController {
 
 					}
 				}
+				
+				System.out.println("You have swap your index with the other student");
 			}
 
 			addDrop.saveAmend(StringArray);

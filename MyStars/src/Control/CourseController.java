@@ -1141,7 +1141,7 @@ public class CourseController {
 
 				Course course = (Course) data.get(i);
 
-				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
+				if (course.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
 
 					state = true;
 
@@ -1260,11 +1260,13 @@ public class CourseController {
 
 	}
 
-	// public static void main(String args[]) {
-
-	// CourseController n = new CourseController();
-	// n.validateCourseCode("CE203");
-
-	// }
+	 public static void main(String args[]) {
+boolean check;
+	 CourseController n = new CourseController();
+	check=n.checkCourseCode("ee3015", "u1621546d", 1);
+	if(check){
+		System.out.println("Good");
+	}
+	 }
 
 }

@@ -496,7 +496,7 @@ public class StarsPlannerApp {
 	public static void dropACourse() {
 		String courseCode;
 		int index;
-		System.out.println("Enter CourseCode:");
+		System.out.println("Enter CourseCode: ");
 		courseCode = sc.next();
 		index = addDrop.returnIndex(student.getMatriculationNumber(), courseCode);// get
 																					// the
@@ -516,19 +516,20 @@ public class StarsPlannerApp {
 		boolean result = false;
 		char value = 0;
 		Cd=new CourseController();
-			System.out.print("Please enter the course code");
+			System.out.print("Please enter the course code: ");
 			courseCode = sc.next();
 			courseCode = courseCode.toLowerCase();
 
-			System.out.println("Please enter the current index");
+			SCD.displaySchedule(courseCode);
+			System.out.println("Please enter the current index: ");
 			oldIndex = sc.nextInt();
 
 			System.out.println(" ");
 
-			System.out.println("Please enter the index you wish to change to");
+			System.out.println("Please enter the index you wish to change to: ");
 			newIndex = sc.nextInt();
 
-			result = Cd.checkCourseCode(courseCode, student.getMatriculationNumber(), oldIndex);
+			result = Cd.checkCourseCode(courseCode, student.getMatriculationNumber().toLowerCase(), oldIndex);
 
 			if (result == false) {
 				System.out.println("You are not enrolled in the course! ");
@@ -556,11 +557,11 @@ public class StarsPlannerApp {
 		char value = 0;
 		Cd=new CourseController();
 	
-			System.out.print("Please enter the course code");
+			System.out.print("Please enter the course code :");
 			courseCode = sc.next();
 			courseCode = courseCode.toLowerCase();
 
-			System.out.println("Please enter the other student MatricID");
+			System.out.println("Please enter the other student MatricI :D");
 			newMatricId = sc.next();
 
 
