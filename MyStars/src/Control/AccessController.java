@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import Model.Access;
 /**
+ * An AccessController class to check whether the student has access to the Stars Planner system
  * 
  * @author Ameen
  * @author Ashiq
