@@ -20,11 +20,6 @@ import Model.AddDrop;
 public class AddDropController {
 	public static final String SEPARATOR = "|";
 	public static final String INDEX_SEPARATOR = "_";
-
-	// private Course c1;
-	// private Admin a1;
-	// private Student s1;
-	// private FileManager f1;
 	private CourseController Cc1 = new CourseController();
 	private EmailSender email;
 	

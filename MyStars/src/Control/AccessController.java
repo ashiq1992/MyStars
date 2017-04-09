@@ -120,9 +120,6 @@ public class AccessController {
 			Pattern r = Pattern.compile(pattern);
 			Matcher m = r.matcher(ip);
 			if (m.find()) {
-//				System.out.println("Time" + m.group(0));
-//				System.out.println("hh " + m.group(1));
-//				System.out.println("mm " + m.group(2));
 				startTime = ip;
 				startTimeResult=true;
 			} else {
@@ -145,9 +142,6 @@ public class AccessController {
 			Pattern r = Pattern.compile(pattern);
 			Matcher m = r.matcher(ip);
 			if (m.find()) {
-//				System.out.println("Time" + m.group(0));
-//				System.out.println("hh " + m.group(1));
-//				System.out.println("mm " + m.group(2));
 				endTime = ip;
 				endTimeResult=true;
 			} else {
