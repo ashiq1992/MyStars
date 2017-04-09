@@ -798,12 +798,13 @@ public class AddDropController {
 	}
 	
 	/**
-	 * This method allows a student to be added into the course and a notification is triggered
+	 * This method allows a student to be added into the course and an email sent if the course registration is successful
+	 * and it also check for clash of timetable schedules
 	 * 
 	 * @param matricNum --> Matriculation number of the student
 	 * @param courseCode -->courseCode of a particular course
 	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
-	 * @return
+	 * @return --> True if the student has been successfully registered and False if otherwise
 	 */
 
 	public boolean AddMasterCheck(String matricNum,String courseCode,int index){
@@ -888,7 +889,6 @@ public class AddDropController {
 					
 					email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
 				}
-				///else condition for the clash check will be plced here
 				
 				
 				
@@ -908,7 +908,11 @@ public class AddDropController {
 	}
 	
 	
-	
+	/**
+	 * This method returns a list of course given a students matriculation number
+	 * @param matricNum --> The matriculation number of the student
+	 * @return --> Returns a list of courses
+	 */
 	public List returnCourseRegistered(String matricNum){
 		List courseCode=new ArrayList();
 		try {
@@ -927,7 +931,6 @@ public class AddDropController {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -937,15 +940,4 @@ public class AddDropController {
 	}
 
 
-//	public static void main(String args[]) {
-//		AddDropController Drop = new AddDropController();
-//		Drop.dropMethod("ce2005", 1, "u162");
-		// Drop.removeFromWaitList("ce2005",1);
-
-//	
-//		
-//		AddDropController Drop = new AddDropController();
-//		Drop.dropMasterCheck("u12345B", "Ce2003",1);
-//		
-//	}
 }
