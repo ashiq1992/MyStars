@@ -468,6 +468,7 @@ public class StarsPlannerApp {
 		System.out.println("Enter Course Code: ");
 		courseCode = sc.next().toLowerCase();
 		// add
+		SCD.displaySchedule(courseCode);
 		Cd.showIndexByCourse(courseCode);
 		System.out.println("Enter index: ");
 		index = sc.nextInt();

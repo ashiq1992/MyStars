@@ -99,10 +99,51 @@ public class AddDropController {
 			if (endResult == true) {
 				addd.studentAddsCourse("DataBase/courseAndStudent.txt", studentData, courseCode, index);
 				System.out.println("You have been added to the course");
+				
+				
+				StudentController std=new StudentController();
+				List studentEmailAddress = std.readAllStudents("DataBase/student.txt");
+				String[] receipient= new String[1];
+				String name=null;
+				for(int i=0;i<studentEmailAddress.size();i++)
+				{
+					Student student1 = (Student)studentEmailAddress.get(i);
+					if(student1.getMatriculationNumber().toLowerCase().equals(matricNum.toLowerCase()))
+					{
+						receipient[0]=student1.getUserId();
+						name=student1.getName();
+						break;
+					}
+				}
+				String message="Dear "+name+","+"\n"+"\n" +"We are pleased to inform you that your registration for the following course is successful "+courseCode+"\n" +"\n"+"Regards,"+"\n"+"Stars Planner Administrator";
+				
+				email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
+				
 
 			} else {
 				addd.studentAndCourseWaitList("DataBase/waitlists/" + courseCode + ".txt", waitList, courseCode, index);
 				System.out.println("You have been added to the wait list ");
+				StudentController std=new StudentController();
+				List studentEmailAddress = std.readAllStudents("DataBase/student.txt");
+				String[] receipient= new String[1];
+				String name=null;
+				for(int i=0;i<studentEmailAddress.size();i++)
+				{
+					Student student1 = (Student)studentEmailAddress.get(i);
+					if(student1.getMatriculationNumber().toLowerCase().equals(matricNum.toLowerCase()))
+					{
+						receipient[0]=student1.getUserId();
+						name=student1.getName();
+						break;
+					}
+				}
+				String message="Dear "+name+","+"\n"+"\n" +"We are pleased to inform you have been added to the waitList of the course "+courseCode+"\n" +"\n"+"Regards,"+"\n"+"Stars Planner Administrator";
+				
+				email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
+				
+				
+				
+				
 			}
 
 			Cc1.saveCourseAmend("DataBase/courses.txt", data);
@@ -740,14 +781,20 @@ public class AddDropController {
 	 * @param index   The index of the course.E.g,CE2003_2 where 2 refers to the index
 	 */
 	public void dropMasterCheck(String matricNum,String courseCode,int index){
-		
+		CourseController C=new CourseController();
 		boolean check=false;
 		boolean waitCheck=false;
+		List read2=new ArrayList();
 		try {
 			List read = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			
-			List read2 = readAllCourseAndStudent("DataBase/waitlists/"+courseCode+".txt");
-			
+			List course =C.readAllCourse("Database/courses.txt");
+			for(int k=0;k<course.size();k++){
+				Course CC=(Course)course.get(k);
+				if(CC.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())){
+					read2 = readAllCourseAndStudent("DataBase/waitlists/"+courseCode+".txt");
+				}
+			}
 			for(int k=0;k<read.size();k++){
 				AddDrop Drop=(AddDrop)read.get(k);
 				if(Drop.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && Drop.getIndex()==index){
@@ -777,7 +824,7 @@ public class AddDropController {
 			else{
 				
 				this.dropMethod(courseCode, index, matricNum);
-				System.out.println("Course has been removed");
+				System.out.println("Course has been Dropped");
 				
 				
 			}
@@ -813,9 +860,9 @@ public class AddDropController {
 		boolean check=false;
 		boolean waitCheck=false;
 		boolean courseCheck=true,indexCheck=true;
-		
+		CourseController C=new CourseController();
 		boolean indexCourse=false;
-		
+		List read2 = new ArrayList();
 		boolean finalCheck=false;
 		try {
 			
@@ -824,9 +871,13 @@ public class AddDropController {
 			
 			if(indexCourse==true){
 				List read = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
-				
-				List read2 = readAllCourseAndStudent("DataBase/waitlists/"+courseCode+".txt");
-				
+				List course =C.readAllCourse("Database/courses.txt");
+				for(int k=0;k<course.size();k++){
+					Course CC=(Course)course.get(k);
+					if(CC.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())){
+						read2 = readAllCourseAndStudent("DataBase/waitlists/"+courseCode+".txt");
+					}
+				}
 				
 			for(int x=0;x<read.size();x++){
 				AddDrop Add=(AddDrop)read.get(x);
@@ -871,27 +922,9 @@ public class AddDropController {
 				
 				else{
 					this.addMethod(courseCode, index, matricNum);
-					StudentController std=new StudentController();
-					List studentEmailAddress = std.readAllStudents("DataBase/student.txt");
-					String[] receipient= new String[1];
-					String name=null;
-					for(int i=0;i<studentEmailAddress.size();i++)
-					{
-						Student student = (Student)studentEmailAddress.get(i);
-						if(student.getMatriculationNumber().toLowerCase().equals(matricNum.toLowerCase()))
-						{
-							receipient[0]=student.getUserId();
-							name=student.getName();
-							break;
-						}
-					}
-					String message="Dear "+name+","+"\n"+"\n" +"We are pleased to inform you that your registration for the following course is successful "+courseCode+"\n" +"\n"+"Regards,"+"\n"+"Stars Planner Administrator";
-					
-					email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
+				
+				
 				}
-				
-				
-				
 			}
 			finalCheck=true;
 		}

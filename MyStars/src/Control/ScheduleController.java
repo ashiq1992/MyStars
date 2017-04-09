@@ -28,7 +28,7 @@ public class ScheduleController {
 	public static final String SCHEDULE_SEPARATOR = ",";
 
 	public void saveSchedule(List schedule, String courseCode) {
-		File f = new File("dataBase/schedule/" + courseCode + ".txt");// creates
+		File f = new File("DataBase/schedule/" + courseCode + ".txt");// creates
 																		// the
 																		// file
 																		// in
@@ -100,6 +100,7 @@ public class ScheduleController {
 
 				Schedule S1 = new Schedule(code, Integer.parseInt(index), type, day, venue, startTime, endTime);
 				sch.add(S1);
+				
 
 			}
 		} catch (IOException e) {
@@ -141,8 +142,12 @@ public class ScheduleController {
 
 	public boolean clashcheck(String newCourseCode, int newIndex, String matricNum) {
 		boolean clash = false;
+		boolean interrupt=false;
+		CourseController CC=new CourseController();
+		List checkCourse = new ArrayList();
 		List timeTable;
 		List newTimeTable;
+		List match = new ArrayList();
 		int courseindex;
 		List courses = new ArrayList();
 		List index = new ArrayList();
@@ -152,9 +157,26 @@ public class ScheduleController {
 		List day = new ArrayList();
 		List startTime = new ArrayList();
 		List endTime = new ArrayList();
+		try {
+			checkCourse=CC.readAllCourse("DataBase/courses.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(int q=0;q<checkCourse.size();q++){
+			Course c=(Course)checkCourse.get(q);
+			if(c.getCourseCode().toLowerCase().equals(newCourseCode.toLowerCase())){
+				interrupt=true;
+		
+			}
+		}
+		
+		
 
 		courses = check.returnCourseRegistered(matricNum);
-		if (courses.isEmpty() == false) {
+		if (courses.isEmpty() == false && interrupt==true) {
+		
 			/* Rtrive all the data for timetable of the student */
 			for (int x = 0; x < courses.size(); x += 2) {
 
@@ -169,7 +191,7 @@ public class ScheduleController {
 						startTime.add(s.getStartTime());
 						endTime.add(s.getEndTime());
 //						System.out.println(
-//								s.getCourseCode() + " " + s.getIndex() + " " + startTime.get(k) + " " + endTime.get(k));
+//							s.getDay()+	s.getCourseCode() + " " + s.getIndex() + " " + startTime.get(k) + " " + endTime.get(k));
 					}
 
 				}
@@ -177,6 +199,16 @@ public class ScheduleController {
 			}
 
 			newTimeTable = this.readSchedule(newCourseCode);
+			/*TO get ther schedule only by the index stated*/
+			for(int p=0;p<newTimeTable.size();p++){
+				Schedule TT=(Schedule)newTimeTable.get(p);
+				if(TT.getCourseCode().toLowerCase().equals(newCourseCode)&&TT.getIndex()==newIndex){
+					match.add(TT);
+				}
+			}
+			/*end of check                                      */
+			
+			
 			for (int k = 0; k < day.size(); k++) {
 				starts = startTime.get(k).toString();
 				starts = starts.substring(0, 2);
@@ -185,10 +217,14 @@ public class ScheduleController {
 				ends = ends.substring(0, 2);
 				end = Integer.parseInt(ends);
 				durationOld = end - start;// get the duration of the session
-
-				for (int x = 0; x < newTimeTable.size(); x++) {
-					Schedule s = (Schedule) newTimeTable.get(x);
-					if (s.getDay().toLowerCase().equals(day.get(k).toString().toLowerCase())) {
+				
+				
+				
+				for (int x = 0; x < match.size(); x++) {
+					Schedule s = (Schedule) match.get(x);
+				
+					if (s.getDay().equals(day.get(k).toString())) {
+					
 						newStarts = s.getStartTime();
 						newStarts = newStarts.substring(0, 2);
 						newStart = Integer.parseInt(newStarts);
@@ -223,25 +259,60 @@ public class ScheduleController {
 
 					}
 					
-					else{
-						clash=false;
-						
-					}
+					
 
 				}
 
 			}
 		}
 
-		else {
-			clash = false;
-		}
+	
 		return clash;
 
 	}
 
+	
+	public void displaySchedule(String courseCode){
+		boolean status=false;
+		List match=new ArrayList();
+		CourseController n=new CourseController();
+		try {
+			 match=n.readAllCourse("Database/courses.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List timeTable=new ArrayList();
+	for(int l=0;l<match.size();l++){
+		Course MATCH=(Course)match.get(l);
+		if(MATCH.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())){
+			status=true;
+		}
+	}
+	if(status==true){
+		timeTable = this.readSchedule(courseCode);
+		/*TO get ther schedule only by the index stated*/
+			System.out.println("************************************************************************************************");
+		for(int p=0;p<timeTable.size();p++){
+			Schedule TT=(Schedule)timeTable.get(p);
+			System.out.println("Index: "+TT.getIndex());
+			if(TT.getCourseCode().toLowerCase().equals(courseCode)){
+			System.out.println(TT.getType()+" Day: "+TT.getDay()+" Venue: "+TT.getVenue()+" StartTime: "+TT.getEndTime());
+			}
+			System.out.println("************************************************************************************************");
+		}
+		
+		
+	}
+		
+		/*end of check                                      */
+		
+	}
 	// public static void main(String [] args){
 	// ScheduleController n=new ScheduleController();
+	 
+	 
+	 //n.clashcheck("ma4002", 1,"u1621546d");
 	// boolean check;
 	// ArrayList test;
 	// test=n.readSchedule("ce3005");
@@ -262,5 +333,5 @@ public class ScheduleController {
 	// System.out.println("no Clash");
 	// }
 	// }
-	//
+	 //}
 }
