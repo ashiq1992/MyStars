@@ -57,10 +57,10 @@ public class AddDropController {
 	 * matriculation number.If the course is full,the person is automatically added into the waitlist.
 	 * 
 	 * 
-	 * @param courseCode --> The course code the student which is to enroll into
-	 * @param index --> The index of the course which the student prefers.E.g.CE2003_2 where 2 refers to the index
-	 * @param matricNum --> The matriculation number of the student
-	 * @return --> returns a boolean, either true when method is is able to add a course/add a person to a waitlist.False if otherwise.
+	 * @param courseCode  The course code the student which is to enroll into
+	 * @param index  The index of the course which the student prefers.E.g.CE2003_2 where 2 refers to the index
+	 * @param matricNum  The matriculation number of the student
+	 * @return  returns a boolean, either true when method is is able to add a course/add a person to a waitlist.False if otherwise.
 	 */
 	public boolean addMethod(String courseCode, int index, String matricNum) {
 		boolean endResult = false;
@@ -120,10 +120,10 @@ public class AddDropController {
 	/**
 	 * A method that adds a student to a waitlist if the course is full
 	 * 
-	 * @param filename --> The file name of the waitlist for a particular course
-	 * @param list --> Takes in a List which consists of the List
-	 * @param courseCode -->  The course code of a course
-	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @param filename  The file name of the waitlist for a particular course
+	 * @param list  Takes in a List which consists of the List
+	 * @param courseCode   The course code of a course
+	 * @param index  The index of the course.E.g,CE2003_2 where 2 refers to the index
 	 */
 	public void studentAndCourseWaitList(String filename, List list, String courseCode, int index) {
 		try {
@@ -216,9 +216,9 @@ public class AddDropController {
 	/**
 	 * A method that takes in the matriculation number of the first student in the waiting list
 	 * 
-	 * @param courseCode --> The course code of a particular course
-	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
-	 * @return --> Returns the matriculation number
+	 * @param courseCode  The course code of a particular course
+	 * @param index  The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @return  Returns the matriculation number
 	 */
 	public String getMatricNum(String courseCode, int index) {
 
@@ -249,11 +249,11 @@ public class AddDropController {
 	/**
 	 * A method that adds a student enrolled in a course into a file
 	 * 
-	 * @param filename --> The file name of where the data should be written
-	 * @param list --> A list of student to be added into the course
-	 * @param courseCode -->The course code of a particular course
-	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
-	 * @throws IOException -->Throws an exception to the method which calls this method in the event,there is a problem reading the file
+	 * @param filename  The file name of where the data should be written
+	 * @param list  A list of student to be added into the course
+	 * @param courseCode The course code of a particular course
+	 * @param index  The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @throws IOException Throws an exception to the method which calls this method in the event,there is a problem reading the file
 	 */
 	public void studentAddsCourse(String filename, List list, String courseCode, int index) throws IOException {
 
@@ -345,9 +345,9 @@ public class AddDropController {
 	/**
 	 * A method that writes content onto a text file
 	 * 
-	 * @param fileName --> The filename where the data should be written onto
-	 * @param data --> Takes in a List of data to be written to the text file
-	 * @throws IOException --> Exception when there is a problem writing data on the file
+	 * @param fileName  The filename where the data should be written onto
+	 * @param data  Takes in a List of data to be written to the text file
+	 * @throws IOException  Exception when there is a problem writing data on the file
 	 */
 	public static void write(String fileName, List data) throws IOException {
 		PrintWriter out = new PrintWriter(new FileWriter(fileName));
@@ -364,9 +364,9 @@ public class AddDropController {
 	/**
 	 * A method that reads all students enrolled in the course given a filename
 	 * 
-	 * @param filename -->The name name of the file where data should be read from
-	 * @return --> An ArrayList of students who are enrolled to the particular course
-	 * @throws IOException -->Throws an exception to the method which calls this method where the reading fails
+	 * @param filename The name name of the file where data should be read from
+	 * @return  An ArrayList of students who are enrolled to the particular course
+	 * @throws IOException Throws an exception to the method which calls this method where the reading fails
 	 */
 	public static ArrayList readAllCourseAndStudent(String filename) throws IOException {
 		ArrayList stringArray = (ArrayList) read(filename);
@@ -405,9 +405,9 @@ public class AddDropController {
 
 	/** 
 	 * A method that retrieves data given the file name of a text file
-	 * @param fileName --> The file name of the text file where the contents should be read
-	 * @return --> Returns a List of data read from a particular text file
-	 * @throws IOException --> Exception thrown if there is problems reading from the file
+	 * @param fileName  The file name of the text file where the contents should be read
+	 * @return  Returns a List of data read from a particular text file
+	 * @throws IOException  Exception thrown if there is problems reading from the file
 	 */
 	public static List read(String fileName) throws IOException {
 		List data = new ArrayList();
@@ -427,9 +427,9 @@ public class AddDropController {
 	 * if there are students in the waitlist.The first student from the waitlist will be added to the course automatically
 	 * and triggers an email instantly to the latter that he has been enrolled in the course.
 	 * 
-	 * @param courseCode -->Course of the particular course
-	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
-	 * @param matricNum --> The matriculation number of the student
+	 * @param courseCode Course of the particular course
+	 * @param index  The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @param matricNum  The matriculation number of the student
 	 */
 	public void dropMethod(String courseCode, int index, String matricNum) {
 		try {
@@ -494,9 +494,9 @@ public class AddDropController {
 	 * This method returns the Index of a course a student is enrolled to based on
 	 * the following parameters,
 	 * 
-	 * @param matriculationNum --> The matriculation number of the student
-	 * @param courseCode --> The course code of a particular
-	 * @return --> returns the index in the form of an integer
+	 * @param matriculationNum  The matriculation number of the student
+	 * @param courseCode  The course code of a particular
+	 * @return  returns the index in the form of an integer
 	 */
 	public int returnIndex(String matriculationNum, String courseCode) {
 		List stringArray;
@@ -530,7 +530,7 @@ public class AddDropController {
 	/**
 	 * This method saves the amended List of students enrolled into a course
 	 * 
-	 * @param stringArray -->Takes in a list to be written onto the file
+	 * @param stringArray Takes in a list to be written onto the file
 	 */
 	public void saveAmend(List stringArray) {
 		List tempList = new ArrayList();
@@ -563,8 +563,8 @@ public class AddDropController {
 	 * This method saves the amended List of students who are in the wait list for a course
 	 * 
 	 * 
-	 * @param stringArray -->Takes in a list to be written onto the file
-	 * @param courseCode -->Takes the course code of a particular course
+	 * @param stringArray Takes in a list to be written onto the file
+	 * @param courseCode Takes the course code of a particular course
 	 */
 	public void saveAmendWaitList(List stringArray, String courseCode) {
 		List tempList = new ArrayList();
@@ -596,9 +596,9 @@ public class AddDropController {
 	/**
 	 * A method that checks whether there is an index for a particular courseCode
 	 * 
-	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
-	 * @param courseCode --> The course code based on a particular course
-	 * @return --> True, when such an index exists for a course else false if otherwise
+	 * @param index  The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @param courseCode  The course code based on a particular course
+	 * @return  True, when such an index exists for a course else false if otherwise
 	 */
 	public boolean validateIndexOfCourseAndStudent(int index, String courseCode) {
 		boolean state = false;
@@ -628,9 +628,9 @@ public class AddDropController {
 	 * This method when invoked allows the student to be dropped from the wait list.
 	 * 
 	 * 
-	 * @param courseCode -->Takes in a course code of a particular course
-	 * @param matricNum --> Matriculation number of the student
-	 * @param Index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @param courseCode Takes in a course code of a particular course
+	 * @param matricNum  Matriculation number of the student
+	 * @param Index  The index of the course.E.g,CE2003_2 where 2 refers to the index
 	 */
 	public void dropWaitList(String courseCode,String matricNum,int Index)
 	
@@ -665,10 +665,10 @@ public class AddDropController {
 	/**
 	 * This method validates the student against a course to check if the student is enrolled in the course in a given index
 	 * 
-	 * @param matricNum -->Matriculation number of the student
-	 * @param courseCode --> The course code of a particular course
-	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
-	 * @return --> True if the student is enrolled in the course,False if otherwise
+	 * @param matricNum Matriculation number of the student
+	 * @param courseCode  The course code of a particular course
+	 * @param index  The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @return  True if the student is enrolled in the course,False if otherwise
 	 */
 	public boolean validateStudentAgainstCourseEnrolled(String matricNum, String courseCode, int index) {
 		boolean state = false;
@@ -700,9 +700,9 @@ public class AddDropController {
 	/**
 	 * This method validates the student against a course to check if the student is enrolled in the course
 	 * 
-	 * @param matricNum --> Matriculation number of the student
-	 * @param courseCode --> The course code of a particular course
-	 * @return -->  True if the student is enrolled in the course,False if otherwise
+	 * @param matricNum  Matriculation number of the student
+	 * @param courseCode  The course code of a particular course
+	 * @return   True if the student is enrolled in the course,False if otherwise
 	 */
 	public boolean validateStudentAgainstCourse(String matricNum, String courseCode) {
 		boolean state = false;
@@ -735,9 +735,9 @@ public class AddDropController {
 	/**
 	 * This method allows to drop a student from a course
 	 * 
-	 * @param matricNum --> The matriculation number of the student
-	 * @param courseCode -->The course code of the particular course
-	 * @param index -->  The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @param matricNum  The matriculation number of the student
+	 * @param courseCode The course code of the particular course
+	 * @param index   The index of the course.E.g,CE2003_2 where 2 refers to the index
 	 */
 	public void dropMasterCheck(String matricNum,String courseCode,int index){
 		
@@ -801,10 +801,10 @@ public class AddDropController {
 	 * This method allows a student to be added into the course and an email sent if the course registration is successful
 	 * and it also check for clash of timetable schedules
 	 * 
-	 * @param matricNum --> Matriculation number of the student
-	 * @param courseCode -->courseCode of a particular course
-	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
-	 * @return --> True if the student has been successfully registered and False if otherwise
+	 * @param matricNum  Matriculation number of the student
+	 * @param courseCode courseCode of a particular course
+	 * @param index  The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @return  True if the student has been successfully registered and False if otherwise
 	 */
 
 	public boolean AddMasterCheck(String matricNum,String courseCode,int index){
@@ -910,8 +910,8 @@ public class AddDropController {
 	
 	/**
 	 * This method returns a list of course given a students matriculation number
-	 * @param matricNum --> The matriculation number of the student
-	 * @return --> Returns a list of courses
+	 * @param matricNum  The matriculation number of the student
+	 * @return  Returns a list of courses
 	 */
 	public List returnCourseRegistered(String matricNum){
 		List courseCode=new ArrayList();
