@@ -488,7 +488,14 @@ public class AddDropController {
 		}
 	}
 
-	/* This method return the user the index of thr course added base */
+	/**
+	 * This method returns the Index of a course a student is enrolled to based on
+	 * the following parameters,
+	 * 
+	 * @param matriculationNum --> The matriculation number of the student
+	 * @param courseCode --> The course code of a particular
+	 * @return --> returns the index in the form of an integer
+	 */
 	public int returnIndex(String matriculationNum, String courseCode) {
 		List stringArray;
 		int index = 0;
@@ -510,7 +517,6 @@ public class AddDropController {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -518,7 +524,12 @@ public class AddDropController {
 
 	}
 
-	/* Save the amended student and course file */
+	
+	/**
+	 * This method saves the amended List of students enrolled into a course
+	 * 
+	 * @param stringArray -->Takes in a list to be written onto the file
+	 */
 	public void saveAmend(List stringArray) {
 		List tempList = new ArrayList();
 		for (int i = 0; i < stringArray.size(); i++) {
@@ -541,7 +552,6 @@ public class AddDropController {
 		try {
 			write("DataBase/courseAndStudent.txt", tempList);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
