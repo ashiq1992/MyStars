@@ -124,7 +124,8 @@ public class CourseController {
 	}
 
 	public boolean addCourse() {
-		boolean check =true;
+		boolean check = true;
+		boolean status;
 		Scanner sc = new Scanner(System.in);
 		List courseSave = new ArrayList();
 		List scheduleList = new ArrayList();
@@ -143,11 +144,14 @@ public class CourseController {
 			String code, name, school, startDate, endDate;
 			int capacity, noOfSections, temp;
 
-			System.out.println("Please enter course code: ");
-			code = sc.nextLine().toLowerCase();//add check here
+			do {// validate the code course
+				System.out.println("Please enter course code format[CE1234]: ");
+				code = sc.nextLine();// add check here
+				status = validateCourseCode(code);
+				code = code.toLowerCase();
+			} while (status != true);
 
-			
-			/*Start of check                                                                          */
+			/* Start of check */
 			try {
 				List course1 = readAllCourse("DataBase/courses.txt");
 				for (int x = 0; x < course1.size(); x++) {
@@ -164,17 +168,13 @@ public class CourseController {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			
-			if(check==false){
+
+			if (check == false) {
 				return false;
-		
+
 			}
-			/*End of check                                                                           */
-			
-			
-			
-			
+			/* End of check */
+
 			System.out.println("Please enter course name: ");
 			name = sc.nextLine();
 
@@ -283,10 +283,10 @@ public class CourseController {
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
 						if (m.find()) {
-//							System.out.println("Time" + m.group(0));
-//							System.out.println("hh " + m.group(1));
-//							System.out.println("mm " + m.group(2));
-//							System.out.println("ss " + m.group(3));
+							// System.out.println("Time" + m.group(0));
+							// System.out.println("hh " + m.group(1));
+							// System.out.println("mm " + m.group(2));
+							// System.out.println("ss " + m.group(3));
 							result = true;
 							endTime = ip;
 						} else {
@@ -486,10 +486,10 @@ public class CourseController {
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
 						if (m.find()) {
-//							System.out.println("Time" + m.group(0));
-//							System.out.println("hh " + m.group(1));
-//							System.out.println("mm " + m.group(2));
-//							System.out.println("ss " + m.group(3));
+							// System.out.println("Time" + m.group(0));
+							// System.out.println("hh " + m.group(1));
+							// System.out.println("mm " + m.group(2));
+							// System.out.println("ss " + m.group(3));
 							result = true;
 							endTime = ip;
 						} else {
@@ -525,10 +525,10 @@ public class CourseController {
 			} while (dateResult != true);
 
 			// add the
-																// schedule
-																// implementation
+			// schedule
+			// implementation
 			Course course = new Course(code, name, school, startDate, endDate, indices, indices); // here
-			
+
 			if (check == true) {
 				schedulecontroller = new ScheduleController();
 				schedulecontroller.saveSchedule(scheduleList, code);
@@ -549,18 +549,17 @@ public class CourseController {
 		try {
 			saveCourse("DataBase/courses.txt", courseSave);
 			List courses = readAllCourse("DataBase/courses.txt");
-			for(int k=0;k<courses.size();k++){
-				System.out.println("######################################");
-				Course C=(Course)courses.get(k);
-				System.out.println("Course name: "+C.getCourseName());
-				System.out.println("Course code: "+C.getCourseCode());
-				for(int h=0;h<C.getIndices().length;h++){
-				System.out.println("Course index: "+(h+1));
-				System.out.println("Course vacancy: "+C.getIndices()[h]);
+			for (int k = 0; k < courses.size(); k++) {
+				System.out.println("================================**=========================================");
+				Course C = (Course) courses.get(k);
+				System.out.println("Course name: " + C.getCourseName());
+				System.out.println("Course code: " + C.getCourseCode());
+				for (int h = 0; h < C.getIndices().length; h++) {
+					System.out.println("Course index: " + (h + 1));
+					System.out.println("Course vacancy: " + C.getIndices()[h]);
 				}
-				System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-				
-				
+				System.out.println("***************************************************************************");
+
 			}
 
 			return true;
@@ -642,9 +641,6 @@ public class CourseController {
 		try {
 
 			ArrayList<Course> a1 = readAllCourse(file);
-			System.out.println(file);
-			System.out.println(courseCode);
-			System.out.println(a1.size());
 			List l2 = new ArrayList();
 			for (int i = 0; i < a1.size(); i++) {
 
@@ -675,6 +671,20 @@ public class CourseController {
 			}
 
 			saveCourseAmend(file, l2);
+
+			ArrayList<Course> a2 = readAllCourse(file);
+
+			for (int i = 0; i < a1.size(); i++) {
+				System.out.println("================================**=========================================");
+				Course C = (Course) a1.get(i);
+				System.out.println("Course name: " + C.getCourseName());
+				System.out.println("Course code: " + C.getCourseCode());
+				for (int h = 0; h < C.getIndices().length; h++) {
+					System.out.println("Course index: " + (h + 1));
+					System.out.println("Course vacancy: " + C.getIndices()[h]);
+				}
+				System.out.println("***************************************************************************");
+			}
 
 		} catch (IOException e) {
 
@@ -836,7 +846,7 @@ public class CourseController {
 								+ " / " + course.getIndices()[j]);
 						System.out.println("                                                ");
 					}
-						System.out.println("===================================================");
+					System.out.println("===================================================");
 				}
 			} else {
 				System.out.println("There is no such course .Re-enter the coursecode!!");
@@ -853,120 +863,155 @@ public class CourseController {
 
 	public boolean adminPrintByCourseCode(String courseCode) {
 		boolean check = false;
+		boolean status = false;
+		boolean checkCourse = false;
 		try {
 			AddDropController checkStudent = new AddDropController();
 			StudentController s = new StudentController();
 			ArrayList student = checkStudent.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			ArrayList studentCheck = s.readAllStudents("DataBase/student.txt");
-
+			ArrayList courseCheck = this.readAllCourse("DataBase/courses.txt");
 			ArrayList a2 = new ArrayList();
 			ArrayList a3 = new ArrayList();
 
 			courseCode = courseCode.toLowerCase();
 
-			for (int i = 0; i < student.size(); i++) {
-				AddDrop Add = (AddDrop) student.get(i);
-				if (Add.getCourseCode().toLowerCase().equals(courseCode)) {
-					a2.add(student.get(i));
-					check = true;
+			for (int q = 0; q < courseCheck.size(); q++) {
+				Course c = (Course) courseCheck.get(q);
+				if (c.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+					checkCourse = true;
 				}
-
 			}
-			if (check) {
-				for (int x = 0; x < a2.size(); x++) {
-					AddDrop Add = (AddDrop) a2.get(x);
-					System.out.println("                                               ");
-					System.out.println("                                               ");
-					System.out.println("===============================================");
-					System.out.println("  Courses for Index       :" + Add.getIndex());
-					System.out.println("  Course Code             :" + Add.getCourseCode());
-					System.out.println("***********************************************");
-					// System.out.println("CourseCode: " + Add.getCourseCode() +
-					// " Index: " + Add.getIndex());
-					for (int z = 0; z < Add.getList().size(); z++) {
-						for (int k = 0; k < studentCheck.size(); k++) {
-							Student s1 = (Student) studentCheck.get(k);
 
-							if (Add.getList().get(z).toLowerCase().equals(s1.getMatriculationNumber().toLowerCase())) {
-								System.out.println("                           ");
-								System.out.println("  Student Name            :" + s1.getName());
-								System.out.println("  Gender                  :" + s1.getGender());
-								System.out.println("  Nationality             :" + s1.getNationality());
-								// System.out.println(s1.getName() + " " +
-								// s1.getGender() + " " + s1.getNationality());
+			if (checkCourse) {
+
+				for (int i = 0; i < student.size(); i++) {
+					AddDrop Add = (AddDrop) student.get(i);
+					if (Add.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+						a2.add(student.get(i));
+						check = true;
+					}
+
+				}
+				if (check) {
+					for (int x = 0; x < a2.size(); x++) {
+						AddDrop Add = (AddDrop) a2.get(x);
+						System.out.println("                                               ");
+						System.out.println("                                               ");
+						System.out.println("===============================================");
+						System.out.println("  Courses for Index       :" + Add.getIndex());
+						System.out.println("  Course Code             :" + Add.getCourseCode());
+						System.out.println("***********************************************");
+						// System.out.println("CourseCode: " +
+						// Add.getCourseCode() +
+						// " Index: " + Add.getIndex());
+						for (int z = 0; z < Add.getList().size(); z++) {
+							for (int k = 0; k < studentCheck.size(); k++) {
+								Student s1 = (Student) studentCheck.get(k);
+
+								if (Add.getList().get(z).toLowerCase()
+										.equals(s1.getMatriculationNumber().toLowerCase())) {
+									System.out.println("                           ");
+									System.out.println("  Student Name            :" + s1.getName());
+									System.out.println("  Gender                  :" + s1.getGender());
+									System.out.println("  Nationality             :" + s1.getNationality());
+									// System.out.println(s1.getName() + " " +
+									// s1.getGender() + " " +
+									// s1.getNationality());
+								}
 							}
 						}
+						System.out.println("===============================================");
+
 					}
-					System.out.println("===============================================");
+					status = true;
+				} else {
+					System.out.println("There is not Student registered for the course");
 
 				}
-			} else {
-				System.out.println("There is no student registered for the course/check your course code entered!!");
-
 			}
 
+			else {
+				checkCourse = false;
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return check;
+		return checkCourse;
 	}
 
 	public boolean adminPrintByCourseCodeAndIndex(String courseCode, int index) {
 		boolean check = false;
+
+		boolean checkCourse = false;
 		int status;
 		try {
 			AddDropController checkStudent = new AddDropController();
+
 			StudentController s = new StudentController();
 			ArrayList student = checkStudent.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			ArrayList studentCheck = s.readAllStudents("DataBase/student.txt");
-
+			ArrayList courseCheck = this.readAllCourse("DataBase/courses.txt");
 			ArrayList a2 = new ArrayList();
 			ArrayList a3 = new ArrayList();
 
 			courseCode = courseCode.toLowerCase();
 
-			for (int i = 0; i < student.size(); i++) {
-				AddDrop Add = (AddDrop) student.get(i);
-				if (Add.getCourseCode().toLowerCase().equals(courseCode) && Add.getIndex() == index) {
-					a2.add(student.get(i));
-					check = true;
+			for (int q = 0; q < courseCheck.size(); q++) {
+				Course c = (Course) courseCheck.get(q);
+				if (c.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
+					checkCourse = true;
 				}
-
 			}
-			if (check) {
-				for (int x = 0; x < a2.size(); x++) {
-					AddDrop Add = (AddDrop) a2.get(x);
-					System.out.println("===============================================");
-					System.out.println("  Courses for Index       :" + Add.getIndex());
-					System.out.println("  Course Code             :" + Add.getCourseCode());
-					System.out.println("***********************************************");
+			if (checkCourse) {
+				for (int i = 0; i < student.size(); i++) {
+					AddDrop Add = (AddDrop) student.get(i);
+					if (Add.getCourseCode().toLowerCase().equals(courseCode) && Add.getIndex() == index) {
+						a2.add(student.get(i));
+						check = true;
+					}
 
-					// System.out.println("CourseCode: " + Add.getCourseCode() +
-					// " Index: " + Add.getIndex());
-					for (int z = 0; z < Add.getList().size(); z++) {
-						for (int k = 0; k < studentCheck.size(); k++) {
-							Student s1 = (Student) studentCheck.get(k);
+				}
+				if (check) {
+					for (int x = 0; x < a2.size(); x++) {
+						AddDrop Add = (AddDrop) a2.get(x);
+						System.out.println("===============================================");
+						System.out.println("  Courses for Index       :" + Add.getIndex());
+						System.out.println("  Course Code             :" + Add.getCourseCode());
+						System.out.println("***********************************************");
 
-							if (Add.getList().get(z).toLowerCase().equals(s1.getMatriculationNumber().toLowerCase())) {
-								// System.out.println(s1.getName() + " " +
-								// s1.getGender() + " " + s1.getNationality());
-								System.out.println("                           ");
-								System.out.println("  Student Name            :" + s1.getName());
-								System.out.println("  Gender                  :" + s1.getGender());
-								System.out.println("  Nationality             :" + s1.getNationality());
+						// System.out.println("CourseCode: " +
+						// Add.getCourseCode() +
+						// " Index: " + Add.getIndex());
+						for (int z = 0; z < Add.getList().size(); z++) {
+							for (int k = 0; k < studentCheck.size(); k++) {
+								Student s1 = (Student) studentCheck.get(k);
 
+								if (Add.getList().get(z).toLowerCase()
+										.equals(s1.getMatriculationNumber().toLowerCase())) {
+									// System.out.println(s1.getName() + " " +
+									// s1.getGender() + " " +
+									// s1.getNationality());
+									System.out.println("                           ");
+									System.out.println("  Student Name            :" + s1.getName());
+									System.out.println("  Gender                  :" + s1.getGender());
+									System.out.println("  Nationality             :" + s1.getNationality());
+
+								}
 							}
+
 						}
+						System.out.println("===============================================");
 
 					}
-					System.out.println("===============================================");
+				} else {
+					System.out.println("There is no student registerd for the course yet !!");
+
 				}
 			} else {
-				System.out.println(
-						"There is no student registered for the spcecific index of the given course/check entered Index !!");
-
+				checkCourse = false;
 			}
 
 		} catch (IOException e) {
@@ -980,9 +1025,8 @@ public class CourseController {
 			// e.printStackTrace();
 		}
 
-		return check;
+		return checkCourse;
 	}
-
 
 	public boolean checkIndexeAndCourseCode(int index, String courseCode) {
 
@@ -1099,7 +1143,6 @@ public class CourseController {
 
 				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
 
-					
 					state = true;
 
 				}
@@ -1114,7 +1157,6 @@ public class CourseController {
 		if (state) {
 			AddDropController invoke = new AddDropController();
 			result = invoke.validateStudentAgainstCourseEnrolled(matricNum, courseCode, index);
-		
 
 		}
 		return result;
@@ -1181,29 +1223,48 @@ public class CourseController {
 		return result;
 	}
 
-	
-	public boolean validateCourseCode(String ip) {
-		boolean result = true;
+	public boolean validateCourseCode(String txt) {
 
-		if (ip == null || !ip.matches("^([0-2][0-9]||3[0-1])(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$")) {
-			System.out.println("Wrong courseCode added");
-			result = false;
+		// String txt="U1234567K";
+
+		String re1 = "([A-Z])"; // Any Single Character 1
+		String re2 = "([A-Z])"; // Any Single Digit 1
+		String re3 = "(\\d)"; // Any Single Digit 2
+		String re4 = "(\\d)"; // Any Single Digit 3
+		String re5 = "(\\d)"; // Any Single Digit 4
+		String re6 = "(\\d)"; // Any Single Digit 5
+
+		Pattern p = Pattern.compile(re1 + re2 + re3 + re4 + re5 + re6, Pattern.DOTALL);
+		Matcher m = p.matcher(txt);
+		if (m.find()) {
+
+			System.out.println("valid");
+			return true;
+			// String c1=m.group(1);
+			// String d1=m.group(2);
+			// String d2=m.group(3);
+			// String d3=m.group(4);
+			// String d4=m.group(5);
+			// String d5=m.group(6);
+			// String d6=m.group(7);
+			// String d7=m.group(8);
+			// String w1=m.group(9);
+			// System.out.print("("+c1.toString()+")"+"("+d1.toString()+")"+"("+d2.toString()+")"+"("+d3.toString()+")"+"("+d4.toString()+")"+"("+d5.toString()+")"+"("+d6.toString()+")"+"("+d7.toString()+")"+"("+w1.toString()+")"+"\n");
 		}
-	
+
 		else {
-			result = true;;
+
+			System.out.println("invalid input please key in again");
+			return false;
 		}
 
-		return result;
 	}
 
-	
-	
-//	public static void main(String args[]) {
-//
-//		CourseController n = new CourseController();
-//		n.showIndexByCourse("mh1813");
-//
-//	}
+	// public static void main(String args[]) {
+
+	// CourseController n = new CourseController();
+	// n.validateCourseCode("CE203");
+
+	// }
 
 }

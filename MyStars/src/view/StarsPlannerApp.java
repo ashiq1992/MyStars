@@ -253,7 +253,7 @@ public class StarsPlannerApp {
 		Scanner sc = new Scanner(System.in);
 		Cd = new CourseController();
 		System.out.println("Enter CourseCode:");
-		String id = sc.next();
+		String id = sc.next().toLowerCase();
 		result = Cd.deleteCourse("DataBase/courses.txt",id);
 		if (result == true) {
 			System.out.println("Success,course has been removed");

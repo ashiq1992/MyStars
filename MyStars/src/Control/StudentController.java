@@ -96,6 +96,7 @@ public class StudentController {
 	}
 
 	public boolean deleteStudent(String file, String matriculationNumber) {
+		boolean check =false;
 		try {
 			ArrayList<Student> a1 = readAllStudents(file);
 
@@ -105,8 +106,8 @@ public class StudentController {
 
 				String mat = student.getMatriculationNumber();
 
-				if (mat.equals(matriculationNumber)) {
-
+				if (mat.toLowerCase().equals(matriculationNumber.toLowerCase())) {
+					check=true;
 					a1.remove(i);
 				}
 
@@ -122,12 +123,25 @@ public class StudentController {
 
 			saveStudentAmmend(file, l2);
 
+			ArrayList<Student> a2 = readAllStudents(file);
+			System.out.println("*******************************************");
+			for (int i = 0; i < a1.size(); i++) {
+				Student s = (Student) a1.get(i);
+				System.out.println("Student Number: " + (i + 1));
+				System.out.println("Name: " + s.getName());
+				System.out.println("Gender: " + s.getGender());
+				System.out.println("Nationality: " + s.getNationality());
+				System.out.println("MatricNumer: " + s.getMatriculationNumber());
+				System.out.println("emal: " + s.getUserId());
+				System.out.println("*******************************************");
+			}
+
 		} catch (IOException e) {
 
 			return false;
 		}
 
-		return true;
+		return check;
 	}
 
 	/** Write fixed content to the given file. */
@@ -256,19 +270,21 @@ public class StudentController {
 	}
 
 	public void displayCourse(String matriculationNum) {
-		boolean check=true;
+		boolean check = false;
 		try {
 			String courseCode = null;
 			List StringArray = addDrop.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			int index = 0;
+
 			for (int x = 0; x < StringArray.size(); x++) {
 				AddDrop addDrop = (AddDrop) StringArray.get(x);
 				for (int k = 0; k < addDrop.getList().size(); k++) {
 					if (addDrop.getList().get(k).toLowerCase().equals(matriculationNum.toLowerCase())) {
 						courseCode = addDrop.getCourseCode();
+						check = true;
 						index = addDrop.getIndex();
 						System.out.println("Course Code: " + addDrop.getCourseCode() + " Index: " + addDrop.getIndex());
-							check=false;//empty String Array
+
 						List StringArray2 = schedule.readSchedule(courseCode);
 						for (int q = 0; q < StringArray2.size(); q++) {
 							Schedule s = (Schedule) StringArray2.get(q);
@@ -289,8 +305,8 @@ public class StudentController {
 				}
 
 			}
-			
-			if(check==false){
+
+			if (check == false) {
 				System.out.println("You have yet to register for a course!!!");
 			}
 
@@ -384,7 +400,7 @@ public class StudentController {
 
 	public void changeMatricId(String courseCode, String matricNum, String newMatricId) {
 		try {
-			int newIndex =1 ,oldIndex=1;
+			int newIndex = 1, oldIndex = 1;
 			int temp;
 			boolean check;
 			ScheduleController SDC = new ScheduleController();
@@ -417,23 +433,25 @@ public class StudentController {
 						}
 
 					}
-//test
+					// test
 				}
 
 			}
 
-			if (newIndex != 0 && oldIndex!=0) {
+			if (newIndex != 0 && oldIndex != 0) {
 				for (int x = 0; x < StringArray.size(); x++) {
 
 					AddDrop changeIndex = (AddDrop) StringArray.get(x);
 					if (changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
 						for (int k = 0; k < changeIndex.getList().size(); k++) {
-							if (changeIndex.getList().get(k).toLowerCase().equals(newMatricId.toLowerCase())&&changeIndex.getIndex()==newIndex) {
+							if (changeIndex.getList().get(k).toLowerCase().equals(newMatricId.toLowerCase())
+									&& changeIndex.getIndex() == newIndex) {
 								changeIndex.getList().remove(k);
 								changeIndex.getList().add(k, matricNum);
 
 							}
-							if (changeIndex.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())&& changeIndex.getIndex()==oldIndex) {
+							if (changeIndex.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())
+									&& changeIndex.getIndex() == oldIndex) {
 								changeIndex.getList().remove(k);
 								changeIndex.getList().add(k, newMatricId);
 
@@ -453,10 +471,10 @@ public class StudentController {
 	}
 
 	/* for testing display course by student */
-	
-//	public static void main(String args[]){
-//		StudentController n=new StudentController();
-//		n.changeMatricId("mh1812", "u165", "u163");
-//	}
+
+	// public static void main(String args[]){
+	// StudentController n=new StudentController();
+	// n.changeMatricId("mh1812", "u165", "u163");
+	// }
 
 }

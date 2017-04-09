@@ -47,7 +47,7 @@ public class Test {
 	public static void main(String args[])
 	{
 		Test t1 = new Test();
-		t1.validateMatricNum("U1634567K");
+		t1.validateMatricNum("Z1634567K");
 	}
 
 }
