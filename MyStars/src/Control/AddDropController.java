@@ -663,7 +663,7 @@ public class AddDropController {
 	}
 	
 	/**
-	 * This method validates the student against a course to check if the student is enrolled in the course
+	 * This method validates the student against a course to check if the student is enrolled in the course in a given index
 	 * 
 	 * @param matricNum -->Matriculation number of the student
 	 * @param courseCode --> The course code of a particular course
@@ -698,10 +698,11 @@ public class AddDropController {
 	}
 	
 	/**
+	 * This method validates the student against a course to check if the student is enrolled in the course
 	 * 
-	 * @param matricNum
-	 * @param courseCode
-	 * @return
+	 * @param matricNum --> Matriculation number of the student
+	 * @param courseCode --> The course code of a particular course
+	 * @return -->  True if the student is enrolled in the course,False if otherwise
 	 */
 	public boolean validateStudentAgainstCourse(String matricNum, String courseCode) {
 		boolean state = false;
@@ -731,6 +732,13 @@ public class AddDropController {
 	}
 	
 	
+	/**
+	 * This method allows to drop a student from a course
+	 * 
+	 * @param matricNum --> The matriculation number of the student
+	 * @param courseCode -->The course code of the particular course
+	 * @param index -->  The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 */
 	public void dropMasterCheck(String matricNum,String courseCode,int index){
 		
 		boolean check=false;
@@ -769,7 +777,6 @@ public class AddDropController {
 			else{
 				
 				this.dropMethod(courseCode, index, matricNum);
-				//check inside the Drop method to add the send email to the person who is being transfered from wait list to courselist.
 				System.out.println("Course has been removed");
 				
 				
@@ -786,10 +793,18 @@ public class AddDropController {
 				
 			}	
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * This method allows a student to be added into the course and a notification is triggered
+	 * 
+	 * @param matricNum --> Matriculation number of the student
+	 * @param courseCode -->courseCode of a particular course
+	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @return
+	 */
 
 	public boolean AddMasterCheck(String matricNum,String courseCode,int index){
 		
@@ -853,7 +868,7 @@ public class AddDropController {
 					System.out.println("You have registered for the stated course and you have been put to waitlist and can't add the same course again!!!!");
 				}
 				
-				else{//after checking it will add the course to the student either to wait list or the course itself
+				else{
 					this.addMethod(courseCode, index, matricNum);
 					StudentController std=new StudentController();
 					List studentEmailAddress = std.readAllStudents("DataBase/student.txt");
