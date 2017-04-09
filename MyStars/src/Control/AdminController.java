@@ -105,7 +105,7 @@ public class AdminController {
 
 			// String name=sc.nextLine();
 			student.setName(sc.nextLine());
-			System.out.println("Please enter student Matriculation Number: ");
+			System.out.println("Please enter student Matriculation Number(formart:U1234567Z): ");
 			// String matriculationNumber=sc.next();
 			String userId = sc.next();
 			this.validateMatricNum(userId);
@@ -161,7 +161,8 @@ public class AdminController {
 				List student1 = StudentController.readAllStudents("DataBase/student.txt");
 					System.out.println("*******************************************");
 				for (int x = 0; x < student1.size(); x++) {
-					Student s = (Student) student.get(x);
+					Student s = (Student) student1.get(x);
+					System.out.println("Student Number: "+(x+1));
 					System.out.println("Name: "+s.getName());
 					System.out.println("Gender: "+s.getGender());
 					System.out.println("Nationality: "+s.getNationality());
@@ -191,14 +192,7 @@ public class AdminController {
 			for (int i = 0; i < al.size(); i++) {
 				Admin admin = (Admin) al.get(i);
 				a2.add(admin);
-				// System.out.println("Gender: " + admin.getGender());
-				// System.out.println("Name: " + admin.getName() );
 			}
-			// Professo p1 = new Professor("Joseph","jos@ntu.edu.sg",67909999);
-			// al is an array list containing Professor objs
-			// al.add(p1);
-			// write Professor record/s to file.
-			/// TextDB.saveProfessors(filename, al);
 		} catch (IOException e) {
 			System.out.println("IOException > " + e.getMessage());
 		}
@@ -226,7 +220,7 @@ public class AdminController {
 
 			System.out.println(userVal);
 			if ((userVal == passVal)) {
-				System.out.println("yes");
+				//System.out.println("yes");
 				valid = 1;
 				System.out.println("Account accessed");
 				System.out.println("Gender: " + a1.get(i).getGender());
@@ -295,31 +289,7 @@ public class AdminController {
 		char s;
 		AdminController ad = new AdminController();
 		boolean result = false;
-		do {
-			System.out.println("Enter the course code to view the student:");
-			// String temp=sc.next();
-			courseCode = sc.nextLine();
-			System.out.println("Enter the index of the course:");
-			index = sc.nextInt();
-			ad.printByIndex(courseCode, index);
-
-			// if(result ==false){
-			// System.out.println("Do you wish to exit (y/n)?");
-			// s=sc.nextLine().toLowerCase().charAt(0);
-			// if(s=='y'){
-			// result=false;
-			// }
-			// else if(s=='n'){
-			// result=true;
-			// }
-			// else{
-			// System.out.println("You have entered a wrong input value");
-			// }
-			//
-			// }
-
-		} while (result == false);
-		System.out.println("You have exited the loop");
+	ad.AddStudent();
 
 	}
 

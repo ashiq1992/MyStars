@@ -98,9 +98,11 @@ public class AddDropController {
 
 			if (endResult == true) {
 				addd.studentAddsCourse("DataBase/courseAndStudent.txt", studentData, courseCode, index);
+				System.out.println("You have been added to the course");
 
 			} else {
 				addd.studentAndCourseWaitList("DataBase/waitlists/" + courseCode + ".txt", waitList, courseCode, index);
+				System.out.println("You have been added to the wait list ");
 			}
 
 			Cc1.saveCourseAmend("DataBase/courses.txt", data);
@@ -770,11 +772,12 @@ public class AddDropController {
 				//check inside the Drop method to add the send email to the person who is being transfered from wait list to courselist.
 				System.out.println("Course has been removed");
 				
+				
 			}
 			
 			if(waitCheck==true){
 				this.dropWaitList(courseCode, matricNum, index);
-				System.out.println("Course has been removed");
+				System.out.println("Course has been removed from waitlist");
 			}
 			if(waitCheck==false && check==false){
 				
@@ -919,15 +922,15 @@ public class AddDropController {
 	}
 
 
-	public static void main(String args[]) {
+//	public static void main(String args[]) {
 //		AddDropController Drop = new AddDropController();
 //		Drop.dropMethod("ce2005", 1, "u162");
 		// Drop.removeFromWaitList("ce2005",1);
 
 //	
 //		
-		AddDropController Drop = new AddDropController();
-		Drop.dropMasterCheck("u12345B", "Ce2003",1);
-		
-	}
+//		AddDropController Drop = new AddDropController();
+//		Drop.dropMasterCheck("u12345B", "Ce2003",1);
+//		
+//	}
 }

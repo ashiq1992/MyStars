@@ -171,20 +171,21 @@ public class StarsPlannerApp {
 	public static void AdminMenu() {
 		Scanner sc = new Scanner(System.in);
 		int input;
-		System.out.println("1)Add student.");
-		System.out.println("2)Add Course.");
-		System.out.println("3)RemoveCourse.");
-		System.out.println("4)Print by index.");
-		System.out.println("5)Print by Course.");
-		System.out.println("6) Remove Student");
-		System.out.println("7) Student Access Period");
-		System.out.println("8)Show available vacancy for course/index.");
-		System.out.println("10)LogOut.");
+
 
 		// System.out.println("Enter options:");
 		// input=sc.nextInt();
 
 		do {
+			System.out.println("1)Add student.");
+			System.out.println("2)Add Course.");
+			System.out.println("3)RemoveCourse.");
+			System.out.println("4)Print by index.");
+			System.out.println("5)Print by Course.");
+			System.out.println("6) Remove Student");
+			System.out.println("7) Student Access Period");
+			System.out.println("8)Show available vacancy for course/index.");
+			System.out.println("10)LogOut.");
 			System.out.println("Enter options:");
 			input = sc.nextInt();
 
@@ -241,9 +242,9 @@ public class StarsPlannerApp {
 		Cd=new CourseController();
 		result = Cd.addCourse();
 		if (result == true) {
-			System.out.println("Success");
+			System.out.println("Success,course is added");
 		} else {
-			System.err.println("Fail");
+			System.err.println("Fail.Check inout value and re-enter options");
 		}
 	}
 
@@ -424,6 +425,7 @@ public class StarsPlannerApp {
 
 	public static void addDropMenu() {
 		int input;
+		do{
 		System.out.println("1)Add a course.");
 		System.out.println("2)Drop a course.");
 		System.out.println("3)Change index number.");
@@ -450,8 +452,9 @@ public class StarsPlannerApp {
 			break;
 
 		default:
-			System.err.println("Input error");
+			System.err.println("Input error,re-enter a correct input");
 		}
+		}while(input !=0);
 	}
 
 	public static void addACourse() {

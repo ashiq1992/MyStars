@@ -256,6 +256,7 @@ public class StudentController {
 	}
 
 	public void displayCourse(String matriculationNum) {
+		boolean check=true;
 		try {
 			String courseCode = null;
 			List StringArray = addDrop.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
@@ -267,7 +268,7 @@ public class StudentController {
 						courseCode = addDrop.getCourseCode();
 						index = addDrop.getIndex();
 						System.out.println("Course Code: " + addDrop.getCourseCode() + " Index: " + addDrop.getIndex());
-
+							check=false;//empty String Array
 						List StringArray2 = schedule.readSchedule(courseCode);
 						for (int q = 0; q < StringArray2.size(); q++) {
 							Schedule s = (Schedule) StringArray2.get(q);
@@ -287,6 +288,10 @@ public class StudentController {
 					}
 				}
 
+			}
+			
+			if(check==false){
+				System.out.println("You have yet to register for a course!!!");
 			}
 
 		} catch (IOException e) {

@@ -124,6 +124,7 @@ public class CourseController {
 	}
 
 	public boolean addCourse() {
+		boolean check =true;
 		Scanner sc = new Scanner(System.in);
 		List courseSave = new ArrayList();
 		List scheduleList = new ArrayList();
@@ -143,15 +144,44 @@ public class CourseController {
 			int capacity, noOfSections, temp;
 
 			System.out.println("Please enter course code: ");
-			code = sc.nextLine().toLowerCase();
+			code = sc.nextLine().toLowerCase();//add check here
 
+			
+			/*Start of check                                                                          */
+			try {
+				List course1 = readAllCourse("DataBase/courses.txt");
+				for (int x = 0; x < course1.size(); x++) {
+
+					Course n = (Course) course1.get(x);
+					if (n.getCourseCode().toLowerCase().equals(code.toLowerCase())) {
+						System.out.println("Course is already added cannot add repeated course re-enter options !!!!!");
+						check = false;
+						break;
+					}
+
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+			if(check==false){
+				return false;
+		
+			}
+			/*End of check                                                                           */
+			
+			
+			
+			
 			System.out.println("Please enter course name: ");
 			name = sc.nextLine();
 
 			System.out.println("Please enter course school : ");
 			school = sc.nextLine();
 
-			System.out.println("Please enter the number of sections in the course: ");
+			System.out.println("Please enter the number of index in the course: ");
 			noOfSections = sc.nextInt();
 			capacity = 0;
 			int[] indices = new int[noOfSections];
@@ -166,11 +196,11 @@ public class CourseController {
 
 			// implement the schedule for each index and save into a txt file
 			for (int q = 0; q < totalIndex; q++) {
-				System.out.println("Index " + (q + 1));
+				System.out.println("Index: " + (q + 1));
 				System.out.println("How many lectures does it have in a week:");
 				lec = sc.nextInt();
 				for (int p = 0; p < lec; p++) {
-					System.out.println("Enter fileds for" + (p + 1) + "Lecture");
+					System.out.println("Enter fileds for: " + (p + 1) + " Lecture");
 
 					do {
 						System.out.println("The intended day to have the Lecture?");
@@ -215,11 +245,11 @@ public class CourseController {
 							break;
 
 						default:
-							System.out.println("You have entered the wrong input");
+							System.out.println("You have entered the wrong input key in again");
 						}
 					} while (input == 0 || input >= 6);
 
-					System.out.println("Where is the location?");
+					System.out.println("Where is the location?:");
 					venue = sc.next();
 					boolean result = false;
 					do {
@@ -233,14 +263,11 @@ public class CourseController {
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
 						if (m.find()) {
-//							System.out.println("Time" + m.group(0));
-//							System.out.println("hh " + m.group(1));
-//							System.out.println("mm " + m.group(2));
-//							System.out.println("ss " + m.group(3));
+
 							result = true;
 							startTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch");
+							System.out.println("NO MATCH! format mismatch re-enter again");
 							result = false;
 						}
 					} while (result == false);
@@ -263,7 +290,7 @@ public class CourseController {
 							result = true;
 							endTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch");
+							System.out.println("NO MATCH! format mismatch re-enter again");
 							result = false;
 						}
 					} while (result == false);
@@ -345,14 +372,11 @@ public class CourseController {
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
 						if (m.find()) {
-//							System.out.println("Time" + m.group(0));
-//							System.out.println("hh " + m.group(1));
-//							System.out.println("mm " + m.group(2));
-//							System.out.println("ss " + m.group(3));
+
 							result = true;
 							startTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch");
+							System.out.println("NO MATCH! format mismatch re-enter again");
 							result = false;
 						}
 					} while (result == false);
@@ -368,14 +392,10 @@ public class CourseController {
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
 						if (m.find()) {
-//							System.out.println("Time" + m.group(0));
-//							System.out.println("hh " + m.group(1));
-//							System.out.println("mm " + m.group(2));
-//							System.out.println("ss " + m.group(3));
 							result = true;
 							endTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch");
+							System.out.println("NO MATCH! format mismatch re-enter again");
 							result = false;
 						}
 					} while (result == false);
@@ -447,10 +467,6 @@ public class CourseController {
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
 						if (m.find()) {
-//							System.out.println("Time" + m.group(0));
-//							System.out.println("hh " + m.group(1));
-//							System.out.println("mm " + m.group(2));
-//							System.out.println("ss " + m.group(3));
 							result = true;
 							startTime = ip;
 						} else {
@@ -477,7 +493,7 @@ public class CourseController {
 							result = true;
 							endTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch");
+							System.out.println("NO MATCH! format mismatch re-enter again");
 							result = false;
 						}
 					} while (result == false);
@@ -512,25 +528,8 @@ public class CourseController {
 																// schedule
 																// implementation
 			Course course = new Course(code, name, school, startDate, endDate, indices, indices); // here
-			boolean check = false;
-
-			try {
-				List course1 = readAllCourse("DataBase/courses.txt");
-				for (int x = 0; x < course1.size(); x++) {
-
-					Course n = (Course) course1.get(x);
-					if (n.getCourseCode().toLowerCase().equals(course.getCourseCode().toLowerCase())) {
-						System.out.println("Course is already added cannot add repeated course!!!!!");
-						check = true;
-					}
-
-				}
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			if (check == false) {
+			
+			if (check == true) {
 				schedulecontroller = new ScheduleController();
 				schedulecontroller.saveSchedule(scheduleList, code);
 				courseSave.add(course);
@@ -672,9 +671,6 @@ public class CourseController {
 
 			for (int i = 0; i < a1.size(); i++) {
 				Course course = (Course) a1.get(i);
-				// System.out.println("Gender: "+student.getGender());
-				// System.out.println("MatriculationNumber:
-				// "+student.getMatriculationNumber());
 				l2.add(a1.get(i));
 			}
 
@@ -795,13 +791,15 @@ public class CourseController {
 				Course course = (Course) a2.get(x);
 				System.out.println("Course code: " + course.getCourseCode());
 				System.out.println("Course name: " + course.getCourseName());
+				System.out.println("**************************************************");
 				// System.out.println("spots: "+a2.get(x).getVacancy().length);
 				// System.out.println("spots: "+a2.size());
 				for (int j = 0; j < course.getVacancy().length; j++) {
 					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + course.getVacancy()[j] + " "
 							+ "Total size of " + course.getIndices()[j]);
+					System.out.println("                                                ");
 				}
-
+				System.out.println("===================================================");
 			}
 
 		} catch (IOException e) {
@@ -832,14 +830,13 @@ public class CourseController {
 					Course course = (Course) a2.get(x);
 					System.out.println("Course code: " + course.getCourseCode());
 					System.out.println("Course name: " + course.getCourseName());
-					// System.out.println("spots:
-					// "+a2.get(x).getVacancy().length);
-					// System.out.println("spots: "+a2.size());
+					System.out.println("**************************************************");
 					for (int j = 0; j < course.getVacancy().length; j++) {
 						System.out.println(" Available index: " + (j + 1) + " Vacancy: " + course.getVacancy()[j]
 								+ " / " + course.getIndices()[j]);
+						System.out.println("                                                ");
 					}
-
+						System.out.println("===================================================");
 				}
 			} else {
 				System.out.println("There is no such course .Re-enter the coursecode!!");
@@ -986,37 +983,6 @@ public class CourseController {
 		return check;
 	}
 
-	public boolean decreaseCourseIndexVacancy(String courseCode, int index) {
-		boolean endResult = false;
-		try {
-
-			ArrayList<Course> a1 = readAllCourse("DataBase/courses.txt");
-			List data = new ArrayList();
-
-			for (int x = 0; x < a1.size(); x++) {
-				if (courseCode.equals(a1.get(x).getCourseCode())) {
-					if (a1.get(x).getVacancy()[index - 1] <= 0) {
-						// waitList();
-						endResult = false;
-					} else {
-						a1.get(x).decreaseVacancy(index);
-						System.out.println("Index:" + index + " " + a1.get(x).getVacancy()[index - 1]);
-
-						endResult = true;
-					}
-
-				}
-				data.add(a1.get(x));
-			}
-
-			CourseController.saveCourseAmend("DataBase/courses.txt", data);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return endResult;
-	}
 
 	public boolean checkIndexeAndCourseCode(int index, String courseCode) {
 
@@ -1050,7 +1016,7 @@ public class CourseController {
 			}
 
 			if (courseCheck == false) {
-				System.out.println("Please re-check your courseid");
+				System.out.println("Please re-check your courseId");
 			}
 
 			if (indexCheck == false) {
@@ -1133,7 +1099,7 @@ public class CourseController {
 
 				if (course.getCourseCode().toLowerCase().equals(courseCode)) {
 
-					//
+					
 					state = true;
 
 				}
@@ -1148,6 +1114,7 @@ public class CourseController {
 		if (state) {
 			AddDropController invoke = new AddDropController();
 			result = invoke.validateStudentAgainstCourseEnrolled(matricNum, courseCode, index);
+		
 
 		}
 		return result;
@@ -1214,11 +1181,29 @@ public class CourseController {
 		return result;
 	}
 
-	public static void main(String args[]) {
+	
+	public boolean validateCourseCode(String ip) {
+		boolean result = true;
 
-		CourseController n = new CourseController();
-		n.showIndexByCourse("mh1813");
+		if (ip == null || !ip.matches("^([0-2][0-9]||3[0-1])(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$")) {
+			System.out.println("Wrong courseCode added");
+			result = false;
+		}
+	
+		else {
+			result = true;;
+		}
 
+		return result;
 	}
+
+	
+	
+//	public static void main(String args[]) {
+//
+//		CourseController n = new CourseController();
+//		n.showIndexByCourse("mh1813");
+//
+//	}
 
 }
