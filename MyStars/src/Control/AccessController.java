@@ -57,9 +57,9 @@ public class AccessController {
 		/**
 		 * A method that writes content onto a text file
 		 * 
-		 * @param fileName --> The filename where the data should be written onto
-		 * @param data --> Takes in a List of data to be written to the text file
-		 * @throws IOException --> Exception when there is a problem writing data on the file
+		 * @param fileName  The filename where the data should be written onto
+		 * @param data  Takes in a List of data to be written to the text file
+		 * @throws IOException  Exception when there is a problem writing data on the file
 		 */
 	  public static void write(String fileName, List data) throws IOException  {
 	    PrintWriter out = new PrintWriter(new FileWriter(fileName));
@@ -77,9 +77,9 @@ public class AccessController {
 	  /**
 	   * A method that retrieves data given the file name of a text file
 	   * 
-	   * @param fileName --> The file name of the text file where the contents should be read
-	   * @return --> Returns a List of data read from a particular text file
-	   * @throws IOException --> Exception thrown if there is problems reading from the file
+	   * @param fileName  The file name of the text file where the contents should be read
+	   * @return  Returns a List of data read from a particular text file
+	   * @throws IOException  Exception thrown if there is problems reading from the file
 	   */
 	  public static List read(String fileName) throws IOException {
 		List data = new ArrayList() ;
@@ -98,7 +98,7 @@ public class AccessController {
 	  /**
 	   * A method which is used by the Admin to set the the time & date for Students to access the Stars System
 	   * 
-	   * @return -->Returns a boolean which is true when the Time & Date has been set successfully and false if otherwise
+	   * @return Returns a boolean which is true when the Time & Date has been set successfully and false if otherwise
 	   */
 	public boolean accessPeriod()
 	
@@ -201,8 +201,8 @@ public class AccessController {
 	/**
 	 * A method that calls the read() method to read all the content and processes it to store in an access object and returns it as an ArrayList
 	 * 
-	 * @return --> returns a Single ArrayList of Access object
-	 * @throws IOException --> Passes the exception thrown to the method that calls this method in the event where there is problems reading the file
+	 * @return  returns a Single ArrayList of Access object
+	 * @throws IOException  Passes the exception thrown to the method that calls this method in the event where there is problems reading the file
 	 */
 	public ArrayList readAccess() throws IOException
 	{
@@ -227,10 +227,10 @@ public class AccessController {
 	 * A method which takes in parameters of the current date & current time of the student logging in and checks against the text file
 	 * to check if the Student is allowed to access or not.
 	 * 
-	 * @param currentDate --> The current date based on the students systems clock
-	 * @param currentTime --> The current time based on the students systems clock
-	 * @return --> A boolean which is either true or false.True means the student has access to the system and false means otherwise.
-	 * @throws ParseException --> An exception is thrown when the method is unable to read the current date and current time in a particular format
+	 * @param currentDate  The current date based on the students systems clock
+	 * @param currentTime  The current time based on the students systems clock
+	 * @return  A boolean which is either true or false.True means the student has access to the system and false means otherwise.
+	 * @throws ParseException  An exception is thrown when the method is unable to read the current date and current time in a particular format
 	 */
 	public boolean checkStudentAccess(Date currentDate,Date currentTime) throws ParseException
 	{
