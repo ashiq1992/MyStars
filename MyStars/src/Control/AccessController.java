@@ -75,11 +75,11 @@ public class AccessController {
 	  }
 
 	  /**
-	   * A method that reads retrieves data given the file name of a text file
+	   * A method that retrieves data given the file name of a text file
 	   * 
 	   * @param fileName --> The file name of the text file where the contents should be read
 	   * @return --> Returns a List of data read from a particular text file
-	   * @throws IOException --> Exception thrown if has problems reading from the file
+	   * @throws IOException --> Exception thrown if there is problems reading from the file
 	   */
 	  public static List read(String fileName) throws IOException {
 		List data = new ArrayList() ;

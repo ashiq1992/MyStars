@@ -17,29 +17,59 @@ import Miscellaneous.EmailSender;
 import Model.Student;
 import Model.AddDrop;
 
+/**
+ * An AddDropController class that facilitates with the Add and Drop of courses
+ * 
+ * @author Ameen
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
+ * @author Waqas
+ * @since 2017-04-01
+ * @version 1.0
+ */
+
 public class AddDropController {
+	/**
+	 * A separator that is used to separate elements read from a file
+	 */
 	public static final String SEPARATOR = "|";
+	
+	/**
+	 * 
+	 * An index_separator that is used to separate elements reads from a file
+	 */
 	public static final String INDEX_SEPARATOR = "_";
+	
+	/**
+	 * Instantiated a course controller object to communicate with the CourseController class
+	 *
+	 */
 	private CourseController Cc1 = new CourseController();
+	
+	/**
+	 * Declared a EmailSender object 
+	 */
 	private EmailSender email;
 	
-
+	/**
+	 * A method for a student to add and drop method based on the CourseCode,Course Index and the students
+	 * matriculation number.If the course is full,the person is automatically added into the waitlist.
+	 * 
+	 * 
+	 * @param courseCode --> The course code the student which is to enroll into
+	 * @param index --> The index of the course which the student prefers.E.g.CE2003_2 where 2 refers to the index
+	 * @param matricNum --> The matriculation number of the student
+	 * @return --> returns a boolean, either true when method is is able to add a course/add a person to a waitlist.False if otherwise.
+	 */
 	public boolean addMethod(String courseCode, int index, String matricNum) {
 		boolean endResult = false;
 		List student;
 		AddDrop Add;
 		List waitList = new ArrayList();
-		// Cc1.decreaseCourseIndexVacancy(courseCode, index);
 		try {
-			// ArrayList<AddDrop> a1 =Cc1.
-			// readAll("src/courseAndStudent.txt");//To add the student with a
-			// course then save it to a txt file
 			List studentData = new ArrayList();
-
 			ArrayList a1 = Cc1.readAllCourse("DataBase/courses.txt");
-			// Comment: Reads all the data from courses.txt file and stores it
-			// into an ArrayList
-
 			List data = new ArrayList();
 			courseCode = courseCode.toLowerCase();
 			for (int x = 0; x < a1.size(); x++) {
@@ -56,7 +86,6 @@ public class AddDropController {
 						course.decreaseVacancy(index);
 						Add = new AddDrop(courseCode, index, matricNum);
 						studentData.add(Add);
-						// "+a1.get(x).getVacancy()[index-1]);
 
 						endResult = true;
 					}
@@ -64,12 +93,7 @@ public class AddDropController {
 				}
 				data.add(a1.get(x));
 			}
-
-			// for(int i=0;i<studentData.size();i++)
-			// {
-			// AddDrop course = (AddDrop)studentData.get(i);
-			//
-			// }
+			
 			AddDropController addd = new AddDropController();
 
 			if (endResult == true) {
@@ -79,12 +103,10 @@ public class AddDropController {
 				addd.studentAndCourseWaitList("DataBase/waitlists/" + courseCode + ".txt", waitList, courseCode, index);
 			}
 
-			// AddDropController.studentAddsCourse();
 			Cc1.saveCourseAmend("DataBase/courses.txt", data);
 			endResult = true;
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -93,7 +115,14 @@ public class AddDropController {
 	}
 
 
-
+	/**
+	 * A method that adds a student to a waitlist if the course is full
+	 * 
+	 * @param filename --> The file name of the waitlist for a particular course
+	 * @param list --> Takes in a List which consists of the List
+	 * @param courseCode -->  The course code of a course
+	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 */
 	public void studentAndCourseWaitList(String filename, List list, String courseCode, int index) {
 		try {
 			List tempList = new ArrayList();
@@ -177,13 +206,18 @@ public class AddDropController {
 			write(filename, tempList);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	/* This method is to check waitlist and amend the waitList to student */
+	/**
+	 * A method that takes in the matriculation number of the first student in the waiting list
+	 * 
+	 * @param courseCode --> The course code of a particular course
+	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @return --> Returns the matriculation number
+	 */
 	public String getMatricNum(String courseCode, int index) {
 
 		String matricNum = null;
@@ -195,31 +229,34 @@ public class AddDropController {
 
 				if (Drop.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && Drop.getIndex() == index) {
 					if (Drop.getList().isEmpty() != true) {
-						matricNum = Drop.getList().get(0);// get the matric num
-															// at index position
-															// 0 to add to the
-															// course
-						//Drop.getList().remove(0);
+						matricNum = Drop.getList().get(0);
+						
 					}
 				}
 			}
 
 			this.saveAmendWaitList(listOfStudentInWait, courseCode);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return matricNum;
 
 	}
-
+	
+	/**
+	 * A method that adds a student enrolled in a course into a file
+	 * 
+	 * @param filename --> The file name of where the data should be written
+	 * @param list --> A list of student to be added into the course
+	 * @param courseCode -->The course code of a particular course
+	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @throws IOException -->Throws an exception to the method which calls this method in the event,there is a problem reading the file
+	 */
 	public void studentAddsCourse(String filename, List list, String courseCode, int index) throws IOException {
 
 		List tempList = new ArrayList();
 		ArrayList listOfEnrolledStudents = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
-
-		// ArrayList<Course> a1 = readAllCourse(file);
 
 		if (listOfEnrolledStudents.isEmpty()) {
 
@@ -302,17 +339,16 @@ public class AddDropController {
 		}
 		write(filename, tempList);
 	}
-
+	
+	/**
+	 * A method that writes content onto a text file
+	 * 
+	 * @param fileName --> The filename where the data should be written onto
+	 * @param data --> Takes in a List of data to be written to the text file
+	 * @throws IOException --> Exception when there is a problem writing data on the file
+	 */
 	public static void write(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName));// to
-																	// ensure
-																	// that
-																	// the
-																	// previous
-																	// data
-																	// is
-																	// still
-																	// intact
+		PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
 		try {
 			for (int i = 0; i < data.size(); i++) {
@@ -322,27 +358,22 @@ public class AddDropController {
 			out.close();
 		}
 	}
-
+	
+	/**
+	 * A method that reads all students enrolled in the course given a filename
+	 * 
+	 * @param filename -->The name name of the file where data should be read from
+	 * @return --> An ArrayList of students who are enrolled to the particular course
+	 * @throws IOException -->Throws an exception to the method which calls this method where the reading fails
+	 */
 	public static ArrayList readAllCourseAndStudent(String filename) throws IOException {
-		// read String from text file
 		ArrayList stringArray = (ArrayList) read(filename);
-		ArrayList alr = new ArrayList();// to store Admins data
+		ArrayList alr = new ArrayList();
 
 		for (int i = 0; i < stringArray.size(); i++) {
 
 			String st = (String) stringArray.get(i);
-			// get individual 'fields' of the string separated by SEPARATOR
-			StringTokenizer star = new StringTokenizer(st, SEPARATOR); // pass
-																		// in
-																		// the
-																		// string
-																		// to
-																		// the
-																		// string
-																		// tokenizer
-																		// using
-																		// delimiter
-																		// ","
+			StringTokenizer star = new StringTokenizer(st, SEPARATOR); 
 
 			String courseCode = star.nextToken("_").trim();
 
@@ -356,7 +387,6 @@ public class AddDropController {
 
 			ArrayList retrievedMatricNum = new ArrayList();
 
-			// Algorithm to breakdown indexes and vacancies separately
 			for (int j = 0; j < counter; j++) {
 
 				String matricNum = star.nextToken().trim();
@@ -365,17 +395,18 @@ public class AddDropController {
 			}
 
 			AddDrop add = new AddDrop(courseCode, Integer.parseInt(index), retrievedMatricNum);
-			// Course course = new
-			// Course(courseCode,courseName,school,capacity,startDate,endDate);
-
-			// add student objects to alr
 			alr.add(add);
 		}
 
 		return alr;
 	}
 
-	/** Read the contents of the given file. */
+	/** 
+	 * A method that retrieves data given the file name of a text file
+	 * @param fileName --> The file name of the text file where the contents should be read
+	 * @return --> Returns a List of data read from a particular text file
+	 * @throws IOException --> Exception thrown if there is problems reading from the file
+	 */
 	public static List read(String fileName) throws IOException {
 		List data = new ArrayList();
 		Scanner scanner = new Scanner(new FileInputStream(fileName));
@@ -388,13 +419,21 @@ public class AddDropController {
 		}
 		return data;
 	}
-
+	
+	/**
+	 * This method allows a student to drop a course and checks whether there are any students in the waitlist
+	 * if there are students in the waitlist.The first student from the waitlist will be added to the course automatically
+	 * and triggers an email instantly to the latter that he has been enrolled in the course.
+	 * 
+	 * @param courseCode -->Course of the particular course
+	 * @param index --> The index of the course.E.g,CE2003_2 where 2 refers to the index
+	 * @param matricNum --> The matriculation number of the student
+	 */
 	public void dropMethod(String courseCode, int index, String matricNum) {
 		try {
 
 			int vacancy = 0;
-			List a2 = Cc1.readAllCourse("DataBase/courses.txt");// read the data from
-															// courses
+			List a2 = Cc1.readAllCourse("DataBase/courses.txt");
 			List stringArray = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			String newMatricNum;
 			for (int i = 0; i < stringArray.size(); i++) {
@@ -403,20 +442,11 @@ public class AddDropController {
 					for (int x = 0; x < check.getList().size(); x++) {
 						if (check.getList().get(x).toLowerCase().equals(matricNum.toLowerCase())) {
 							check.getList().remove(x);
-							/*
-							 * triverse through the course and add back the
-							 * vacancy
-							 */
 							for (int k = 0; k < a2.size(); k++) {
 								Course course = (Course) a2.get(k);
 								if (course.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())) {
 									course.increaseVacancy(index);
-									vacancy = course.getVacancy()[index - 1];// need
-																				// to
-																				// minus
-																				// the
-																				// index
-																				// position
+									vacancy = course.getVacancy()[index - 1];
 
 								}
 
@@ -428,17 +458,12 @@ public class AddDropController {
 			}
 			this.saveAmend(stringArray);
 			Cc1.saveCourseAmend("DataBase/courses.txt", a2);
-
-			/*
-			 * Only triggered when the vacany is 1 then the person form the wait
-			 * list is removed then added to the course
-			 */
+			
 			if (vacancy == 1) {
 				newMatricNum = this.getMatricNum(courseCode, index);
 				if (newMatricNum != null) {
 					email = new EmailSender();
 					this.addMethod(courseCode, index, newMatricNum);
-					//add the method to send for email here
 					StudentController student=new StudentController();
 					List studentEmailAddress = student.readAllStudents("DataBase/student.txt");
 					String[] receipient= new String[1];
@@ -459,7 +484,6 @@ public class AddDropController {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
