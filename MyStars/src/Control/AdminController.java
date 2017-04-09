@@ -16,10 +16,34 @@ import Model.Access;
 import Model.Admin;
 import Model.Student;
 
+/**
+ * @author Ameen
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
+ * @author Waqas
+ * @since 2017-04-01
+ * @version 1.0
+ */
 public class AdminController {
+	
+	/**
+	 * A separator is used to separate the elements
+	 */
 	public static final String SEPARATOR = "|";
+	
+	/**
+	 * A hash object instantiated
+	 */
 	private Hash h1 = new Hash();
-
+	
+	/**
+	 * Given a file name it 
+	 * 
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
 	public static ArrayList readAllAdmins(String filename) throws IOException {
 		// read String from text file
 		ArrayList stringArray = (ArrayList) read(filename);
@@ -218,7 +242,7 @@ public class AdminController {
 			int userVal = a1.get(i).getUserId().toLowerCase().compareTo(userId.toLowerCase());
 			int passVal = a1.get(i).getPassword().compareTo(hashedValue);
 
-			System.out.println(userVal);
+			
 			if ((userVal == passVal)) {
 				//System.out.println("yes");
 				valid = 1;
