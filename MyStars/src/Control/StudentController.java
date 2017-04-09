@@ -379,7 +379,7 @@ public class StudentController {
 
 	public void changeMatricId(String courseCode, String matricNum, String newMatricId) {
 		try {
-			int newIndex = 0,oldIndex=0;
+			int newIndex =1 ,oldIndex=1;
 			int temp;
 			boolean check;
 			ScheduleController SDC = new ScheduleController();

@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -103,10 +105,11 @@ public class AdminController {
 
 			// String name=sc.nextLine();
 			student.setName(sc.nextLine());
-
 			System.out.println("Please enter student Matriculation Number: ");
 			// String matriculationNumber=sc.next();
 			String userId = sc.next();
+			this.validateMatricNum(userId);
+		
 			userId = userId.toLowerCase();
 			student.setMatriculationNumber(userId.toLowerCase());
 
@@ -269,6 +272,22 @@ public class AdminController {
 		return state;
 	}
 
+	public boolean validateMatricNum(String ip) {
+		boolean result = true;
+
+		if (ip == null || !ip.matches("^([0-2][0-9]||3[0-1])(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$")) {
+			System.out.println("MatricNum Inout error");
+			result = false;
+		}
+	
+		else {
+			result = true;;
+		}
+
+		return result;
+	}
+
+	
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
 		String courseCode;

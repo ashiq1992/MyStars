@@ -116,13 +116,13 @@ public class StarsPlannerApp {
 					
 					else
 					{
-						System.out.println("Access denied");
+						System.out.println("Access denied .Student cant login now!!");
 					}
 					
 					
 
 				} else {
-					System.out.println("Failed");
+					System.out.println("User Authentication Failure,Check password and useId entered");
 				}
 			}
 			
@@ -141,7 +141,7 @@ public class StarsPlannerApp {
 					AdminMenu();
 
 				} else {
-					System.out.println("User Authentication Failure");
+					System.out.println("User Authentication Failure,Check password our userId entered");
 				}
 			}
 			
@@ -255,9 +255,9 @@ public class StarsPlannerApp {
 		String id = sc.next();
 		result = Cd.deleteCourse("DataBase/courses.txt",id);
 		if (result == true) {
-			System.out.println("Success");
+			System.out.println("Success,course has been removed");
 		} else {
-			System.err.println("Fail");
+			System.err.println("Fail to remove course,check the inpput valuees entered and try again");
 		}
 	}
 
@@ -268,9 +268,9 @@ public class StarsPlannerApp {
 		String id = sc.nextLine();
 		result = Sd.deleteStudent("DataBase/student.txt", id);
 		if (result == true) {
-			System.out.println("Success");
+			System.out.println("Success,Student has been removed");
 		} else {
-			System.err.println("Fail");
+			System.err.println("Fail to remove student,check the inpput valuees entered and try again");
 		}
 	}
 
@@ -279,14 +279,14 @@ public class StarsPlannerApp {
 		boolean result=false;
 		
 		char input = 0;
-		do{
+		
 		
 		result=access.accessPeriod();
 		if(result==false)
 		{
-			input=0;
-			System.out.println("Do you want to continue? Y/N ");
-			input=sc.next().toLowerCase().charAt(0);
+			
+			System.out.println("There was an error occured when making the chages please try again . ");
+			
 		
 		}
 		
@@ -295,38 +295,23 @@ public class StarsPlannerApp {
 			System.out.println("Successfully made the amendments");
 		}
 		
-		}while(input =='y' || result==false );
+	
 		
 	}
 
 	public static void displayVacancy(){
 		String courseCode;
-		char check;
 		Ad=new AdminController();
 		
 		boolean result=false;
-		do{
+		
 			System.out.println("Enter the course code to view the vacancy:");
 			courseCode=sc.next();
 			result=Ad.vacancy(courseCode);
 			if(result ==false){
-				System.out.println("Do you wish to exit (y/n)?");
-				check=sc.next().toLowerCase().charAt(0);
-				if(check=='y'){
-					result=false;
-				}
-				else if(check=='n'){
-					result=true;
-				}
-				else{
-					System.out.println("You have entered a wrong input value");
-					System.out.println("Key in courseCode again");
-				}
-				
+				System.out.println("There was an error occured .Do check your input values and try again.");
 			}
 			
-		}while(result==false);
-		System.out.println("You have exited the loop");
 		
 	}
 		public static void printByCourseCode(){
@@ -334,11 +319,6 @@ public class StarsPlannerApp {
 				String courseCode;
 				boolean state=false;
 				char input=0;
-				
-				while(state==false || input=='y')
-				{
-					input=0;
-				
 				System.out.println("Enter the course code to view the student:");
 				courseCode=sc.next();
 				
@@ -346,15 +326,10 @@ public class StarsPlannerApp {
 				
 				if(state==false)
 				{
-					System.out.println("Do you want to continue? Y/N");
-					input=sc.next().toLowerCase().charAt(0);
-				}
-				
-				if(input=='n'){
-					state=true;
-				}
+					System.out.println("There was an error occured .Do check your input values and try again.");
 				
 				}
+				
 		}
 		
 		
@@ -362,11 +337,8 @@ public class StarsPlannerApp {
 		boolean state=false;
 		String courseCode;
 		int index=0;
-		char input=0;
 		
-		while(state==false || input=='y')
-		{
-			input=0;
+	
 			System.out.println("Enter the course code to view the student:");
 			courseCode=sc.next();
 			System.out.println("Enter the index of the course:");
@@ -378,21 +350,13 @@ public class StarsPlannerApp {
 			
 			catch(InputMismatchException e)
 			{
-				System.out.println("Please enter a valid input");
+				System.out.println("Please enter a valid course code");
 			}
 			
 			
 			if(state==false)
 			{
-				System.out.println("Do you want to continue? Y/N");
-				
-				input=sc.next().toLowerCase().charAt(0);
-//				sc.nextLine();
-			}
-			
-			if(input=='n'){
-				state=true;
-			}
+				System.out.println("Please enter a valid course code / course index and try again");
 		}
 		
 		
@@ -415,7 +379,7 @@ public class StarsPlannerApp {
 			System.out.println("Student Menu");
 			System.out.println("1)View all Courses.");
 			System.out.println("2)View my Courses.");
-			System.out.println("3)Add/Drop.");
+			System.out.println("3)Add/Drop Menu");
 			System.out.println("0)LogOut.");
 			System.out.println("*****************************************");
 			System.out.print("Enter options: ");
@@ -588,7 +552,7 @@ public class StarsPlannerApp {
 		boolean result = false;
 		char value = 0;
 		Cd=new CourseController();
-		do {
+	
 			System.out.print("Please enter the course code");
 			courseCode = sc.next();
 			courseCode = courseCode.toLowerCase();
@@ -600,12 +564,10 @@ public class StarsPlannerApp {
 			result = Cd.checkCourseCode(courseCode, student.getMatriculationNumber(), newMatricId);
 
 			if (result == false) {
-				System.out.println("You are not enrolled in the course! ");
-				System.out.println("Do you want to continue ? ");
-				value = sc.next().charAt(0);
+				System.out.println("You / the other student is not enrolled in the course .Do check input values and try again ");
 			}
 
-		} while (result != true || value == 'Y' || value == 'y');
+
 
 		if (result) {
 			Sd.changeMatricId(courseCode, student.getMatriculationNumber(), newMatricId);
