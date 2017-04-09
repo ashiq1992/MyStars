@@ -18,7 +18,7 @@ public class Test {
 	    String re8="(\\d)";	// Any Single Digit 7
 	    String re9="([A-Z])";	// Any Single Word Character (Not Whitespace) 1
 
-	    Pattern p = Pattern.compile(re1+re2+re3+re4+re5+re6+re7+re8+re9,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+	    Pattern p = Pattern.compile(re1+re2+re3+re4+re5+re6+re7+re8+re9, Pattern.DOTALL);
 	    Matcher m = p.matcher(txt);
 	    if (m.find())
 	    {
@@ -47,7 +47,7 @@ public class Test {
 	public static void main(String args[])
 	{
 		Test t1 = new Test();
-		t1.validateMatricNum("U1634567k");
+		t1.validateMatricNum("U1634567K");
 	}
 
 }
