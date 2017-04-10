@@ -245,10 +245,10 @@ public class AdminController {
 	}
 	
 	/**
-	 * This method checks whether there is vacancy given a
+	 * This method checks whether there is vacancy in a course given a course course
 	 * 
-	 * @param courseCode
-	 * @return
+	 * @param courseCode The course code of a particular course
+	 * @return True if there is vacancy and False if it is otherwise
 	 */
 	public boolean vacancy(String courseCode) {
 
