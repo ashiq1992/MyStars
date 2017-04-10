@@ -49,8 +49,8 @@ public class AdminController {
 	 * Given a file name, the method reads all the list of admins and saves it into an arraylist
 	 * 
 	 * @param filename  The filename where the contents should be read from
-	 * @return An ArrayList consisting of Admin
-	 * @throws IOException
+	 * @return An ArrayList consisting of Admin objects
+	 * @throws IOException Throws an exception to the method which called this method.
 	 */
 	public static ArrayList readAllAdmins(String filename) throws IOException {
 		// read String from text file
@@ -59,36 +59,27 @@ public class AdminController {
 
 		for (int i = 0; i < stringArray.size(); i++) {
 			String st = (String) stringArray.get(i);
-			// get individual 'fields' of the string separated by SEPARATOR
-			StringTokenizer star = new StringTokenizer(st, SEPARATOR); // pass
-																		// in
-																		// the
-																		// string
-																		// to
-																		// the
-																		// string
-																		// tokenizer
-																		// using
-																		// delimiter
-																		// ","
+			StringTokenizer star = new StringTokenizer(st, SEPARATOR); 
 
 			String gender = star.nextToken().trim();
 			String nationality = star.nextToken().trim();
 			String name = star.nextToken().trim();
 			String userId = star.nextToken().trim();
 			String password = star.nextToken().trim(); // second token
-			// int contact = Integer.parseInt(star.nextToken().trim()); // third
-			// token
-			// create Admin object from file data
 			Admin admin = new Admin(gender, nationality, name, userId, password);
 
-			// add to Professors list
+			
 			alr.add(admin);
 		}
 		return alr;
 	}
 
-	
+	/**
+	 * This method allows a student to be added by the Admin
+	 * 
+	 * 
+	 * @return returns a true if the student has been successfully added or false if otherwise
+	 */
 	public boolean AddStudent() {
 		boolean status;
 	
@@ -98,17 +89,16 @@ public class AdminController {
 		int input = sc.nextInt();
 
 		for (int i = 0; i < input; i++) {
-			String temp = sc.nextLine();// to eliminate the buffer /n
+			String temp = sc.nextLine();
 			Student student = new Student();
 
 			System.out.println("Please enter student name: ");
 
-			// String name=sc.nextLine();
+		
 			student.setName(sc.nextLine());
 			String userId=null;
 			do{
 			System.out.println("Please enter student Matriculation Number(formart:U1234567Z): ");
-			// String matriculationNumber=sc.next();
 			userId = sc.next();
 			status=this.validateMatricNum(userId);
 			}while(status!=true);
@@ -202,7 +192,15 @@ public class AdminController {
 
 		return a2;
 	}
-
+	
+	/**
+	 * 
+	 * A method to check whether the Admins userId and password is valid
+	 * 
+	 * @param userId The userid of the administrator
+	 * @param password The password of the administrator
+	 * @return True, if the method is valid and false if otherwise
+	 */
 	public boolean checkAccount(String userId, String password) {
 		int valid = 0;
 		ArrayList<Admin> a1 = retriveAllAdmins();
@@ -217,13 +215,11 @@ public class AdminController {
 				e.printStackTrace();
 			}
 
-			// System.out.println("database"+a1.get(i).getName());
 			int userVal = a1.get(i).getUserId().toLowerCase().compareTo(userId.toLowerCase());
 			int passVal = a1.get(i).getPassword().compareTo(hashedValue);
 
 			
 			if ((userVal == passVal)) {
-				//System.out.println("yes");
 				valid = 1;
 				System.out.println("Account accessed");
 				System.out.println("Gender: " + a1.get(i).getGender());
@@ -247,7 +243,13 @@ public class AdminController {
 		}
 
 	}
-
+	
+	/**
+	 * This method checks whether there is vacancy given a
+	 * 
+	 * @param courseCode
+	 * @return
+	 */
 	public boolean vacancy(String courseCode) {
 
 		CourseController display = new CourseController();
