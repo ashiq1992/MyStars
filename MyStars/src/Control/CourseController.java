@@ -563,7 +563,7 @@ public class CourseController {
 	}
 
 	public static void saveCourse(String filename, List list) throws IOException {
-		List tempList = new ArrayList();// to store students data
+		List tempList = new ArrayList();// to store course
 
 		for (int i = 0; i < list.size(); i++) {
 			Course course = (Course) list.get(i);

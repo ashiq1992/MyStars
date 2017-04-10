@@ -385,7 +385,7 @@ public class AddDropController {
 			}
 
 		}
-		manage.write(filename, tempList);
+		manage.writeNew(filename, tempList);
 
 	}
 	
