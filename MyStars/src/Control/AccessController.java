@@ -150,7 +150,7 @@ public class AccessController {
 		acc.add(st.toString());
 				
 		try {
-			manage.write("DataBase/AccessPeriod.txt",acc);
+			manage.writeNew("DataBase/AccessPeriod.txt",acc);
 			state=true;
 		} catch (IOException e) {
 			e.printStackTrace();

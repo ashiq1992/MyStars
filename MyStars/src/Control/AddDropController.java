@@ -250,7 +250,7 @@ public class AddDropController {
 				}
 
 			}
-			manage.write(filename, tempList);
+			manage.writeNew(filename, tempList);
 		
 
 		} catch (IOException e) {
@@ -563,7 +563,7 @@ public class AddDropController {
 		}
 
 		try {
-			manage.write("DataBase/courseAndStudent.txt", tempList);
+			manage.writeNew("DataBase/courseAndStudent.txt", tempList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -597,7 +597,7 @@ public class AddDropController {
 		}
 
 		try {
-			manage.write("DataBase/waitLists/" + courseCode + ".txt", tempList);
+			manage.writeNew("DataBase/waitLists/" + courseCode + ".txt", tempList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

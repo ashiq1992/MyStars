@@ -103,7 +103,7 @@ public class StarsPlannerApp {
 			    System.out.println("|Please enter your password:|");
 				password = mask.readPassword("Enter passwordd");
 				
-				result = Sd.checkAccount(userId, password);
+				result = Sd.checkAccount(userId.toLowerCase(), password);
 				if (result == true) {
 					
 					if(accessResult==true)
