@@ -46,10 +46,10 @@ public class AdminController {
 	private Hash h1 = new Hash();
 	
 	/**
-	 * Given a file name it 
+	 * Given a file name, the method reads all the list of admins and saves it into an arraylist
 	 * 
-	 * @param filename
-	 * @return
+	 * @param filename  The filename where the contents should be read from
+	 * @return An ArrayList consisting of Admin
 	 * @throws IOException
 	 */
 	public static ArrayList readAllAdmins(String filename) throws IOException {
