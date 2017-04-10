@@ -21,6 +21,10 @@ import Model.Course;
 import Model.Schedule;
 
 public class ScheduleController {
+	/**
+	 * Instantiated a FileManager object to read and write data to the text files.
+	 */
+	public static FileManager manage =new FileManager();
 	AddDropController check = new AddDropController();
 	// Properties
 	public static final String SEPARATOR = "|";
@@ -67,7 +71,7 @@ public class ScheduleController {
 		}
 
 		try {
-			write("DataBase/schedule/" + courseCode + ".txt", tempList);
+			manage.write("DataBase/schedule/" + courseCode + ".txt", tempList);
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -79,7 +83,7 @@ public class ScheduleController {
 		ArrayList sch = new ArrayList();// to store Admins data
 
 		try {
-			ArrayList stringArray = (ArrayList) read("DataBase/schedule/" + courseCode + ".txt");
+			ArrayList stringArray = (ArrayList)manage.read("DataBase/schedule/" + courseCode + ".txt");
 			for (int x = 0; x < stringArray.size(); x++) {
 
 				String st = (String) stringArray.get(x);
@@ -112,34 +116,7 @@ public class ScheduleController {
 
 	}
 
-	/** Read the contents of the given file. */
-	public List read(String fileName) throws IOException {
-		List data = new ArrayList();
-		Scanner scanner = new Scanner(new FileInputStream(fileName));
-		try {
-			while (scanner.hasNextLine()) {
-				data.add(scanner.nextLine());
-			}
-		} finally {
-			scanner.close();
-		}
-		return data;
-	}
-
-	public static void write(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName, true));// create
-																			// a
-																			// new
-																			// file
-		try {
-			for (int i = 0; i < data.size(); i++) {
-				out.println((String) data.get(i));
-			}
-		} finally {
-			out.close();
-		}
-	}
-
+	
 	public boolean clashcheck(String newCourseCode, int newIndex, String matricNum) {
 		boolean clash = false;
 		boolean interrupt=false;

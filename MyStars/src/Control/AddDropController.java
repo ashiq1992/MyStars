@@ -31,6 +31,10 @@ import Model.AddDrop;
 
 public class AddDropController {
 	/**
+	 * Instantiated a FileManager object to read and write data to the text files.
+	 */
+	public static FileManager manage =new FileManager();
+	/**
 	 * A separator that is used to separate elements read from a file
 	 */
 	public static final String SEPARATOR = "|";
@@ -246,7 +250,8 @@ public class AddDropController {
 				}
 
 			}
-			write(filename, tempList);
+			manage.write(filename, tempList);
+		
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -380,28 +385,11 @@ public class AddDropController {
 			}
 
 		}
-		write(filename, tempList);
-	}
-	
-	/**
-	 * A method that writes content onto a text file
-	 * 
-	 * @param fileName  The filename where the data should be written onto
-	 * @param data  Takes in a List of data to be written to the text file
-	 * @throws IOException  Exception when there is a problem writing data on the file
-	 */
-	public static void write(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName));
+		manage.write(filename, tempList);
 
-		try {
-			for (int i = 0; i < data.size(); i++) {
-				out.println((String) data.get(i));
-			}
-		} finally {
-			out.close();
-		}
 	}
 	
+		
 	/**
 	 * A method that reads all students enrolled in the course given a filename
 	 * 
@@ -410,7 +398,7 @@ public class AddDropController {
 	 * @throws IOException Throws an exception to the method which calls this method where the reading fails
 	 */
 	public static ArrayList readAllCourseAndStudent(String filename) throws IOException {
-		ArrayList stringArray = (ArrayList) read(filename);
+		ArrayList stringArray = (ArrayList) manage.read(filename);
 		ArrayList alr = new ArrayList();
 
 		for (int i = 0; i < stringArray.size(); i++) {
@@ -444,25 +432,7 @@ public class AddDropController {
 		return alr;
 	}
 
-	/** 
-	 * A method that retrieves data given the file name of a text file
-	 * @param fileName  The file name of the text file where the contents should be read
-	 * @return  Returns a List of data read from a particular text file
-	 * @throws IOException  Exception thrown if there is problems reading from the file
-	 */
-	public static List read(String fileName) throws IOException {
-		List data = new ArrayList();
-		Scanner scanner = new Scanner(new FileInputStream(fileName));
-		try {
-			while (scanner.hasNextLine()) {
-				data.add(scanner.nextLine());
-			}
-		} finally {
-			scanner.close();
-		}
-		return data;
-	}
-	
+		
 	/**
 	 * This method allows a student to drop a course and checks whether there are any students in the waitlist
 	 * if there are students in the waitlist.The first student from the waitlist will be added to the course automatically
@@ -593,7 +563,7 @@ public class AddDropController {
 		}
 
 		try {
-			write("DataBase/courseAndStudent.txt", tempList);
+			manage.write("DataBase/courseAndStudent.txt", tempList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -627,7 +597,7 @@ public class AddDropController {
 		}
 
 		try {
-			write("DataBase/waitLists/" + courseCode + ".txt", tempList);
+			manage.write("DataBase/waitLists/" + courseCode + ".txt", tempList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

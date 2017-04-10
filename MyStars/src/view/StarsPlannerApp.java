@@ -117,6 +117,8 @@ public class StarsPlannerApp {
 					else
 					{
 						System.out.println("Access denied .Student cant login now!!");
+						access.displayAccessPeriod();
+						
 					}
 					
 					

@@ -31,6 +31,10 @@ import Model.Access;
  * @version 1.0
  */
 public class AccessController {
+	/**
+	 * Instantiated a FileManager object to read and write data to the text files.
+	 */
+	private static FileManager manage=new FileManager();
 	
 	/**
 	 * Separator which is used to break elements read from a text file
@@ -52,48 +56,6 @@ public class AccessController {
 	 * A static variable format declared in the format "HH:MM"
 	 */
 	final static DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-	
-	
-		/**
-		 * A method that writes content onto a text file
-		 * 
-		 * @param fileName  The filename where the data should be written onto
-		 * @param data  Takes in a List of data to be written to the text file
-		 * @throws IOException  Exception when there is a problem writing data on the file
-		 */
-	  public static void write(String fileName, List data) throws IOException  {
-	    PrintWriter out = new PrintWriter(new FileWriter(fileName));
-
-	    try {
-			for (int i =0; i < data.size() ; i++) {
-	      		out.println((String)data.get(i));
-			}
-	    }
-	    finally {
-	      out.close();
-	    }
-	  }
-
-	  /**
-	   * A method that retrieves data given the file name of a text file
-	   * 
-	   * @param fileName  The file name of the text file where the contents should be read
-	   * @return  Returns a List of data read from a particular text file
-	   * @throws IOException  Exception thrown if there is problems reading from the file
-	   */
-	  public static List read(String fileName) throws IOException {
-		List data = new ArrayList() ;
-	    Scanner scanner = new Scanner(new FileInputStream(fileName));
-	    try {
-	      while (scanner.hasNextLine()){
-	        data.add(scanner.nextLine());
-	      }
-	    }
-	    finally{
-	      scanner.close();
-	    }
-	    return data;
-	  }
 	
 	  /**
 	   * A method which is used by the Admin to set the the time & date for Students to access the Stars System
@@ -188,7 +150,7 @@ public class AccessController {
 		acc.add(st.toString());
 				
 		try {
-			write("DataBase/AccessPeriod.txt",acc);
+			manage.write("DataBase/AccessPeriod.txt",acc);
 			state=true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -207,7 +169,7 @@ public class AccessController {
 	public ArrayList readAccess() throws IOException
 	{
 		
-		ArrayList access1 = (ArrayList) read("DataBase/AccessPeriod.txt");
+		ArrayList access1 = (ArrayList) manage.read("DataBase/AccessPeriod.txt");
 		ArrayList data= new ArrayList();
 		
 		String st = (String) access1.get(0);
@@ -284,5 +246,29 @@ public class AccessController {
 		
 		return state;
 	}
+	
+	
+	
+	public void displayAccessPeriod(){
+		try {
+			ArrayList access1=this.readAccess();
+			System.out.println("===================================================================================");
+			for(int x=0;x<access1.size();x++){
+				Access display=(Access)access1.get(x);
+				System.out.println("Access period is from :");
+				System.out.println("Start Date: "+display.getStartDate()+" Start Time: "+display.getStartDate()+" End Time: "+display.getEndTime());
+				System.out.println("End Date: "+display.getEndTime()+" Start Time: "+display.getStartDate()+" End Time: "+display.getEndTime());
+				
+				
+			}
+			System.out.println("===================================================================================");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 }

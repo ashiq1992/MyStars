@@ -30,6 +30,12 @@ import Model.Student;
 public class AdminController {
 	
 	/**
+	 * A FileManager object is instantiated
+	 */
+	
+	private static FileManager manage =new FileManager();
+	
+	/**
 	 * A separator is used to separate the elements
 	 */
 	public static final String SEPARATOR = "|";
@@ -48,7 +54,7 @@ public class AdminController {
 	 */
 	public static ArrayList readAllAdmins(String filename) throws IOException {
 		// read String from text file
-		ArrayList stringArray = (ArrayList) read(filename);
+		ArrayList stringArray = (ArrayList)manage.read(filename);
 		ArrayList alr = new ArrayList();// to store Admins data
 
 		for (int i = 0; i < stringArray.size(); i++) {
@@ -82,41 +88,7 @@ public class AdminController {
 		return alr;
 	}
 
-	/** Read the contents of the given file. */
-	public static List read(String fileName) throws IOException {
-		List data = new ArrayList();
-		Scanner scanner = new Scanner(new FileInputStream(fileName));
-		try {
-			while (scanner.hasNextLine()) {
-				data.add(scanner.nextLine());
-			}
-		} finally {
-			scanner.close();
-		}
-		return data;
-	}
-
-	/** Write fixed content to the given file. */
-	public static void write(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName, true));// true
-																			// to
-																			// ensure
-																			// the
-																			// previous
-																			// data
-																			// is
-																			// not
-																			// deleted
-
-		try {
-			for (int i = 0; i < data.size(); i++) {
-				out.println((String) data.get(i));
-			}
-		} finally {
-			out.close();
-		}
-	}
-
+	
 	public boolean AddStudent() {
 		boolean status;
 	
@@ -338,15 +310,15 @@ public class AdminController {
 	}
 
 	
-	public static void main(String args[]) {
-		Scanner sc = new Scanner(System.in);
-		String courseCode;
-		int index;
-		char s;
-		AdminController ad = new AdminController();
-		boolean result = false;
-	ad.AddStudent();
-
-	}
+//	public static void main(String args[]) {
+//		Scanner sc = new Scanner(System.in);
+//		String courseCode;
+//		int index;
+//		char s;
+//		AdminController ad = new AdminController();
+//		boolean result = false;
+//	ad.AddStudent();
+//
+//	}
 
 }

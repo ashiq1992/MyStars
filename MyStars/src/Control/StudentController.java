@@ -18,6 +18,10 @@ import Model.Schedule;
 import Model.Student;
 
 public class StudentController {
+	/**
+	 * Instantiated a FileManager object to read and write data to the text files.
+	 */
+	public static FileManager manage =new FileManager();
 	public static final String SEPARATOR = "|";
 	private AddDropController addDrop = new AddDropController();
 	private CourseController Cc1 = new CourseController();
@@ -26,7 +30,7 @@ public class StudentController {
 
 	public static ArrayList readAllStudents(String filename) throws IOException {
 		// read String from text file
-		ArrayList stringArray = (ArrayList) read(filename);
+		ArrayList stringArray = (ArrayList) manage.read(filename);
 		ArrayList alr = new ArrayList();// to store Admins data
 		for (int i = 0; i < stringArray.size(); i++) {
 			String st = (String) stringArray.get(i);
@@ -58,20 +62,7 @@ public class StudentController {
 		return alr;
 	}
 
-	/** Read the contents of the given file. */
-	public static List read(String fileName) throws IOException {
-		List data = new ArrayList();
-		Scanner scanner = new Scanner(new FileInputStream(fileName));
-		try {
-			while (scanner.hasNextLine()) {
-				data.add(scanner.nextLine());
-			}
-		} finally {
-			scanner.close();
-		}
-		return data;
-	}
-
+	
 	// an example of saving
 	public static void saveStudent(String filename, List al) throws IOException {
 		List alw = new ArrayList();// to store students data
@@ -92,7 +83,7 @@ public class StudentController {
 			st.append(student.getGender().trim());
 			alw.add(st.toString());
 		}
-		write(filename, alw);
+		manage.write(filename, alw);
 	}
 
 	public boolean deleteStudent(String file, String matriculationNumber) {
@@ -144,41 +135,9 @@ public class StudentController {
 		return check;
 	}
 
-	/** Write fixed content to the given file. */
-	public static void write(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName, true));// does
-																			// not
-																			// delete
-																			// previous
-																			// data
+	
 
-		try {
-			for (int i = 0; i < data.size(); i++) {
-				out.println((String) data.get(i));
-			}
-		} finally {
-			out.close();
-		}
-	}
-
-	/**
-	 * Write fixed content to the given file.Ashiq implemented this to test the
-	 * remove function
-	 */
-	public static void newWrite(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName));// Rewrites
-																	// the dataa
-
-		try {
-			for (int i = 0; i < data.size(); i++) {
-				out.println((String) data.get(i));
-			}
-		} finally {
-			out.close();
-		}
-	}
-
-	/*
+		/*
 	 * Implement another save to amend the content in the file after deleting
 	 * the student from the file
 	 */
@@ -201,7 +160,7 @@ public class StudentController {
 			st.append(student.getGender().trim());
 			alw.add(st.toString());
 		}
-		newWrite(filename, alw);
+		manage.writeNew(filename, alw);
 	}
 
 	public ArrayList<Student> retriveAllStudent() {

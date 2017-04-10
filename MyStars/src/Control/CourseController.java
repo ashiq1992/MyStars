@@ -21,6 +21,10 @@ import Model.Schedule;
 import Model.Student;
 
 public class CourseController {
+	/**
+	 * Instantiated a FileManager object to read and write data to the text files.
+	 */
+	private static FileManager manage =new FileManager();
 	// Properties
 	public static final String SEPARATOR = "|";
 	public static final String INDEX_SEPARATOR = "_";
@@ -41,7 +45,7 @@ public class CourseController {
 	// Methods
 	public static ArrayList readAllCourse(String filename) throws IOException {
 		// read String from text file
-		ArrayList stringArray = (ArrayList) read(filename);
+		ArrayList stringArray = (ArrayList) manage.read(filename);
 		ArrayList alr = new ArrayList();// to store Admins data
 
 		for (int i = 0; i < stringArray.size(); i++) {
@@ -109,19 +113,7 @@ public class CourseController {
 		return alr;
 	}
 
-	/** Read the contents of the given file. */
-	public static List read(String fileName) throws IOException {
-		List data = new ArrayList();
-		Scanner scanner = new Scanner(new FileInputStream(fileName));
-		try {
-			while (scanner.hasNextLine()) {
-				data.add(scanner.nextLine());
-			}
-		} finally {
-			scanner.close();
-		}
-		return data;
-	}
+	
 
 	public boolean addCourse() {
 		boolean check = true;
@@ -612,28 +604,10 @@ public class CourseController {
 
 			tempList.add(st.toString());
 		}
-		write(filename, tempList);
+		manage.write(filename, tempList);
 	}
 
-	public static void write(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName, true));// to
-																			// ensure
-																			// that
-																			// the
-																			// previous
-																			// data
-																			// is
-																			// still
-																			// intact
 
-		try {
-			for (int i = 0; i < data.size(); i++) {
-				out.println((String) data.get(i));
-			}
-		} finally {
-			out.close();
-		}
-	}
 
 	public boolean deleteCourse(String file, String courseCode) {
 		boolean deleted = false;
@@ -694,26 +668,6 @@ public class CourseController {
 		return deleted;
 	}
 
-	public static void newWrite(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName));// clears
-																	// the data
-																	// in the
-																	// file
-																	// before
-																	// writing
-																	// it back
-																	// to the
-																	// file
-
-		try {
-			for (int i = 0; i < data.size(); i++) {
-				out.println((String) data.get(i));
-			}
-		} finally {
-			out.close();
-		}
-	}
-
 	/* The below method is to save course after the amendments are done */
 	public static void saveCourseAmend(String filename, List list) throws IOException {
 		List tempList = new ArrayList();// to store students data
@@ -756,7 +710,7 @@ public class CourseController {
 
 			tempList.add(st.toString());
 		}
-		newWrite(filename, tempList);
+		manage.writeNew(filename, tempList);
 	}
 
 	public void showAllCourses() {
