@@ -256,7 +256,14 @@ public class AdminController {
 		return display.adminShowCourse(courseCode);
 
 	}
-
+	
+	/**
+	 * 
+	 * This method prints all the courses given a course index
+	 * 
+	 * @param courseCode Course code of a particular course
+	 * @return True if there is courses to be printed and False if there is no such course
+	 */
 	public boolean printByCourseCode(String courseCode) {
 
 		CourseController display = new CourseController();
@@ -264,7 +271,14 @@ public class AdminController {
 
 		return state;
 	}
-
+	
+	/**
+	 * 
+	 * 
+	 * @param courseCode
+	 * @param index
+	 * @return
+	 */
 	public boolean printByIndex(String courseCode, int index) {
 		CourseController display = new CourseController();
 		boolean state = display.adminPrintByCourseCodeAndIndex(courseCode, index);
