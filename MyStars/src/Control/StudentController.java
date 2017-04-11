@@ -58,25 +58,22 @@ public class StudentController {
 	 * Instantiated a Hash object
 	 */
 	private Hash h1 = new Hash();
-
+	
+	/**
+	 * This method reads all the students 
+	 * 
+	 * @param filename of where the students should be read from
+	 * @return An arraylist with student objects in it
+	 * @throws IOException throws an exception when there is a problem reading contents
+	 * 
+	 */
 	public static ArrayList readAllStudents(String filename) throws IOException {
 		// read String from text file
 		ArrayList stringArray = (ArrayList) manage.read(filename);
 		ArrayList alr = new ArrayList();// to store Admins data
 		for (int i = 0; i < stringArray.size(); i++) {
 			String st = (String) stringArray.get(i);
-			// get individual 'fields' of the string separated by SEPARATOR
-			StringTokenizer star = new StringTokenizer(st, SEPARATOR); // pass
-																		// in
-																		// the
-																		// string
-																		// to
-																		// the
-																		// string
-																		// tokenizer
-																		// using
-																		// delimiter
-																		// ","
+			StringTokenizer star = new StringTokenizer(st, SEPARATOR); 
 
 			String matriculationNumber = star.nextToken().trim();
 			String name = star.nextToken().trim();
@@ -94,9 +91,16 @@ public class StudentController {
 	}
 
 	
-	// an example of saving
+	/**
+	 * 
+	 * This method creates a string builder with student objects
+	 * 
+	 * @param filename where the contents should be written onto
+	 * @param al is the List of contents
+	 * @throws IOException if there is an issue building the string
+	 */
 	public static void saveStudent(String filename, List al) throws IOException {
-		List alw = new ArrayList();// to store students data
+		List alw = new ArrayList();
 
 		for (int i = 0; i < al.size(); i++) {
 			Student student = (Student) al.get(i);
@@ -116,7 +120,14 @@ public class StudentController {
 		}
 		manage.write(filename, alw);
 	}
-
+	
+	/**
+	 * This method deletes the student from a text file
+	 * 
+	 * @param file refers to the name of the file
+	 * @param matriculationNumber refers to Student's matric number 
+	 * @return True if the deletion is successful.False,if deletion is unsuccessful
+	 */
 	public boolean deleteStudent(String file, String matriculationNumber) {
 		boolean check =false;
 		try {
@@ -137,9 +148,6 @@ public class StudentController {
 
 			for (int i = 0; i < a1.size(); i++) {
 				Student student = (Student) a1.get(i);
-				// System.out.println("Gender: "+student.getGender());
-				// System.out.println("MatriculationNumber:
-				// "+student.getMatriculationNumber());
 				l2.add(a1.get(i));
 			}
 
@@ -167,10 +175,13 @@ public class StudentController {
 	}
 
 	
-
-		/*
-	 * Implement another save to amend the content in the file after deleting
-	 * the student from the file
+	
+	/**
+	 * A method to save the amended content onto the file after deleting the student from the file
+	 * 
+	 * @param filename the name of the file
+	 * @param al refers to a List of content
+	 * @throws IOException is thrown if an exception is thrown
 	 */
 	public static void saveStudentAmmend(String filename, List al) throws IOException {
 		List alw = new ArrayList();// to store students data
@@ -193,13 +204,18 @@ public class StudentController {
 		}
 		manage.writeNew(filename, alw);
 	}
-
+	
+	/**
+	 * A method which retrieves all students
+	 * 
+	 * 
+	 * @return An ArrayList of Student objects
+	 */
 	public ArrayList<Student> retriveAllStudent() {
 		ArrayList<Student> a2 = new ArrayList<Student>();
-		// String filename = new File("src/student.txt").g
+		
 		String filename = "DataBase/student.txt";
 		try {
-			// read file containing Professor records.
 			ArrayList al = StudentController.readAllStudents(filename);
 			for (int i = 0; i < al.size(); i++) {
 				Student student = (Student) al.get(i);
@@ -213,7 +229,14 @@ public class StudentController {
 
 		return a2;
 	}
-
+	
+	/**
+	 * A method to check the validity of a student account
+	 * 
+	 * @param matriculationNumber of a student
+	 * @param password of the user
+	 * @return True if the account credentials are valid and False if otherwise
+	 */
 	public boolean checkAccount(String matriculationNumber, String password) {
 		int valid = 0;
 		ArrayList<Student> a1 = retriveAllStudent();
@@ -256,7 +279,13 @@ public class StudentController {
 		}
 
 	}
-
+	
+	/**
+	 * A method to display all courses given a matriculation number
+	 * 
+	 * 
+	 * @param matriculationNum of a student
+	 */
 	public void displayCourse(String matriculationNum) {
 		boolean check = false;
 		try {
@@ -301,11 +330,18 @@ public class StudentController {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * A method to swap index
+	 * 
+	 * @param index to be the new index
+	 * @param oldindex to be swapped
+	 * @param courseCode of the course
+	 * @param matricNum matriculation number of the student
+	 */
 	public void changeIndex(int index, int oldindex, String courseCode, String matricNum) {
 		try {
 
@@ -327,7 +363,6 @@ public class StudentController {
 							changeIndex.getList().remove(k);
 							courseIndex = changeIndex.getIndex();
 							courseID = changeIndex.getCourseCode();
-							// System.out.println("triggered");
 						}
 					}
 
@@ -344,20 +379,16 @@ public class StudentController {
 
 			for (int i = 0; i < readCourse.size(); i++) {
 				Course course = (Course) readCourse.get(i);
-				// System.out.println("Course Id: " + course.getCourseCode());
-				// System.out.println(courseIndex);
+				
 
 				for (int j = 0; j < course.getVacancy().length; j++) {
-					// System.out.println("Index " + (j + 1));
 
 					if ((j + 1) == courseIndex && courseID.toLowerCase().equals(course.getCourseCode().toLowerCase())) {
 						course.increaseVacancy(courseIndex);
-						// System.out.println("INcreased");
 					}
 
 					if ((j + 1) == index && (courseID.toLowerCase().equals(course.getCourseCode().toLowerCase()))) {
 						course.decreaseVacancy(index);
-						// System.out.println("Decreased");
 					}
 
 				}
@@ -367,13 +398,6 @@ public class StudentController {
 			if (addDrop.validateIndexOfCourseAndStudent(index, courseCode)) {
 				addDrop.saveAmend(StringArray);
 				System.out.println("System message:You index for the course is changed to :" + index);
-//				List newArray = new ArrayList();
-//				// newArray.add(StringArray.get(retIndex));
-//				List matric = new ArrayList();
-//				matric.add(matricNum);
-//				AddDrop a1 = new AddDrop(courseCode, index, matric);
-//				StringArray.add(a1);
-//				addDrop.saveAmend(StringArray);
 			}
 
 			else {
@@ -390,11 +414,16 @@ public class StudentController {
 			Cc1.saveCourseAmend("DataBase/courses.txt", readCourse);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * A method to swap index by matriculation id
+ * 	
+ * @param courseCode of a particular course
+ * @param matricNum of a student A
+ * @param newMatricId of a student B
+ */
 	public void changeMatricId(String courseCode, String matricNum, String newMatricId) {
 		try {
 			int newIndex = 1, oldIndex = 1;
@@ -416,7 +445,6 @@ public class StudentController {
 								System.out.println(
 										"System message:TimeTable Clash cannot swap with the student you have clash of timetable");
 							}
-							// System.out.println("triggered");
 						}
 						if (changeIndex.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())) {
 
@@ -430,7 +458,6 @@ public class StudentController {
 						}
 
 					}
-					// test
 				}
 
 			}
@@ -464,16 +491,8 @@ public class StudentController {
 			addDrop.saveAmend(StringArray);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	/* for testing display course by student */
-
-	// public static void main(String args[]){
-	// StudentController n=new StudentController();
-	// n.changeMatricId("mh1812", "u165", "u163");
-	// }
 
 }
