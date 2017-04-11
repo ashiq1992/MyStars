@@ -81,30 +81,20 @@ public class CourseController {
 
 	/**
 	 * 
-	 * @param filename
-	 * @return
-	 * @throws IOException
+	 * This method reads all the courses given a file name
+	 * 
+	 * @param filename Read the filename where the contents should be read from
+	 * @return An Arraylist of course objects
+	 * @throws IOException Exception is thrown if there is a problem reading the file
 	 */
 	public static ArrayList readAllCourse(String filename) throws IOException {
-		// read String from text file
 		ArrayList stringArray = (ArrayList) manage.read(filename);
 		ArrayList alr = new ArrayList();// to store Admins data
 
 		for (int i = 0; i < stringArray.size(); i++) {
 
 			String st = (String) stringArray.get(i);
-			// get individual 'fields' of the string separated by SEPARATOR
-			StringTokenizer star = new StringTokenizer(st, SEPARATOR); // pass
-																		// in
-																		// the
-																		// string
-																		// to
-																		// the
-																		// string
-																		// tokenizer
-																		// using
-																		// delimiter
-																		// ","
+			StringTokenizer star = new StringTokenizer(st, SEPARATOR); 
 			String courseCode = star.nextToken().trim();
 			String courseName = star.nextToken().trim();
 			String school = star.nextToken().trim();
@@ -116,7 +106,6 @@ public class CourseController {
 			int[] retrievedIndex = new int[counter];
 			int[] retrievedTotal = new int[counter];
 
-			// Algorithm to breakdown indexes and vacancies separately
 			for (int j = 0; j < counter; j++) {
 
 				String index = star.nextToken("_").trim();
@@ -138,33 +127,28 @@ public class CourseController {
 
 			}
 
-			// for(int j=0;j<retrievedIndex.length;j++)
-			// {
-			//
-			// System.out.println("Index "+(j+1)+": "+retrievedIndex[j]);
-			// }
 
 			Course course = new Course(courseCode, courseName, school, startDate, endDate, retrievedIndex,
 					retrievedTotal);
-			// Course course = new
-			// Course(courseCode,courseName,school,capacity,startDate,endDate);
-
-			// add student objects to alr
 			alr.add(course);
 		}
 		return alr;
 	}
 
 	
-
+	/**
+	 * This methods is to add a course into the system
+	 * 
+	 * 
+	 * @return True, if the course has been successfully added and false if not
+	 */
 	public boolean addCourse() {
 		boolean check = true;
 		boolean status;
 		Scanner sc = new Scanner(System.in);
 		List courseSave = new ArrayList();
 		List scheduleList = new ArrayList();
-		String startTime = null, venue, day = null, endTime = null;// for the
-																	// schedule
+		String startTime = null, venue, day = null, endTime = null;
 		String currentIndex;
 
 		System.out.println("No of courses to be added");
@@ -172,20 +156,20 @@ public class CourseController {
 		int lec;
 		char lab = 0, tut = 0;
 		int totalIndex = 0;
-		String Temp = sc.nextLine();// to clear the \n buffer
+		String Temp = sc.nextLine();
 		for (int i = 0; i < input; i++) {
 
 			String code, name, school, startDate, endDate;
 			int capacity, noOfSections, temp;
 
-			do {// validate the code course
+			do {
 				System.out.println("Please enter course code format[CE1234]: ");
-				code = sc.nextLine();// add check here
+				code = sc.nextLine();
 				status = validateCourseCode(code);
 				code = code.toLowerCase();
 			} while (status != true);
 
-			/* Start of check */
+			
 			try {
 				List course1 = readAllCourse("DataBase/courses.txt");
 				for (int x = 0; x < course1.size(); x++) {
@@ -199,7 +183,7 @@ public class CourseController {
 
 				}
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+			
 				e1.printStackTrace();
 			}
 
@@ -207,7 +191,7 @@ public class CourseController {
 				return false;
 
 			}
-			/* End of check */
+			
 
 			System.out.println("Please enter course name: ");
 			name = sc.nextLine();
@@ -226,9 +210,8 @@ public class CourseController {
 				indices[g] = temp;
 				totalIndex = g + 1;
 			}
-			Temp = sc.nextLine();// To eliminate the buffer
+			Temp = sc.nextLine();  
 
-			// implement the schedule for each index and save into a txt file
 			for (int q = 0; q < totalIndex; q++) {
 				System.out.println("Index: " + (q + 1));
 				System.out.println("How many lectures does it have in a week:");
@@ -239,13 +222,13 @@ public class CourseController {
 					do {
 						System.out.println("The intended day to have the Lecture?");
 
-						System.out.println("*********Options***********************");
-						System.out.println(" 1) Monday");
-						System.out.println(" 2) Tuesday");
-						System.out.println(" 3) Wednesday");
-						System.out.println(" 4) Thursday");
-						System.out.println(" 5) Friday");
-						System.out.println("*********End Of Options****************");
+						System.out.println("============Options===========");
+						System.out.println("| 1) Monday                  |");
+						System.out.println("| 2) Tuesday                 |");
+						System.out.println("| 3) Wednesday               |");
+						System.out.println("| 4) Thursday                |");
+						System.out.println("| 5) Friday                  |");
+						System.out.println("========End Of Options========");
 						int inputDay = 0;
 						try {
 
@@ -292,7 +275,7 @@ public class CourseController {
 						String ip = "";
 						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-						System.out.println("Enter the start time in the format HH:MM:SS");
+						System.out.println("Enter the start time in the format HH:MM");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -301,7 +284,7 @@ public class CourseController {
 							result = true;
 							startTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch re-enter again");
+							System.out.println("Start time entered is in the wrong format");
 							result = false;
 						}
 					} while (result == false);
@@ -312,7 +295,7 @@ public class CourseController {
 						String ip = "";
 						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-						System.out.println("Enter the end time in the format HH:MM:SS");
+						System.out.println("Enter the end time in the format HH:MM");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -324,12 +307,11 @@ public class CourseController {
 							result = true;
 							endTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch re-enter again");
+							System.out.println("End time entered is in a wrong format ");
 							result = false;
 						}
 					} while (result == false);
 
-					// currentIndex=""+q+1;
 					Schedule schedule = new Schedule(code, (q + 1), type.LECTURE.toString(), day, venue, startTime,
 							endTime);
 					scheduleList.add(schedule);
@@ -348,13 +330,13 @@ public class CourseController {
 					do {
 						System.out.println("The intended day to have the LAB?");
 
-						System.out.println("*********Options***********************");
-						System.out.println(" 1) Monday");
-						System.out.println(" 2) Tuesday");
-						System.out.println(" 3) Wednesday");
-						System.out.println(" 4) Thursday");
-						System.out.println(" 5) Friday");
-						System.out.println("*********End Of Options****************");
+						System.out.println("===========Options==============");
+						System.out.println(" 1) Monday                     |");
+						System.out.println(" 2) Tuesday                    |");
+						System.out.println(" 3) Wednesday                  |");
+						System.out.println(" 4) Thursday                   |");
+						System.out.println(" 5) Friday                     |");
+						System.out.println("========End Of Options==========");
 						int inputDay = 0;
 						try {
 
@@ -399,9 +381,9 @@ public class CourseController {
 						result = false;
 
 						String ip = "";
-						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
-
-						System.out.println("Enter the start time in the format HH:MM:SS");
+						//String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d)$";
+						System.out.println("Enter the start time in the format HH:MM");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -410,7 +392,7 @@ public class CourseController {
 							result = true;
 							startTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch re-enter again");
+							System.out.println("Invalid format! Please try again");
 							result = false;
 						}
 					} while (result == false);
@@ -419,9 +401,9 @@ public class CourseController {
 						result = false;
 
 						String ip = "";
-						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d)$";
 
-						System.out.println("Enter the end time in the format HH:MM:SS");
+						System.out.println("Enter the end time in the format HH:M");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -429,12 +411,11 @@ public class CourseController {
 							result = true;
 							endTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch re-enter again");
+							System.out.println("Invalid format! Please try again");
 							result = false;
 						}
 					} while (result == false);
 
-					// currentIndex=""+q+1;
 					Schedule schedule = new Schedule(code, (q + 1), type.LABORATORY.toString(), day, venue, startTime,
 							endTime);
 					scheduleList.add(schedule);
@@ -443,14 +424,15 @@ public class CourseController {
 
 					do {
 						System.out.println("The intended day to have the Tutorial?");
+						System.out.println(" ");
 
-						System.out.println("*********Options***********************");
-						System.out.println(" 1) Monday");
-						System.out.println(" 2) Tuesday");
-						System.out.println(" 3) Wednesday");
-						System.out.println(" 4) Thursday");
-						System.out.println(" 5) Friday");
-						System.out.println("*********End Of Options****************");
+						System.out.println("===========Options==============");
+						System.out.println(" 1) Monday                     |");
+						System.out.println(" 2) Tuesday                    |");
+						System.out.println(" 3) Wednesday                  |");
+						System.out.println(" 4) Thursday                   |");
+						System.out.println(" 5) Friday                     |");
+						System.out.println("========End Of Options==========");
 						int inputDay = 0;
 						try {
 
@@ -496,7 +478,7 @@ public class CourseController {
 						String ip = "";
 						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-						System.out.println("Enter the start time in the format HH:MM:SS");
+						System.out.println("Enter the start time in the format HH:MM");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -504,7 +486,7 @@ public class CourseController {
 							result = true;
 							startTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch");
+							System.out.println("Invalid format! Please try again");
 							result = false;
 						}
 					} while (result == false);
@@ -513,9 +495,9 @@ public class CourseController {
 						result = false;
 
 						String ip = "";
-						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d))$";
 
-						System.out.println("Enter the end time in the format HH:MM:SS");
+						System.out.println("Enter the end time in the format HH:MM");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -527,7 +509,7 @@ public class CourseController {
 							result = true;
 							endTime = ip;
 						} else {
-							System.out.println("NO MATCH! format mismatch re-enter again");
+							System.out.println("Invalid format.Please try again!");
 							result = false;
 						}
 					} while (result == false);
