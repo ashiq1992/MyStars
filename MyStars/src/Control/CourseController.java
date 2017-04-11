@@ -513,14 +513,14 @@ public class CourseController {
 							result = false;
 						}
 					} while (result == false);
-					// currentIndex=""+q+1;
+					
 					Schedule schedule = new Schedule(code, (q + 1), type.TUTORIAL.toString(), day, venue, startTime,
 							endTime);
 					scheduleList.add(schedule);
 				}
 
 			}
-			/* end of implementtion for the schedule */
+			
 			boolean dateResult = false;
 
 			do {
@@ -540,9 +540,7 @@ public class CourseController {
 				System.out.println(dateResult);
 			} while (dateResult != true);
 
-			// add the
-			// schedule
-			// implementation
+			
 			Course course = new Course(code, name, school, startDate, endDate, indices, indices); // here
 
 			if (check == true) {
@@ -586,6 +584,14 @@ public class CourseController {
 
 	}
 
+	/**
+	 * 
+	 * This method writes the course details onto a file
+	 * 
+	 * @param filename The filename where the contents should be written onto
+	 * @param list Takes a list to be written
+	 * @throws IOException throws an exception if there is problems saving the course
+	 */
 	public static void saveCourse(String filename, List list) throws IOException {
 		List tempList = new ArrayList();// to store course
 
@@ -603,7 +609,7 @@ public class CourseController {
 			st.append(SEPARATOR);
 			st.append(course.getEndDate().trim());
 			st.append(SEPARATOR);
-			/* to store the vacancy and the total space in the course */
+
 			for (int j = 0; j < course.getIndices().length; j++) {
 				st.append(j + 1);
 				st.append(INDEX_SEPARATOR);
@@ -622,9 +628,6 @@ public class CourseController {
 				}
 
 			}
-			// String temp = "" + course.getCapacity();
-			// st.append(temp.trim());
-			// st.append(SEPARATOR);
 
 			tempList.add(st.toString());
 		}
@@ -632,7 +635,13 @@ public class CourseController {
 	}
 
 
-
+	/**
+	 * This method allows a course to be deleted
+	 * 
+	 * @param filename of the file where the deletion process should take place
+	 * @param courseCode course code of a particular course
+	 * @return True,if the deletion is successful and false if not.
+	 */
 	public boolean deleteCourse(String file, String courseCode) {
 		boolean deleted = false;
 
@@ -654,10 +663,7 @@ public class CourseController {
 					File f = new File("DataBase/waitlists/" + mat + ".txt");
 					f.delete();
 
-					File d = new File("DataBase/schedule/" + mat + ".txt");// to
-																			// delete
-																			// the
-																			// schedule
+					File d = new File("DataBase/schedule/" + mat + ".txt");
 					d.delete();
 				}
 
@@ -691,10 +697,17 @@ public class CourseController {
 
 		return deleted;
 	}
-
-	/* The below method is to save course after the amendments are done */
+	
+	
+	/**
+	 * This method saves an amended course
+	 * 
+	 * @param filename filename of the course
+	 * @param list The list of course to be amended
+	 * @throws IOException if there is a problem saving the file
+	 */
 	public static void saveCourseAmend(String filename, List list) throws IOException {
-		List tempList = new ArrayList();// to store students data
+		List tempList = new ArrayList();
 
 		for (int i = 0; i < list.size(); i++) {
 			Course course = (Course) list.get(i);
@@ -728,38 +741,42 @@ public class CourseController {
 				}
 
 			}
-			// String temp = "" + course.getCapacity();
-			// st.append(temp.trim());
-			// st.append(SEPARATOR);
 
 			tempList.add(st.toString());
 		}
 		manage.writeNew(filename, tempList);
 	}
-
+	
+	/**
+	 * This is method displays all the courses
+	 * 
+	 * 
+	 */
 	public void showAllCourses() {
 		try {
 			ArrayList<Course> a1 = readAllCourse("DataBase/courses.txt");
 			for (int x = 0; x < a1.size(); x++) {
 				System.out.println("| Course code: " + a1.get(x).getCourseCode());
 				System.out.println("| Course name: " + a1.get(x).getCourseName());
-				//System.out.println("**************************************************");
 				System.out.println("|                                                ");
 				for (int j = 0; j < a1.get(x).getVacancy().length; j++) {
 					System.out.println("| Available index: " + (j + 1) + " Vacancy: " + a1.get(x).getVacancy()[j] + "/"
 							+ a1.get(x).getIndices()[j]);
-					//System.out.println("                                                ");
 
 				}
 				System.out.println("===================================================");
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * This method displays all courses by the index
+	 * 
+	 * @param coursecode is based on the course
+	 */
 	public void showIndexByCourse(String courseCode) {
 		try {
 
@@ -781,8 +798,6 @@ public class CourseController {
 				System.out.println("Course code: " + course.getCourseCode());
 				System.out.println("Course name: " + course.getCourseName());
 				System.out.println("**************************************************");
-				// System.out.println("spots: "+a2.get(x).getVacancy().length);
-				// System.out.println("spots: "+a2.size());
 				for (int j = 0; j < course.getVacancy().length; j++) {
 					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + course.getVacancy()[j] + " "
 							+ "Total size of " + course.getIndices()[j]);
@@ -792,11 +807,16 @@ public class CourseController {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * This method allows the Admin to display all the courses based on a course code
+	 * 
+	 * @param courseCode
+	 * @return True if there is no course to be displayed
+	 */
 	public boolean adminShowCourse(String courseCode) {
 		boolean check = false;
 		try {
@@ -833,13 +853,17 @@ public class CourseController {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return check;
 	}
-
+	
+	/**
+	 * This method prints all the students enrolled in a course given a cousercode
+	 * @param courseCode of a particular course
+	 * @return
+	 */
 	public boolean adminPrintByCourseCode(String courseCode) {
 		boolean check = false;
 		boolean status = false;
@@ -905,7 +929,7 @@ public class CourseController {
 					}
 					status = true;
 				} else {
-					System.out.println("There is not Student registered for the course");
+					System.out.println("There is no student registered for the course");
 
 				}
 			}
@@ -914,13 +938,19 @@ public class CourseController {
 				checkCourse = false;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return checkCourse;
 	}
-
+	
+	/**
+	 * This allows the admin to print the students enrolled into a course based on a coursecode and index
+	 * 
+	 * @param courseCode
+	 * @param index
+	 * @return
+	 */
 	public boolean adminPrintByCourseCodeAndIndex(String courseCode, int index) {
 		boolean check = false;
 
