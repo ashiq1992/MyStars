@@ -281,7 +281,6 @@ public class StudentController {
 			int temp;
 			List list = new ArrayList();
 			list.add(matricNum);
-
 			int courseIndex = 0;
 			String courseID = null;
 			int retIndex = 0;

@@ -278,6 +278,7 @@ public class AddDropController {
 				if (Drop.getCourseCode().toLowerCase().equals(courseCode.toLowerCase()) && Drop.getIndex() == index) {
 					if (Drop.getList().isEmpty() != true) {
 						matricNum = Drop.getList().get(0);
+						Drop.getList().remove(0);
 						
 					}
 				}

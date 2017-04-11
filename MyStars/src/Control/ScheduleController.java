@@ -163,7 +163,7 @@ public class ScheduleController {
 				for (int k = 0; k < timeTable.size(); k++) {
 
 					Schedule s = (Schedule) timeTable.get(k);
-					if (s.getCourseCode().toLowerCase().equals(courses.get(x)) && (s.getIndex() == courseindex)) {
+					if (s.getCourseCode().toLowerCase().equals(courses.get(x).toString().toLowerCase()) && (s.getIndex() == courseindex)) {
 						day.add(s.getDay());
 						startTime.add(s.getStartTime());
 						endTime.add(s.getEndTime());
@@ -179,7 +179,7 @@ public class ScheduleController {
 			/*TO get ther schedule only by the index stated*/
 			for(int p=0;p<newTimeTable.size();p++){
 				Schedule TT=(Schedule)newTimeTable.get(p);
-				if(TT.getCourseCode().toLowerCase().equals(newCourseCode)&&TT.getIndex()==newIndex){
+				if(TT.getCourseCode().toLowerCase().equals(newCourseCode.toLowerCase())&&TT.getIndex()==newIndex){
 					match.add(TT);
 				}
 			}
