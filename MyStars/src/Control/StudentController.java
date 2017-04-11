@@ -17,15 +17,46 @@ import Model.Course;
 import Model.Schedule;
 import Model.Student;
 
+/**
+ * Student Controller class handles student functions and calls to the data file
+ * 
+ * @author Ameen
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
+ * @author Waqas
+ * @since 2017-04-01
+ * @version 1.0
+ */
 public class StudentController {
 	/**
 	 * Instantiated a FileManager object to read and write data to the text files.
 	 */
 	public static FileManager manage =new FileManager();
+	
+	/**
+	 * A separator which is used to separate the elements
+	 */
 	public static final String SEPARATOR = "|";
+	
+	/**
+	 * Instantiated an AddDropController object
+	 */
 	private AddDropController addDrop = new AddDropController();
+	
+	/**
+	 * Instantiated a CourseController object
+	 */
 	private CourseController Cc1 = new CourseController();
+	
+	/**
+	 * Instantiated a ScheduleController object
+	 */
 	private ScheduleController schedule = new ScheduleController();
+	
+	/**
+	 * Instantiated a Hash object
+	 */
 	private Hash h1 = new Hash();
 
 	public static ArrayList readAllStudents(String filename) throws IOException {

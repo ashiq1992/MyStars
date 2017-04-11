@@ -275,7 +275,7 @@ public class CourseController {
 						String ip = "";
 						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-						System.out.println("Enter the start time in the format HH:MM");
+						System.out.println("Enter the start time in the format HH:MM:SS");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -295,7 +295,7 @@ public class CourseController {
 						String ip = "";
 						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-						System.out.println("Enter the end time in the format HH:MM");
+						System.out.println("Enter the end time in the format HH:MM:SS");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -381,9 +381,9 @@ public class CourseController {
 						result = false;
 
 						String ip = "";
-						//String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
-						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d)$";
-						System.out.println("Enter the start time in the format HH:MM");
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+						//String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d)$";
+						System.out.println("Enter the start time in the format HH:MM:SS");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -401,9 +401,9 @@ public class CourseController {
 						result = false;
 
 						String ip = "";
-						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d)$";
-
-						System.out.println("Enter the end time in the format HH:M");
+						//String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d)$";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
+						System.out.println("Enter the end time in the format HH:MM:SS");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -478,7 +478,7 @@ public class CourseController {
 						String ip = "";
 						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-						System.out.println("Enter the start time in the format HH:MM");
+						System.out.println("Enter the start time in the format HH:MM:SS");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -495,9 +495,9 @@ public class CourseController {
 						result = false;
 
 						String ip = "";
-						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d))$";
+						String pattern = "^([01]?\\d|2[0-3]):([0-5]?\\d):([0-5]?\\d)$";
 
-						System.out.println("Enter the end time in the format HH:MM");
+						System.out.println("Enter the end time in the format HH:MM:SS");
 						ip = sc.next();
 						Pattern r = Pattern.compile(pattern);
 						Matcher m = r.matcher(ip);
@@ -991,18 +991,12 @@ public class CourseController {
 						System.out.println("  Course Code             :" + Add.getCourseCode());
 						System.out.println("***********************************************");
 
-						// System.out.println("CourseCode: " +
-						// Add.getCourseCode() +
-						// " Index: " + Add.getIndex());
 						for (int z = 0; z < Add.getList().size(); z++) {
 							for (int k = 0; k < studentCheck.size(); k++) {
 								Student s1 = (Student) studentCheck.get(k);
 
 								if (Add.getList().get(z).toLowerCase()
 										.equals(s1.getMatriculationNumber().toLowerCase())) {
-									// System.out.println(s1.getName() + " " +
-									// s1.getGender() + " " +
-									// s1.getNationality());
 									System.out.println("                           ");
 									System.out.println("  Student Name            :" + s1.getName());
 									System.out.println("  Gender                  :" + s1.getGender());
@@ -1031,12 +1025,18 @@ public class CourseController {
 		catch (InputMismatchException e) {
 
 			System.out.println("Enter correct inputs");
-			// e.printStackTrace();
 		}
 
 		return checkCourse;
 	}
-
+	
+	/**
+	 * This method checks for a valid course code and index
+	 * 
+	 * @param index of a course.E.G,CE2003_2 where 2 refers to the index
+	 * @param courseCode refers to the course code of a particular course
+	 * @return true if the index is valid and false if it is otherwise
+	 */
 	public boolean checkIndexeAndCourseCode(int index, String courseCode) {
 
 		boolean courseCheck = false;
@@ -1057,7 +1057,6 @@ public class CourseController {
 			}
 
 			if (courseCheck == true) {
-				// System.out.println("i am in");
 				for (int j = 0; j < indexData.size(); j++) {
 					Course course = (Course) indexData.get(j);
 					for (int z = 0; z < course.getIndices().length; z++) {
@@ -1085,7 +1084,15 @@ public class CourseController {
 		}
 		return finalCheck;
 	}
-
+	
+	/**
+	 * This method checks whether the new index and old index is valid for a given course code
+	 * 
+	 * @param newIndex E.G,CE2003_2 where 2 refers to the index
+	 * @param oldIndex E.G,CE2003_2 where 2 refers to the index
+	 * @param courseCode of a particular course
+	 * @return True if the indexes are valid and false if it is otherwise
+	 */
 	public boolean checkIndexes(int newIndex, int oldIndex, String courseCode) {
 		int firstCheck = 0;
 		int secondCheck = 0;
@@ -1136,7 +1143,15 @@ public class CourseController {
 		return state;
 
 	}
-
+	
+	/**
+	 * Checks whether the student is enrolling himself into the same course
+	 * 
+	 * @param courseCode of a particular course
+	 * @param matricNum refers to the matriculation code of a student
+	 * @param index E.G,CE2003_2 where 2 refers to the index
+	 * @return True if if the student is not enrolled in to the course,and False if otherwise
+	 */
 	public boolean checkCourseCode(String courseCode, String matricNum, int index) {
 
 		boolean state = false;
@@ -1170,7 +1185,18 @@ public class CourseController {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * This method is invoked when two students who wish to swap index with each other
+	 * 
+	 * This method checks whether the two students are enrolled in the same course in order
+	 * for the swap to take place
+	 * 
+	 * @param courseCode of a particular course
+	 * @param matricNum of the student A
+	 * @param newMatricId of the student B
+	 * @return
+	 */
 	public boolean checkCourseCode(String courseCode, String matricNum, String newMatricId) {
 
 		boolean state = false;
@@ -1206,11 +1232,17 @@ public class CourseController {
 		}
 		return result;
 	}
-
-	public boolean validateDate(String ip) {
+	
+	/**
+	 * This method validates the date
+	 * 
+	 * @param date as a string in dd/mm/yyyy
+	 * @return True if the date is valid and false if not
+	 */
+	public boolean validateDate(String date) {
 		boolean result = true;
 
-		if (ip == null || !ip.matches("^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$")) {
+		if (date == null || !date.matches("^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$")) {
 			System.out.println("date input error");
 			result = false;
 		}
@@ -1218,7 +1250,7 @@ public class CourseController {
 			SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 			df.setLenient(false);
 			try {
-				df.parse(ip);
+				df.parse(date);
 				result = true;
 			} catch (ParseException ex) {
 				result = false;
@@ -1231,10 +1263,15 @@ public class CourseController {
 
 		return result;
 	}
+	
+	/**
+	 * This method validates a course to check if it conforms to a certain format
+	 * 
+	 * @param courseCode of a particular course
+	 * @return True if the course code format is valid and false if not
+	 */
+	public boolean validateCourseCode(String courseCode) {
 
-	public boolean validateCourseCode(String txt) {
-
-		// String txt="U1234567K";
 
 		String re1 = "([A-Z])"; // Any Single Character 1
 		String re2 = "([A-Z])"; // Any Single Digit 1
@@ -1244,21 +1281,12 @@ public class CourseController {
 		String re6 = "(\\d)"; // Any Single Digit 5
 
 		Pattern p = Pattern.compile(re1 + re2 + re3 + re4 + re5 + re6, Pattern.DOTALL);
-		Matcher m = p.matcher(txt);
+		Matcher m = p.matcher(courseCode);
 		if (m.find()) {
 
 			System.out.println("valid");
 			return true;
-			// String c1=m.group(1);
-			// String d1=m.group(2);
-			// String d2=m.group(3);
-			// String d3=m.group(4);
-			// String d4=m.group(5);
-			// String d5=m.group(6);
-			// String d6=m.group(7);
-			// String d7=m.group(8);
-			// String w1=m.group(9);
-			// System.out.print("("+c1.toString()+")"+"("+d1.toString()+")"+"("+d2.toString()+")"+"("+d3.toString()+")"+"("+d4.toString()+")"+"("+d5.toString()+")"+"("+d6.toString()+")"+"("+d7.toString()+")"+"("+w1.toString()+")"+"\n");
+			
 		}
 
 		else {
@@ -1269,13 +1297,5 @@ public class CourseController {
 
 	}
 
-	 public static void main(String args[]) {
-boolean check;
-	 CourseController n = new CourseController();
-	check=n.checkCourseCode("ee3015", "u1621546d", 1);
-	if(check){
-		System.out.println("Good");
-	}
-	 }
-
+	
 }
