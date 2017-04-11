@@ -20,29 +20,71 @@ import Model.Course;
 import Model.Schedule;
 import Model.Student;
 
+/**
+ * This course controllers manages the creation,modification and deletion of courses
+ * @author Ameen
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
+ * @author Waqas
+ * @since 2017-04-01
+ * @version 1.0
+ */
 public class CourseController {
+	
 	/**
-	 * Instantiated a FileManager object to read and write data to the text files.
+	 * Instantiated a FileManager object to read and write data to the text files
 	 */
 	private static FileManager manage =new FileManager();
-	// Properties
+	
+	/**
+	 * A separator that is used to separate elements read from a file
+	 */
 	public static final String SEPARATOR = "|";
+	
+	/**
+	 *An index_separator that is used to separate elements reads from a file
+	 */
 	public static final String INDEX_SEPARATOR = "_";
+	
+	/**
+	 * Declared a ScheduleController object
+	 */
 	private ScheduleController schedulecontroller = null;;
-
+	
+	/**
+	 * An enum which consists of the type of course
+	 * 
+	 * 
+	 * @author Ameen
+	 *
+	 */
 	private enum type {
 		LECTURE, LABORATORY, TUTORIAL;
 	}
-
+	
+	/**
+	 * 
+	 * An enum which consists of all the days of a week
+	 * @author Ameen
+	 *
+	 */
 	private enum weekdays {
 		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
 	}
 
-	// Constructor
+	/**
+	 * An empty course controller instructor
+	 */
 	public CourseController() {
 	}
 
-	// Methods
+	/**
+	 * 
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
 	public static ArrayList readAllCourse(String filename) throws IOException {
 		// read String from text file
 		ArrayList stringArray = (ArrayList) manage.read(filename);
