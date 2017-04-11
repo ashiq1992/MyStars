@@ -99,11 +99,11 @@ public class StarsPlannerApp {
 			}
 			if (input == 1) {
 				
-				System.out.println("Student Login,     ");
+				System.out.println("|Student Login,     ");
 				System.out.println("                   ");
-				System.out.println("Please enter your UserId:|");
+				System.out.println("|Please enter your UserId:");
 			    userId = sc.next();
-			    System.out.println("|Please enter your password:|");
+			    System.out.println("|Please enter your password:");
 				password = mask.readPassword("Enter passwordd");
 				
 				result = Sd.checkAccount(userId.toLowerCase(), password);
@@ -184,15 +184,21 @@ public class StarsPlannerApp {
 		// input=sc.nextInt();
 
 		do {
-			System.out.println("1)Add student.");
-			System.out.println("2)Add Course.");
-			System.out.println("3)RemoveCourse.");
-			System.out.println("4)Print by index.");
-			System.out.println("5)Print by Course.");
-			System.out.println("6) Remove Student");
-			System.out.println("7) Student Access Period");
-			System.out.println("8)Show available vacancy for course/index.");
-			System.out.println("10)LogOut.");
+			System.out.println("================================================");
+			System.out.println("| [Menu]:Admin>>Admin                          |");
+			System.out.println("================================================");
+			System.out.println("| 1)Add student                                |");
+			System.out.println("| 2)Add Course                                 |");
+			System.out.println("| 3)RemoveCourse                               |");
+			System.out.println("| 4)Print by index                             |");
+			System.out.println("| 5)Print by Course                            |");
+			System.out.println("| 6)Remove Student                             |");
+			System.out.println("| 7)Student Access Period                      |");
+			System.out.println("| 8)Show available vacancy for course/index    |");
+			System.out.println("| 10)Logout                                    |");
+			
+			System.out.println("================================================");
+			System.out.println(" ");
 			System.out.println("Enter options:");
 			input = sc.nextInt();
 
@@ -369,15 +375,15 @@ public class StarsPlannerApp {
 	public static void StudentMenu() {
 		int input;
 		do {
-			System.out.println("Student>>Student [Current Menu]");
+			System.out.println("| [Current Men:Student>>Student|");
 			System.out.println("                                         ");
-			System.out.println("*****************************************");
-			System.out.println("Student Menu");
-			System.out.println("1)View all Courses.");
-			System.out.println("2)View my Courses.");
-			System.out.println("3)Add/Drop Menu");
-			System.out.println("0)LogOut.");
-			System.out.println("*****************************************");
+			System.out.println("================================");
+			System.out.println("| Student Menu                 |");
+			System.out.println("| 1)View all Courses.          |");
+			System.out.println("| 2)View my Courses.           |");
+			System.out.println("| 3)Add/Drop Menu              |");
+			System.out.println("| 0)LogOut.                    |");
+			System.out.println("===============================");
 			System.out.print("Enter options: ");
 			input = sc.nextInt();
 
@@ -426,13 +432,18 @@ public class StarsPlannerApp {
 	public static void addDropMenu() {
 		int input;
 		do {
-			System.out.println("Student>>Add/Drop [Current Menu]");
-			System.out.println("1)Add a course.");
-			System.out.println("2)Drop a course.");
-			System.out.println("3)Change of Course Index");
-			System.out.println("4)Swappping of Index with another student");
-			System.out.println("0)Back.");
-
+			System.out.println("                                         ");
+			System.out.println("=============================================");
+			System.out.println("| [Current Menu]:Student>>Add/Drop          |");
+			System.out.println("=============================================");
+			System.out.println("|                                           |");
+			System.out.println("| 1)Add a course.                           |");
+			System.out.println("| 2)Drop a course.                          |");
+			System.out.println("| 3)Change of Course Index                  |");
+			System.out.println("| 4)Swappping of Index with another student |");
+			System.out.println("| 0)Back.                                   |");
+			System.out.println("=============================================");
+			System.out.println();
 			System.out.println("Enter options:");
 			input = sc.nextInt();
 			// test
