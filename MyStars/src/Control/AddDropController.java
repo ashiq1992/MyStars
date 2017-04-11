@@ -511,9 +511,10 @@ public class AddDropController {
 	 */
 	public int returnIndex(String matriculationNum, String courseCode) {
 		List stringArray;
+		List waitlist;
 		int index = 0;
 		try {
-
+		 
 			stringArray = readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 
 			for (int i = 0; i < stringArray.size(); i++) {
@@ -651,13 +652,13 @@ public class AddDropController {
 			
 			for(int x=0;x<read.size();x++){
 				AddDrop Drop=(AddDrop)read.get(x);
-				if(Drop.getIndex()==Index){
+				
 					for(int k=0;k<Drop.getList().size();k++){
 						if(Drop.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())){
 							Drop.getList().remove(k);
 						}
 					}
-				}
+				
 				
 				
 				
@@ -780,14 +781,14 @@ public class AddDropController {
 			if(check==false){
 				for(int k=0;k<read2.size();k++){
 					AddDrop Drop=(AddDrop)read2.get(k);
-					if(Drop.getIndex()==index){
+					//if(Drop.getIndex()==index){
 						for(int x=0;x<Drop.getList().size();x++){
 							if(Drop.getList().get(x).toLowerCase().equals(matricNum.toLowerCase())){
 								waitCheck=true;
 							}
 						}
 						
-					}
+					//}
 				}
 				
 			}
@@ -941,6 +942,11 @@ public class AddDropController {
 		return courseCode;
 		
 	}
-
+public void displayInWaitList(String MatricNum){
+	
+	
+	
+	
+}
 
 }
