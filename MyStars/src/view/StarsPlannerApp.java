@@ -38,7 +38,7 @@ public class StarsPlannerApp {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String args[]) {
-	//try{
+	try{
 		adddropEnable = true;
 	
 		int input = -1; // Takes in user input;
@@ -163,12 +163,12 @@ public class StarsPlannerApp {
 
 		while (valid != 0);
 	}
-//	catch(Exception e){
-	//	System.out.println("Program terminating");
+	catch(Exception e){
+		System.out.println("Program terminating");
 		
 		
-	//}
-//	}
+	}
+	}
 
 	// =================================================================================
 	// =================================================================================
@@ -243,7 +243,7 @@ public class StarsPlannerApp {
 		if (result == true) {
 			System.out.println("System message:Student has been successfully added");
 		} else {
-			System.err.println("System messsage:Unable to add student");
+			System.err.println("System messsage:Unable to add student.Please try again");
 		}
 	}
 
@@ -254,7 +254,7 @@ public class StarsPlannerApp {
 		if (result == true) {
 			System.out.println("System message:The course has been successfully added");
 		} else {
-			System.err.println("Fail.Check inout value and re-enter options");
+			System.err.println("System message:Unable to add course .Please try again");
 		}
 	}
 
@@ -266,9 +266,9 @@ public class StarsPlannerApp {
 		String id = sc.next().toLowerCase();
 		result = Cd.deleteCourse("DataBase/courses.txt", id);
 		if (result == true) {
-			System.out.println("Success,course has been removed");
+			System.out.println("System message:The course has been successfully removed");
 		} else {
-			System.err.println("Fail to remove course,check the inpput valuees entered and try again");
+			System.err.println("System message:Unable to remove course .Please try again");
 		}
 	}
 
@@ -279,9 +279,9 @@ public class StarsPlannerApp {
 		String id = sc.nextLine();
 		result = Sd.deleteStudent("DataBase/student.txt", id);
 		if (result == true) {
-			System.out.println("Success,Student has been removed");
+			System.out.println("System message:Student has been successfully droppped");
 		} else {
-			System.err.println("Fail to remove student,check the inpput valuees entered and try again");
+			System.err.println("System message:Unable to remove the student");
 		}
 	}
 
@@ -294,12 +294,12 @@ public class StarsPlannerApp {
 		result = access.accessPeriod();
 		if (result == false) {
 
-			System.out.println("There was an error occured when making the chages please try again . ");
+			System.out.println("System message:An error occured when making the chages please try again.");
 
 		}
 
 		else {
-			System.out.println("Successfully made the amendments");
+			System.out.println("System message:Successfully made changes");
 		}
 
 	}
@@ -314,7 +314,7 @@ public class StarsPlannerApp {
 		courseCode = sc.next();
 		result = Ad.vacancy(courseCode);
 		if (result == false) {
-			System.out.println("There was an error occured .Do check your input values and try again.");
+			System.out.println("System message:An error occured .Check your input values and try again.");
 		}
 
 	}
@@ -330,7 +330,7 @@ public class StarsPlannerApp {
 		state = Ad.printByCourseCode(courseCode);
 
 		if (state == false) {
-			System.out.println("There was an error occured .Do check your input values and try again.");
+			System.out.println("System message:An error occured .Check your input values and try again.");
 
 		}
 
@@ -351,11 +351,11 @@ public class StarsPlannerApp {
 		}
 
 		catch (InputMismatchException e) {
-			System.out.println("Please enter a valid course code");
+			System.out.println("System message:Please enter a valid course code");
 		}
 
 		if (state == false) {
-			System.out.println("Please enter a valid course code / course index and try again");
+			System.out.println("System message:Please enter a valid course code / course index and try again");
 		}
 
 	}
@@ -369,6 +369,7 @@ public class StarsPlannerApp {
 	public static void StudentMenu() {
 		int input;
 		do {
+			System.out.println("Student>>Student [Current Menu]");
 			System.out.println("                                         ");
 			System.out.println("*****************************************");
 			System.out.println("Student Menu");
@@ -394,12 +395,12 @@ public class StarsPlannerApp {
 				break;
 
 			case 0:
-				System.out.println("Logging off");
-				System.out.println("Goodbye!!!!");
+				System.out.println("System message:Logging off");
+				System.out.println("System message:Goodbye!!!!");
 				break;
 
 			default:
-				System.err.println("Input error");
+				System.err.println("System message:Input mismatch.");
 			}
 
 		} while (input != 0);
@@ -425,10 +426,11 @@ public class StarsPlannerApp {
 	public static void addDropMenu() {
 		int input;
 		do {
+			System.out.println("Student>>Add/Drop [Current Menu]");
 			System.out.println("1)Add a course.");
 			System.out.println("2)Drop a course.");
-			System.out.println("3)Change index number.");
-			System.out.println("4)Change with another student");
+			System.out.println("3)Change of Course Index");
+			System.out.println("4)Swappping of Index with another student");
 			System.out.println("0)Back.");
 
 			System.out.println("Enter options:");
@@ -444,16 +446,18 @@ public class StarsPlannerApp {
 				break;
 
 			case 3:
+				System.out.println("(Note: Index change can only be done from the same course)");
 				changeIndex();
 				break;
 			case 4:
+				System.out.println("(Note: Swapping of Index can only be done of the same course)");
 				changeIndexWithAnotherStudent();
 				break;
 			case 0:
-				System.out.println("you are currently in the previous Menu");
+				System.out.println("System message:You are now at the previous Menu");
 				break;
 			default:
-				System.err.println("Input error,re-enter a correct input");
+				System.err.println("System message:Input mismatch.");
 			}
 		} while (input != 0);
 	}
@@ -484,11 +488,11 @@ public class StarsPlannerApp {
 					index);
 			// Add the method inside the addMaster()
 		} else {
-			System.out.println("TimeTable Clash Choose another index for the course!!");
+			System.out.println("System message:TimeTable Clash Choose another index for the course!!");
 		}
 
 		if (result == false) {
-			System.out.println("You are directed to the previous menu choose your options again ");
+			System.out.println("System message:You are directed to the Add/Drop menu choose your options again ");
 
 		}
 
@@ -533,8 +537,8 @@ public class StarsPlannerApp {
 		result = Cd.checkCourseCode(courseCode, student.getMatriculationNumber().toLowerCase(), oldIndex);
 
 		if (result == false) {
-			System.out.println("You are not enrolled in the course! ");
-			System.out.println("re-enter options");
+			System.out.println("System message:You are not enrolled in the course! ");
+			System.out.println("System message:You are directed to the Add/Drop menu choose your options again");
 			// System.out.println("Do you want to continue (y/n)? ");
 			// value = sc.next().toLowerCase().charAt(0);
 		}
@@ -559,14 +563,14 @@ public class StarsPlannerApp {
 		courseCode = sc.next();
 		courseCode = courseCode.toLowerCase();
 
-		System.out.println("Please enter the other student MatricI :D");
+		System.out.println("Please enter the other student MatricID:");
 		newMatricId = sc.next();
 
 		result = Cd.checkCourseCode(courseCode, student.getMatriculationNumber(), newMatricId);
 
 		if (result == false) {
 			System.out.println(
-					"You / the other student is not enrolled in the course .Do check input values and try again ");
+					"System message:You / the other student is not enrolled in the course .Do check input values and try again ");
 		}
 
 		if (result) {
