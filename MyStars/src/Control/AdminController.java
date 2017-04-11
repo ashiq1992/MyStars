@@ -173,14 +173,20 @@ public class AdminController {
 		}
 
 	}
-
+	
+	/**
+	 * A method to retrieves all Admins
+	 * 
+	 * 
+	 * 
+	 * @return an arraylist of admins
+	 */
 	public ArrayList<Admin> retriveAllAdmins() {
 		ArrayList<Admin> a2 = new ArrayList<Admin>();
 
 		AdminController txtDB = new AdminController();
 		String filename = "DataBase/admin.txt";
 		try {
-			// read file containing Professor records.
 			ArrayList al = AdminController.readAllAdmins(filename);
 			for (int i = 0; i < al.size(); i++) {
 				Admin admin = (Admin) al.get(i);
@@ -273,20 +279,26 @@ public class AdminController {
 	}
 	
 	/**
+	 * A method to print all the Indexes/Classes
 	 * 
 	 * 
-	 * @param courseCode
-	 * @param index
-	 * @return
+	 * @param courseCode courseCode of a particular course
+	 * @param index Index of a particular course.E.g, CE2003_1.Where 1 refers to the index
+	 * @return True,if there is contents to be displayed.False if there is nothing to be displayed
 	 */
 	public boolean printByIndex(String courseCode, int index) {
 		CourseController display = new CourseController();
 		boolean state = display.adminPrintByCourseCodeAndIndex(courseCode, index);
 		return state;
 	}
-
-	public boolean validateMatricNum(String txt) {
-		//String txt="U1234567K";
+	
+	/**
+	 * A method to validate the matriculation number given a matriculation number
+	 * 
+	 * @param matricNumber matriculationNumber of the student
+	 * @return True if the matriculatioNumber is valid,False if otherwise
+	 */
+	public boolean validateMatricNum(String matricNumber) {
 
 	    String re1="(U)";	// Any Single Character 1
 	    String re2="(\\d)";	// Any Single Digit 1
@@ -299,22 +311,13 @@ public class AdminController {
 	    String re9="([A-Z])";	// Any Single Word Character (Not Whitespace) 1
 
 	    Pattern p = Pattern.compile(re1+re2+re3+re4+re5+re6+re7+re8+re9, Pattern.DOTALL);
-	    Matcher m = p.matcher(txt);
+	    Matcher m = p.matcher(matricNumber);
 	    if (m.find())
 	    {
 	    	
 	    	System.out.println("valid");
 	    	return true;
-//	        String c1=m.group(1);
-//	        String d1=m.group(2);
-//	        String d2=m.group(3);
-//	        String d3=m.group(4);
-//	        String d4=m.group(5);
-//	        String d5=m.group(6);
-//	        String d6=m.group(7);
-//	        String d7=m.group(8);
-//	        String w1=m.group(9);
-//	        System.out.print("("+c1.toString()+")"+"("+d1.toString()+")"+"("+d2.toString()+")"+"("+d3.toString()+")"+"("+d4.toString()+")"+"("+d5.toString()+")"+"("+d6.toString()+")"+"("+d7.toString()+")"+"("+w1.toString()+")"+"\n");
+
 	    }
 	    
 	    else
@@ -326,15 +329,5 @@ public class AdminController {
 	}
 
 	
-//	public static void main(String args[]) {
-//		Scanner sc = new Scanner(System.in);
-//		String courseCode;
-//		int index;
-//		char s;
-//		AdminController ad = new AdminController();
-//		boolean result = false;
-//	ad.AddStudent();
-//
-//	}
 
 }

@@ -20,6 +20,12 @@ import Model.Course;
 import Model.Schedule;
 import Model.Student;
 
+/**
+ * This course controller class handles the way courses are managed
+ * 
+ * @author Ameen
+ *
+ */
 public class CourseController {
 	/**
 	 * Instantiated a FileManager object to read and write data to the text files.
