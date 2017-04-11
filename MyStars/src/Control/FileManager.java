@@ -12,17 +12,38 @@ import java.util.StringTokenizer;
 import Model.Admin;
 import Model.Student;
 
+/**
+ * A File manager class which handles the way data is written to the file
+ * @author Ameen
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
+ * @author Waqas
+ * @since 2017-04-01
+ * @version 1.0
+  */
 public class FileManager {
 
+	/**
+	 * Declared an AddDrop Controller for adding and dropping of courses
+	 */
+	private AddDropController addDrop;
 	
-	private AddDropController a1;
-	private Admin ad1;
-	private Student s1;
+	/**
+	 * Declared an Admin Object;
+	 */
+	private Admin admin;
+	
+	/**
+	 * Declared a Student object
+	 */
+	private Student student;
 	
 	
 
 	/** 
 	 * A method that retrieves data given the file name of a text file
+	 * 
 	 * @param fileName  The file name of the text file where the contents should be read
 	 * @return  Returns a List of data read from a particular text file
 	 * @throws IOException  Exception thrown if there is problems reading from the file
@@ -50,15 +71,7 @@ public class FileManager {
 	 * @throws IOException  Exception when there is a problem writing data on the file
 	 */
 	public static void write(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName, true));// true
-																			// to
-																			// ensure
-																			// the
-																			// previous
-																			// data
-																			// is
-																			// not
-																			// deleted
+		PrintWriter out = new PrintWriter(new FileWriter(fileName, true));
 
 		try {
 			for (int i = 0; i < data.size(); i++) {
@@ -70,17 +83,15 @@ public class FileManager {
 	}
 	
 	
-	
+	/**
+	 * A method to clear all contents of a file before writing new contents on it
+	 * 
+	 * @param fileName the name of the file where the contents should be written on
+	 * @param data which takes in a List of data
+	 * @throws IOException throws when files contents are unable to written onto the file
+	 */
 	public static void writeNew(String fileName, List data) throws IOException {
-		PrintWriter out = new PrintWriter(new FileWriter(fileName));// clears
-																	// the data
-																	// in the
-																	// file
-																	// before
-																	// writing
-																	// it back
-																	// to the
-																	// file
+		PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
 		try {
 			for (int i = 0; i < data.size(); i++) {

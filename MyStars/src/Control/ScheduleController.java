@@ -25,25 +25,35 @@ public class ScheduleController {
 	 * Instantiated a FileManager object to read and write data to the text files.
 	 */
 	public static FileManager manage =new FileManager();
+	
+	/**
+	 * Instantiated a AddDropController object to facilitate in Adding and dropping of courses
+	 */
 	AddDropController check = new AddDropController();
-	// Properties
+	
+	/**
+	 * A separator which is used to separate the elements from a text file
+	 */
 	public static final String SEPARATOR = "|";
+	
+	/**
+	 * An index separator which is used to separate the elements from a text file
+	 */
 	public static final String INDEX_SEPARATOR = "_";
+	
+	/**
+	 * A schedule separator which is used to separate the elements from a text file
+	 */
 	public static final String SCHEDULE_SEPARATOR = ",";
-
+	
+	/**
+	 * A method which build a schedule and writes it to a file
+	 * 
+	 * @param schedule which a List of schedule to be written
+	 * @param courseCode of a particular course
+	 */
 	public void saveSchedule(List schedule, String courseCode) {
-		File f = new File("DataBase/schedule/" + courseCode + ".txt");// creates
-																		// the
-																		// file
-																		// in
-																		// the
-																		// folder
-		// coursecode_index|type|day|venue|starttime|endTime|
-		// index
-		// type
-		// day
-		// starttime
-		// endtime
+		File f = new File("DataBase/schedule/" + courseCode + ".txt");
 
 		String index;
 		List tempList = new ArrayList();// to store students data
@@ -77,7 +87,13 @@ public class ScheduleController {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * A method to read a schedule
+	 * 
+	 * @param courseCode of a particular course
+	 * @return an Arraylist of schedule
+	 */
 	public ArrayList readSchedule(String courseCode) {
 
 		ArrayList sch = new ArrayList();// to store Admins data
@@ -116,7 +132,14 @@ public class ScheduleController {
 
 	}
 
-	
+	/**
+	 * A method to checks for clashes
+	 * 
+	 * @param newCourseCode of a particular course
+	 * @param newIndex of a particular course and a specific index
+	 * @param matricNum of a student
+	 * @return True if a clash exists.False if there is no clash.
+	 */
 	public boolean clashcheck(String newCourseCode, int newIndex, String matricNum) {
 		boolean clash = false;
 		boolean interrupt=false;
@@ -137,7 +160,6 @@ public class ScheduleController {
 		try {
 			checkCourse=CC.readAllCourse("DataBase/courses.txt");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -248,7 +270,11 @@ public class ScheduleController {
 
 	}
 
-	
+	/**
+	 * A method to display schedules given a course code
+	 * 
+	 * @param courseCode of a particular courses
+	 */
 	public void displaySchedule(String courseCode){
 		boolean status=false;
 		List match=new ArrayList();
@@ -268,7 +294,6 @@ public class ScheduleController {
 	}
 	if(status==true){
 		timeTable = this.readSchedule(courseCode);
-		/*TO get ther schedule only by the index stated*/
 			System.out.println("************************************************************************************************");
 		for(int p=0;p<timeTable.size();p++){
 			Schedule TT=(Schedule)timeTable.get(p);
@@ -285,30 +310,5 @@ public class ScheduleController {
 		/*end of check                                      */
 		
 	}
-	// public static void main(String [] args){
-	// ScheduleController n=new ScheduleController();
-	 
-	 
-	 //n.clashcheck("ma4002", 1,"u1621546d");
-	// boolean check;
-	// ArrayList test;
-	// test=n.readSchedule("ce3005");
-	// for(int x=0;x<test.size();x++){
-	// Schedule s=(Schedule)test.get(0);
-	// System.out.println(s.getCourseCode()+" "+s.getIndex()+" "+s.getType()+"
-	// "+s.getDay()+" "+s.getStartTime()+" "+s.getEndTime());;
-	//
-	//
-	//
-	// }
 
-	// check=n.clashcheck("ce3005", 1, "u163");
-	// if(check){
-	// System.out.println(" clash");
-	// }
-	// else{
-	// System.out.println("no Clash");
-	// }
-	// }
-	 //}
 }

@@ -11,11 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 public class EmailSender {
 	
-	private static String USER_NAME = "starsplannerntu";  
-    private static String PASSWORD = "javaproject"; 
-    private static String RECIPIENT = "ameenvzn93@gmail.com";
-	
-	
+		
 	public static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
@@ -55,16 +51,6 @@ public class EmailSender {
         catch (MessagingException me) {
             me.printStackTrace();
         }
-    }
-	
-	public static void main(String[] args) {
-        String from = USER_NAME;
-        String pass = PASSWORD;
-        String[] to = { RECIPIENT }; // list of recipient email addresses
-        String subject = "Java send mail example";
-        //String body = "Welcome to JavaMail!";
-        String body="Dear "+"Amen"+","+"\n" +"We are pleased to inform you that you have been accepted into "+"CE2003" +"\n"+"Regards,"+"\n"+"StarsPlanner Administrator";
-        sendFromGMail(from, pass, to, subject, body);
     }
 	
 }
