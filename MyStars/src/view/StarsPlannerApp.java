@@ -99,7 +99,7 @@ public class StarsPlannerApp {
 			}
 			if (input == 1) {
 				
-				System.out.println("|Student Login,     ");
+				System.out.println("|Student Login:    ");
 				System.out.println("                   ");
 				System.out.println("|Please enter your UserId:");
 			    userId = sc.next();
@@ -132,14 +132,15 @@ public class StarsPlannerApp {
 			
 
 			else if (input == 2) {
-				System.out.println("Enter userId:");
+				System.out.println("| Admin Login:    ");
+				System.out.println("| Enter userId:");
 				userId = sc.next();
 //				System.out.println("Enter Password:");
 				password = mask.readPassword("Enter Passwordd");
 				Ad = new AdminController();
 				result = Ad.checkAccount(userId, password);
 				if (result == true) {
-					System.out.println("Welcome "+userId);
+					System.out.println("Welcome Admin: "+userId);
 					System.out.println("         ");
 					AdminMenu();
 
@@ -184,8 +185,10 @@ public class StarsPlannerApp {
 		// input=sc.nextInt();
 
 		do {
+			System.out.println("                                                ");
 			System.out.println("================================================");
 			System.out.println("| [Menu]:Admin>>Admin                          |");
+			System.out.println("|                                              |");
 			System.out.println("================================================");
 			System.out.println("| 1)Add student                                |");
 			System.out.println("| 2)Add Course                                 |");
@@ -375,15 +378,17 @@ public class StarsPlannerApp {
 	public static void StudentMenu() {
 		int input;
 		do {
-			System.out.println("| [Current Men:Student>>Student|");
 			System.out.println("                                         ");
-			System.out.println("================================");
-			System.out.println("| Student Menu                 |");
-			System.out.println("| 1)View all Courses.          |");
-			System.out.println("| 2)View my Courses.           |");
-			System.out.println("| 3)Add/Drop Menu              |");
-			System.out.println("| 0)LogOut.                    |");
-			System.out.println("===============================");
+			System.out.println("==================================");
+			System.out.println("| [Current Menu]:Student>>Student|");
+			System.out.println("|                                |");
+			System.out.println("==================================");
+			System.out.println("| Student Menu                   |");
+			System.out.println("| 1)View all Courses.            |");
+			System.out.println("| 2)View my Courses.             |");
+			System.out.println("| 3)Add/Drop Menu                |");
+			System.out.println("| 0)LogOut.                      |");
+			System.out.println("==================================");
 			System.out.print("Enter options: ");
 			input = sc.nextInt();
 
@@ -435,6 +440,7 @@ public class StarsPlannerApp {
 			System.out.println("                                         ");
 			System.out.println("=============================================");
 			System.out.println("| [Current Menu]:Student>>Add/Drop          |");
+			System.out.println("|                                           |");
 			System.out.println("=============================================");
 			System.out.println("|                                           |");
 			System.out.println("| 1)Add a course.                           |");
