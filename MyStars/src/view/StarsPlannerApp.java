@@ -561,8 +561,9 @@ public class StarsPlannerApp {
 		}
 
 		if (result) {
+			StudentController SS= new StudentController();
 
-			Sd.changeIndex(newIndex, oldIndex, courseCode, student.getMatriculationNumber());
+			SS.changeIndex(newIndex, oldIndex, courseCode, student.getMatriculationNumber().toLowerCase());
 
 		}
 

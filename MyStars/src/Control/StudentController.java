@@ -344,14 +344,15 @@ public class StudentController {
 	 */
 	public void changeIndex(int index, int oldindex, String courseCode, String matricNum) {
 		try {
-
+				boolean status=false;
 			int temp;
 			List list = new ArrayList();
 			list.add(matricNum);
 			int courseIndex = 0;
 			String courseID = null;
 			int retIndex = 0;
-
+			List readCourse = new ArrayList();
+			 readCourse = Cc1.readAllCourse("DataBase/courses.txt");
 			List StringArray = addDrop.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			for (int x = 0; x < StringArray.size(); x++) {
 				AddDrop changeIndex = (AddDrop) StringArray.get(x);
@@ -367,49 +368,65 @@ public class StudentController {
 					}
 
 				}
-				if (changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())
-						&& changeIndex.getIndex() == index) {
-					retIndex = x;
-					changeIndex.setList(list);
-				}
-
 			}
+	status=schedule.clashcheck(courseCode, index, matricNum);
+				if(status==true){
+					for (int x = 0; x < StringArray.size(); x++) {
+						AddDrop changeIndex = (AddDrop) StringArray.get(x);
+						/* To remove the matric number from old index number */
+						if (changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())
+								&& changeIndex.getIndex() == oldindex) {
+							for (int k = 0; k < changeIndex.getList().size(); k++) {
+								if (changeIndex.getCourseCode().toLowerCase().equals(courseCode.toLowerCase())&& changeIndex.getIndex()==courseIndex) {
+								changeIndex.getList().add(matricNum);
+								}
+							}
 
-			List readCourse = Cc1.readAllCourse("DataBase/courses.txt");
+						}
+					}
+					System.out.println("System message:Clash with timeTable.Index was not changed!!");
+					
+				}
+				else{
+					
+					
 
-			for (int i = 0; i < readCourse.size(); i++) {
-				Course course = (Course) readCourse.get(i);
-				
+					for (int i = 0; i < readCourse.size(); i++) {
+						Course course = (Course) readCourse.get(i);
+						
 
-				for (int j = 0; j < course.getVacancy().length; j++) {
+						for (int j = 0; j < course.getVacancy().length; j++) {
 
-					if ((j + 1) == courseIndex && courseID.toLowerCase().equals(course.getCourseCode().toLowerCase())) {
-						course.increaseVacancy(courseIndex);
+							if ((j + 1) == courseIndex && courseID.toLowerCase().equals(course.getCourseCode().toLowerCase())) {
+								course.increaseVacancy(courseIndex);
+							}
+
+							if ((j + 1) == index && (courseID.toLowerCase().equals(course.getCourseCode().toLowerCase()))) {
+								course.decreaseVacancy(index);
+							}
+
+						}
+
 					}
 
-					if ((j + 1) == index && (courseID.toLowerCase().equals(course.getCourseCode().toLowerCase()))) {
-						course.decreaseVacancy(index);
+					if (addDrop.validateIndexOfCourseAndStudent(index, courseCode)) {
+						List newArray = new ArrayList();
+						// newArray.add(StringArray.get(retIndex));
+						List matric = new ArrayList();
+						matric.add(matricNum);
+						AddDrop a1 = new AddDrop(courseCode, index, matric);
+						StringArray.add(a1);
+						addDrop.saveAmend(StringArray);
+						System.out.println("System message:You index for the course is changed to :" + index);
+						addDrop.saveAmend(StringArray);
+						
 					}
 
+					
+					
 				}
-
-			}
-
-			if (addDrop.validateIndexOfCourseAndStudent(index, courseCode)) {
-				addDrop.saveAmend(StringArray);
-				System.out.println("System message:You index for the course is changed to :" + index);
-			}
-
-			else {
 				
-				List newArray = new ArrayList();
-				// newArray.add(StringArray.get(retIndex));
-				List matric = new ArrayList();
-				matric.add(matricNum);
-				AddDrop a1 = new AddDrop(courseCode, index, matric);
-				StringArray.add(a1);
-				addDrop.saveAmend(StringArray);
-			}
+		
 
 			Cc1.saveCourseAmend("DataBase/courses.txt", readCourse);
 
@@ -428,7 +445,7 @@ public class StudentController {
 		try {
 			int newIndex = 1, oldIndex = 1;
 			int temp;
-			boolean check;
+			boolean check,check2;
 			ScheduleController SDC = new ScheduleController();
 			List StringArray = addDrop.readAllCourseAndStudent("DataBase/courseAndStudent.txt");
 			for (int x = 0; x < StringArray.size(); x++) {
@@ -449,8 +466,8 @@ public class StudentController {
 						if (changeIndex.getList().get(k).toLowerCase().equals(matricNum.toLowerCase())) {
 
 							oldIndex = changeIndex.getIndex();
-							check = SDC.clashcheck(courseCode, oldIndex, newMatricId);
-							if (check == true) {
+							check2 = SDC.clashcheck(courseCode, oldIndex, newMatricId);
+							if (check2 == true) {
 								oldIndex = 0;
 								System.out.println(
 										"System message:TimeTable Clash cannot swap with the student ,the other student has clash with timeTable");
@@ -494,5 +511,9 @@ public class StudentController {
 			e.printStackTrace();
 		}
 	}
-
 }
+//public static void main(String args[]){
+//	StudentController c=new StudentController();
+//	c.changeIndex(1, 2, "ee3015", "n1602952b");
+//}
+//}

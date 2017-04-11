@@ -1,5 +1,5 @@
-ee3015|Power systems and protection|EEE|09/01/2017|05/05/2017|1_38_40|2_39_40|
-ce2003|Object oriented programming|SCSE|09/01/2017|05/05/2017|1_0_1|
-lf9001|French|HSS|09/01/2017|05/05/2017|1_4_5|2_10_10|
+ee3015|Power systems and protection|EEE|09/01/2017|05/05/2017|1_36_40|2_40_40|
+ce2003|Object oriented programming|SCSE|09/01/2017|05/05/2017|1_1_1|
+lf9001|French|HSS|09/01/2017|05/05/2017|1_5_5|2_10_10|
 ma4002|Fluid dynamics|MAE|09/01/2017|05/05/2017|1_60_60|2_60_60|
-ce3005|AdvanceComputer Arcc|SCSE|09/04/2017|09/05/2017|1_28_30|2_15_10|
+ce3005|AdvanceComputer Arcc|SCSE|09/04/2017|09/05/2017|1_29_30|2_15_15|

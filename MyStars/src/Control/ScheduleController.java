@@ -212,7 +212,7 @@ public class ScheduleController {
 
 						// condition for checking for clashes
 
-						if (newStart > start) {
+						if (newStart >= start) {
 							//System.out.println(newStart + " " + start);
 							if (newStart > (start + durationOld)) {
 								clash = false;// success
