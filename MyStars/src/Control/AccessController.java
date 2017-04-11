@@ -132,11 +132,7 @@ public class AccessController {
 			endDateResult=course.validateDate(endDate);
 		}
 		
-				
 		
-
-		
-				
 		List acc=new ArrayList();
 		access=new Access(startTime,endTime,startDate,endDate);
 		StringBuilder st = new StringBuilder();
@@ -256,8 +252,8 @@ public class AccessController {
 			for(int x=0;x<access1.size();x++){
 				Access display=(Access)access1.get(x);
 				System.out.println("Access period is from :");
-				System.out.println("Start Date: "+display.getStartDate()+" Start Time: "+display.getStartDate()+" End Time: "+display.getEndTime());
-				System.out.println("End Date: "+display.getEndTime()+" Start Time: "+display.getStartDate()+" End Time: "+display.getEndTime());
+				System.out.println("Start Date: "+display.getStartDate()+" Start Time: "+display.getStartTime()+" End Time: "+display.getEndTime());
+				System.out.println("End Date: "+display.getEndDate()+" Start Time: "+display.getStartTime()+" End Time: "+display.getEndTime());
 				
 				
 			}

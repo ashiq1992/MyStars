@@ -38,7 +38,7 @@ public class StarsPlannerApp {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String args[]) {
-	try{
+	//try{
 		adddropEnable = true;
 	
 		int input = -1; // Takes in user input;
@@ -95,7 +95,7 @@ public class StarsPlannerApp {
 			try {
 				input = sc.nextInt();
 			} catch (InputMismatchException ex) {
-				System.out.println("Input choice is not an integer");
+				System.out.println("System message:Input choice is not an integer");
 			}
 			if (input == 1) {
 				
@@ -111,7 +111,6 @@ public class StarsPlannerApp {
 					
 					if(accessResult==true)
 					{
-						System.out.println("Sucess");
 						student.setMatriculationNumber(userId);
 						StudentMenu();
 						
@@ -119,7 +118,7 @@ public class StarsPlannerApp {
 					
 					else
 					{
-						System.out.println("Access denied .Student cant login now!!");
+						System.out.println("System message:You are not allowed to access in this period");
 						access.displayAccessPeriod();
 						
 					}
@@ -127,7 +126,7 @@ public class StarsPlannerApp {
 					
 
 				} else {
-					System.out.println("User Authentication Failure,Check password and useId entered");
+					System.out.println("System message:User authentication failure.Please check your password/userId ");
 				}
 			}
 			
@@ -145,31 +144,31 @@ public class StarsPlannerApp {
 					AdminMenu();
 
 				} else {
-					System.out.println("User Authentication Failure,Check password our userId entered");
+					System.out.println("System message:User authentication failure.Please check your password/userId ");
 				}
 			}
 			
 			else if(input==3)
 			{
-				System.out.println("Thank you for using our system");
-				System.out.println("Have a great day,goodbye!");
+				System.out.println("System message:Thank you for using our system");
+				System.out.println("System message:Have a great day,goodbye!");
 				break;
 			}
 
 			else {
-				System.out.println("You have entered an invalid choice,please try again!");
+				System.out.println("System message:You have entered an invalid choice,please try again!");
 
 			}
 		}
 
 		while (valid != 0);
 	}
-	catch(Exception e){
-		System.out.println("Program terminating");
+//	catch(Exception e){
+	//	System.out.println("Program terminating");
 		
 		
-	}
-	}
+	//}
+//	}
 
 	// =================================================================================
 	// =================================================================================
@@ -228,11 +227,11 @@ public class StarsPlannerApp {
 				displayVacancy();
 				break;
 			case 0:
-				System.out.println("Logging off");
-				System.out.println("Goodbye!!!!");
+				System.out.println("System message:Logging off");
+				System.out.println("System message:Goodbye!!!!");
 				break;
 			default:
-				System.out.println("Input error");
+				System.out.println("System message:Input error");
 			}
 		} while (input != 10);
 
@@ -242,9 +241,9 @@ public class StarsPlannerApp {
 		boolean result;
 		result = Ad.AddStudent();
 		if (result == true) {
-			System.out.println("Success");
+			System.out.println("System message:Student has been successfully added");
 		} else {
-			System.err.println("Fail");
+			System.err.println("System messsage:Unable to add student");
 		}
 	}
 
@@ -253,7 +252,7 @@ public class StarsPlannerApp {
 		Cd = new CourseController();
 		result = Cd.addCourse();
 		if (result == true) {
-			System.out.println("Success,course is added");
+			System.out.println("System message:The course has been successfully added");
 		} else {
 			System.err.println("Fail.Check inout value and re-enter options");
 		}

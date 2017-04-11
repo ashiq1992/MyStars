@@ -102,7 +102,7 @@ public class AddDropController {
 
 			if (endResult == true) {
 				addd.studentAddsCourse("DataBase/courseAndStudent.txt", studentData, courseCode, index);
-				System.out.println("You have been added to the course");
+				System.out.println("System message:You have been added to the course");
 				
 				
 				StudentController std=new StudentController();
@@ -126,7 +126,7 @@ public class AddDropController {
 
 			} else {
 				addd.studentAndCourseWaitList("DataBase/waitlists/" + courseCode + ".txt", waitList, courseCode, index);
-				System.out.println("You have been added to the wait list ");
+				System.out.println("System message:You have been added to the wait list ");
 				StudentController std=new StudentController();
 				List studentEmailAddress = std.readAllStudents("DataBase/student.txt");
 				String[] receipient= new String[1];
@@ -801,11 +801,11 @@ public class AddDropController {
 			
 			if(waitCheck==true){
 				this.dropWaitList(courseCode, matricNum, index);
-				System.out.println("Course has been removed from waitlist");
+				System.out.println("System message:Course has been removed from waitlist");
 			}
 			if(waitCheck==false && check==false){
 				
-				System.out.println("Error please register for the course first");
+				System.out.println("System message:Error please register for the course first");
 				
 				
 			}	
@@ -867,7 +867,7 @@ public class AddDropController {
 			
 			
 			if(check==true){
-				System.out.println("You have registered for the stated course!!!!");
+				System.out.println("system message:You cannot register for the same course!!!!");
 			}
 			else{
 				
@@ -887,7 +887,7 @@ public class AddDropController {
 				}
 				
 				if(waitCheck==true){
-					System.out.println("You have registered for the stated course and you have been put to waitlist and can't add the same course again!!!!");
+					System.out.println("system message:You have registered for the stated course and you have been put to waitlist and can't add the same course again!!!!");
 				}
 				
 				else{

@@ -717,13 +717,14 @@ public class CourseController {
 		try {
 			ArrayList<Course> a1 = readAllCourse("DataBase/courses.txt");
 			for (int x = 0; x < a1.size(); x++) {
-				System.out.println("Course code: " + a1.get(x).getCourseCode());
-				System.out.println("Course name: " + a1.get(x).getCourseName());
-				System.out.println("**************************************************");
+				System.out.println("| Course code: " + a1.get(x).getCourseCode());
+				System.out.println("| Course name: " + a1.get(x).getCourseName());
+				//System.out.println("**************************************************");
+				System.out.println("|                                                ");
 				for (int j = 0; j < a1.get(x).getVacancy().length; j++) {
-					System.out.println(" Available index: " + (j + 1) + " Vacancy: " + a1.get(x).getVacancy()[j] + "/"
+					System.out.println("| Available index: " + (j + 1) + " Vacancy: " + a1.get(x).getVacancy()[j] + "/"
 							+ a1.get(x).getIndices()[j]);
-					System.out.println("                                                ");
+					//System.out.println("                                                ");
 
 				}
 				System.out.println("===================================================");

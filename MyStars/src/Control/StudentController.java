@@ -204,9 +204,8 @@ public class StudentController {
 			if (userVal == 0 && passVal == 0) {
 
 				valid = 1;
-				System.out.println("Account accessed");
-				System.out.println("Gender: " + a1.get(i).getGender());
-				System.out.println("Name: " + a1.get(i).getName());
+				System.out.println("Welcome to the Stars Planner system "+a1.get(i).getName());
+				System.out.println("                                             ");
 				break;
 
 			}
@@ -265,7 +264,9 @@ public class StudentController {
 			}
 
 			if (check == false) {
-				System.out.println("You have yet to register for a course!!!");
+				System.out.println("                                                    ");
+				System.out.println("System message: You have not registered for a course");
+				
 			}
 
 		} catch (IOException e) {
@@ -335,7 +336,7 @@ public class StudentController {
 
 			if (addDrop.validateIndexOfCourseAndStudent(index, courseCode)) {
 				addDrop.saveAmend(StringArray);
-				System.out.println("You index for the course is changed to :" + index);
+				System.out.println("System message:You index for the course is changed to :" + index);
 //				List newArray = new ArrayList();
 //				// newArray.add(StringArray.get(retIndex));
 //				List matric = new ArrayList();
@@ -383,7 +384,7 @@ public class StudentController {
 							if (check == true) {
 								newIndex = 0;
 								System.out.println(
-										"TimeTable Clash cannot swap with the student you have clash of timetable");
+										"System message:TimeTable Clash cannot swap with the student you have clash of timetable");
 							}
 							// System.out.println("triggered");
 						}
@@ -394,7 +395,7 @@ public class StudentController {
 							if (check == true) {
 								oldIndex = 0;
 								System.out.println(
-										"TimeTable Clash cannot swap with the student ,the other student has clash with timeTable");
+										"System message:TimeTable Clash cannot swap with the student ,the other student has clash with timeTable");
 							}
 						}
 
@@ -427,7 +428,7 @@ public class StudentController {
 					}
 				}
 				
-				System.out.println("You have swap your index with the other student");
+				System.out.println("System message:You have swap your index with the other student");
 			}
 
 			addDrop.saveAmend(StringArray);

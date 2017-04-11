@@ -315,7 +315,7 @@ public class AdminController {
 	    if (m.find())
 	    {
 	    	
-	    	System.out.println("valid");
+	    	System.out.println("System message:valid Matric Number");
 	    	return true;
 
 	    }
@@ -323,7 +323,7 @@ public class AdminController {
 	    else
 	    {
 	    	
-	    	System.out.println("invalid input key in correct inputs");
+	    	System.out.println("System message:invalid input key in correct inputs");
 	    	return false;
 	    }
 	}
