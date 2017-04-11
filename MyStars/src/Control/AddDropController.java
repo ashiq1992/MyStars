@@ -67,7 +67,8 @@ public class AddDropController {
 	 * @return  returns a boolean, either true when method is is able to add a course/add a person to a waitlist.False if otherwise.
 	 */
 	public boolean addMethod(String courseCode, int index, String matricNum) {
-		boolean endResult = false;
+		boolean endResult = false ;
+		boolean status;
 		List student;
 		AddDrop Add;
 		List waitList = new ArrayList();
@@ -102,7 +103,7 @@ public class AddDropController {
 
 			if (endResult == true) {
 				addd.studentAddsCourse("DataBase/courseAndStudent.txt", studentData, courseCode, index);
-				System.out.println("System message:You have been added to the course");
+			
 				
 				
 				StudentController std=new StudentController();
@@ -122,11 +123,11 @@ public class AddDropController {
 				String message="Dear "+name+","+"\n"+"\n" +"We are pleased to inform you that your registration for the following course is successful "+courseCode+"\n" +"\n"+"Regards,"+"\n"+"Stars Planner Administrator";
 				
 				email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
-				
+				status=true;
 
 			} else {
 				addd.studentAndCourseWaitList("DataBase/waitlists/" + courseCode + ".txt", waitList, courseCode, index);
-				System.out.println("System message:You have been added to the wait list ");
+				//System.out.println("System message:You have been added to the wait list ");
 				StudentController std=new StudentController();
 				List studentEmailAddress = std.readAllStudents("DataBase/student.txt");
 				String[] receipient= new String[1];
@@ -144,7 +145,7 @@ public class AddDropController {
 				String message="Dear "+name+","+"\n"+"\n" +"We are pleased to inform you have been added to the waitList of the course "+courseCode+"\n" +"\n"+"Regards,"+"\n"+"Stars Planner Administrator";
 				
 				email.sendFromGMail("starsplannerntu", "javaproject",receipient,"Course Registration Successful",message);
-				
+				status=false;
 				
 				
 				
@@ -893,8 +894,13 @@ public class AddDropController {
 				}
 				
 				else{
-					this.addMethod(courseCode, index, matricNum);
-				
+					courseCheck=this.addMethod(courseCode, index, matricNum);
+					if(courseCheck==true){
+					System.out.println("System message:You have been added to the course");
+					}
+					else{
+					System.out.println("System message:You have been added to the wait list ");
+					}
 				
 				}
 			}
