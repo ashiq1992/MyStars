@@ -1,6 +1,8 @@
 package Miscellaneous;
 
 import java.util.Properties;
+
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -9,9 +11,27 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+/**
+ * An emailsender class which sends email to Students
+ * @author Ameen
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
+ * @author Waqas
+ * @since 2017-04-01
+ * @version 1.0
+  */
 public class EmailSender {
 	
-		
+	/**
+	 * 	
+	 * @param from refers to the sender
+	 * @param pass password of email address of the sender
+	 * @param to refers to the recipient
+	 * @param subject
+	 * @param body
+	 */
 	public static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";

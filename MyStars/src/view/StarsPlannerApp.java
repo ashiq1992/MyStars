@@ -508,13 +508,16 @@ public class StarsPlannerApp {
 	}
 	
 	/**
-	 * 
+	 * This method shows all courses
 	 */
 	public static void viewAllCourses() {
 		Cd = new CourseController();
 		Cd.showAllCourses();
 	}
-
+	
+	/**
+	 * This method allow the student to view his courses
+	 */
 	public static void viewMyCourses() {
 
 		Sd.displayCourse(student.getMatriculationNumber());
@@ -526,7 +529,10 @@ public class StarsPlannerApp {
 	// AddDrop Menu
 	// =================================================================================
 	// =================================================================================
-
+	
+	/**
+	 * This method allows the add/drop of courses for a student
+	 */
 	public static void addDropMenu() {
 		int input;
 		do {
@@ -571,7 +577,10 @@ public class StarsPlannerApp {
 			}
 		} while (input != 0);
 	}
-
+	
+	/**
+	 * This method allows a student to add a course
+	 */
 	public static void addACourse() {
 		String courseCode;
 		int index;
@@ -607,7 +616,10 @@ public class StarsPlannerApp {
 		}
 
 	}
-
+	
+	/**
+	 * This method allows a student drop a course
+	 */
 	public static void dropACourse() {
 		String courseCode;
 		int index;
@@ -621,9 +633,12 @@ public class StarsPlannerApp {
 																					// file
 
 		addDrop.dropMasterCheck(student.getMatriculationNumber(), courseCode, index);
-		// add the send email inside the DropMaster
+		
 	}
-
+	
+	/**
+	 * This method allows the change of Index done by a Student
+	 */
 	public static void changeIndex() {
 		String courseCode = null;
 		int newIndex = 0;
@@ -649,8 +664,7 @@ public class StarsPlannerApp {
 		if (result == false) {
 			System.out.println("System message:You are not enrolled in the course! ");
 			System.out.println("System message:You are directed to the Add/Drop menu choose your options again");
-			// System.out.println("Do you want to continue (y/n)? ");
-			// value = sc.next().toLowerCase().charAt(0);
+			
 		}
 
 		if (result) {
@@ -661,7 +675,10 @@ public class StarsPlannerApp {
 		}
 
 	}
-
+	
+	/**
+	 * This method allows a student to change Index with another student
+	 */
 	public static void changeIndexWithAnotherStudent() {
 		String courseCode = null;
 		int newIndex = 0;

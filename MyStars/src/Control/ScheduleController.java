@@ -19,7 +19,17 @@ import java.util.regex.Pattern;
 import Model.AddDrop;
 import Model.Course;
 import Model.Schedule;
-
+/**
+ * A Schedule controller to take care of schedules
+ * @author Ameen
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
+ * @author Waqas
+ * @since 2017-04-01
+ * @version 1.0
+ *
+ */
 public class ScheduleController {
 	/**
 	 * Instantiated a FileManager object to read and write data to the text files.
