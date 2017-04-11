@@ -22,21 +22,78 @@ import Control.ScheduleController;
 import Control.StudentController;
 import Model.Student;
 import Miscellaneous.MaskPassword;
-
+/**
+ * The main class of StarsPlanner System
+ *   
+ * @author Ameen
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
+ * @author Waqas
+ * @since 2017-04-01
+ * @version 1.0
+ */
 public class StarsPlannerApp {
+	
+	/**
+	 * A static AdminController to handle admin functions
+	 */
 	static AdminController Ad = null;
+	
+	/**
+	 * A static CourseController to handle course functions
+	 */
 	static CourseController Cd = null;
+	
+	/**
+	 * A static AccessController to handle course functions
+	 */
 	static AccessController access = null;
+	
+	/**
+	 * A static StudentController to handle student functions
+	 */
 	static StudentController Sd = new StudentController();
+	
+	/**
+	 * A static AddDropController to handle Adding and Dropping of courses
+	 */
 	static AddDropController addDrop = new AddDropController();
+	
+	/**
+	 * A static ScheduleController to handle the schedule functions
+	 */
 	static ScheduleController SCD = new ScheduleController();
+	
+	/**
+	 * A static student object
+	 */
 	static Student student = new Student();
+	
+	/**
+	 * A static Mask password to handle masking of passwords when entered
+	 */
 	static MaskPassword mask = new MaskPassword();
+	
+	/**
+	 * A static DateFormat to handle Time related calls
+	 */
 	final static DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-
+	
+	/**
+	 * A static adddropEnable
+	 */
 	static boolean adddropEnable;
+	
+	/**
+	 * A static scanner object
+	 */
 	static Scanner sc = new Scanner(System.in);
-
+	
+	/**
+	 * The main method of the program
+	 * @param args By Default
+	 */
 	public static void main(String args[]) {
 	try{
 		adddropEnable = true;
@@ -176,7 +233,10 @@ public class StarsPlannerApp {
 	// ADMIN MENU
 	// =================================================================================
 	// =================================================================================
-
+	
+	/**
+	 * An Admin menu to display functions for Admin
+	 */
 	public static void AdminMenu() {
 		Scanner sc = new Scanner(System.in);
 		int input;
@@ -245,7 +305,11 @@ public class StarsPlannerApp {
 		} while (input != 10);
 
 	}
-
+	
+	/**
+	 * This is method is for the Admin to add a student	
+	 * 
+	 */
 	public static void AddStudent() {
 		boolean result;
 		result = Ad.AddStudent();
@@ -255,7 +319,10 @@ public class StarsPlannerApp {
 			System.err.println("System messsage:Unable to add student.Please try again");
 		}
 	}
-
+	
+	/**
+	 * This method is for the Admin to add a course
+	 */
 	public static void addCourse() {
 		boolean result;
 		Cd = new CourseController();
@@ -266,7 +333,11 @@ public class StarsPlannerApp {
 			System.err.println("System message:Unable to add course .Please try again");
 		}
 	}
-
+	
+	
+	/**
+	 * This method is for the Admin to remove a course
+	 */
 	public static void removeCourse() {
 		boolean result = false;
 		Scanner sc = new Scanner(System.in);
@@ -280,7 +351,10 @@ public class StarsPlannerApp {
 			System.err.println("System message:Unable to remove course .Please try again");
 		}
 	}
-
+	
+	/**
+	 * This function is for the admin to remove a student
+	 */
 	public static void removeStudent() {
 		boolean result;
 		Sd = new StudentController();
@@ -293,7 +367,10 @@ public class StarsPlannerApp {
 			System.err.println("System message:Unable to remove the student");
 		}
 	}
-
+	
+	/**
+	 * This function is for the Admin to set the student access period
+	 */
 	public static void studentAccessPeriod() {
 		access = new AccessController();
 		boolean result = false;
@@ -312,7 +389,10 @@ public class StarsPlannerApp {
 		}
 
 	}
-
+	
+	/**
+	 * This method is for the Admin to view the vacancy for each course
+	 */
 	public static void displayVacancy() {
 		String courseCode;
 		Ad = new AdminController();
@@ -327,7 +407,10 @@ public class StarsPlannerApp {
 		}
 
 	}
-
+	
+	/**
+	 * This method prints all courses by course code
+	 */
 	public static void printByCourseCode() {
 
 		String courseCode;
@@ -344,7 +427,10 @@ public class StarsPlannerApp {
 		}
 
 	}
-
+	
+	/**
+	 * This method prints all the indexes based on the course code
+	 */
 	public static void printByIndex() {
 		boolean state = false;
 		String courseCode;
@@ -374,7 +460,11 @@ public class StarsPlannerApp {
 	// STUDENT MENU
 	// =================================================================================
 	// =================================================================================
-
+	
+	/**
+	 * 
+	 * This is a menu that consists of all functions accessible for a student
+	 */
 	public static void StudentMenu() {
 		int input;
 		do {
@@ -416,7 +506,10 @@ public class StarsPlannerApp {
 
 		} while (input != 0);
 	}
-
+	
+	/**
+	 * 
+	 */
 	public static void viewAllCourses() {
 		Cd = new CourseController();
 		Cd.showAllCourses();
