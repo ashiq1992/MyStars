@@ -47,13 +47,13 @@ public class Schedule {
 	/**
 	 * A schedule constructor that creates a schedule object for each course
 	 * 
-	 * @param courseCode --> courseCode of a course
-	 * @param index --> index of course
-	 * @param type --> The type of course,LAB,TUTORIAL OR LECTURE
-	 * @param day --> The day of the course,E.G-->Monday or Tuesday
-	 * @param venue --> Where the LEC,LAB OR TUT is held.E.G LT22
-	 * @param startTime --> The time the lesson starts 
-	 * @param endTime --> The time the lesson ends
+	 * @param courseCode  courseCode of a course
+	 * @param index  index of course
+	 * @param type  The type of course,LAB,TUTORIAL OR LECTURE
+	 * @param day  The day of the course,E.GMonday or Tuesday
+	 * @param venue  Where the LEC,LAB OR TUT is held.E.G LT22
+	 * @param startTime  The time the lesson starts 
+	 * @param endTime  The time the lesson ends
 	 */
 	public Schedule(String courseCode, int index, String type, String day, String venue, String startTime,
 			String endTime) {
@@ -69,7 +69,7 @@ public class Schedule {
 	
 	/**
 	 * Gets the index of the course
-	 * @return
+	 * @return the index of the course
 	 */
 	public int getIndex() {
 		return index;
@@ -78,7 +78,7 @@ public class Schedule {
 	/**
 	 * Sets the index of the course to the method.E.G:CE2003_1
 	 * Where 1 is the index
-	 * @param index
+	 * @param index of the course
 	 */
 	public void setIndex(int index) {
 		this.index = index;
@@ -86,7 +86,7 @@ public class Schedule {
 	
 	/**
 	 * Gets the course code
-	 * @return
+	 * @return course code
 	 */
 	public String getCourseCode() {
 		return courseCode;
@@ -103,7 +103,7 @@ public class Schedule {
 	
 	/**
 	 * gets the start time of the lesson
-	 * @return
+	 * @return the start time as String
 	 */
 	public String getStartTime() {
 		return startTime;
@@ -111,7 +111,7 @@ public class Schedule {
 
 	/**
 	 * Sets the start time of the lesson
-	 * @param startTime
+	 * @param startTime input taken as a String
 	 */
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
@@ -120,7 +120,7 @@ public class Schedule {
 	/**
 	 * 
 	 * gets the end time of the lesson
-	 * @return
+	 * @return the endTime
 	 */
 	public String getEndTime() {
 		return endTime;
@@ -128,7 +128,7 @@ public class Schedule {
 
 	/**
 	 * Sets the end time of the lesson
-	 * @param endTime
+	 * @param endTime as a String
 	 */
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
@@ -136,7 +136,7 @@ public class Schedule {
 	
 	/**
 	 * gets the venue 
-	 * @return
+	 * @return the location of the venue
 	 */
 	public String getVenue() {
 		return Venue;
@@ -144,7 +144,7 @@ public class Schedule {
 	
 	/**
 	 * Sets the venue
-	 * @param venue
+	 * @param venue taken as a String
 	 */
 	public void setVenue(String venue) {
 		Venue = venue;
@@ -152,7 +152,7 @@ public class Schedule {
 	
 	/**
 	 * Gets the day of the course
-	 * @return
+	 * @return the day as a String
 	 */
 	public String getDay() {
 		return day;
@@ -160,16 +160,16 @@ public class Schedule {
 	
 	/**
 	 * Sets the day of the course
-	 * @param day
+	 * @param day takes the day as String
 	 */
 	public void setDay(String day) {
 		this.day = day;
 	}
 	
 	/**
-	 * Gets the type of Lesson.
+	 * Gets the type of Lesson
 	 * Lab,Lecture or Tutorial
-	 * @return
+	 * @return the type of lesson as a String
 	 */
 	public String getType() {
 		return type;
@@ -178,7 +178,7 @@ public class Schedule {
 	/**
 	 * Sets the type of Lesson
 	 * Lab,Lecture or Tutorial
-	 * @param type
+	 * @param type of lesson as String
 	 */
 	public void setType(String type) {
 		this.type = type;

@@ -29,8 +29,8 @@ public class EmailSender {
 	 * @param from refers to the sender
 	 * @param pass password of email address of the sender
 	 * @param to refers to the recipient
-	 * @param subject
-	 * @param body
+	 * @param subject of the email
+	 * @param body refers to the message content
 	 */
 	public static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
         Properties props = System.getProperties();

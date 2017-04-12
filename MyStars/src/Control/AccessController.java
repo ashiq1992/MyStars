@@ -58,9 +58,9 @@ public class AccessController {
 	final static DateFormat dateFormat = new SimpleDateFormat("HH:mm");
 	
 	  /**
-	   * A method which is used by the Admin to set the the time & date for Students to access the Stars System
+	   * A method which is used by the Admin to set the the time and date for Students to access the Stars System
 	   * 
-	   * @return Returns a boolean which is true when the Time & Date has been set successfully and false if otherwise
+	   * @return Returns a boolean which is true when the Time and Date has been set successfully and false if otherwise
 	   */
 	public boolean accessPeriod()
 	
@@ -182,7 +182,7 @@ public class AccessController {
 	}
 	
 	/**
-	 * A method which takes in parameters of the current date & current time of the student logging in and checks against the text file
+	 * A method which takes in parameters of the current date and current time of the student logging in and checks against the text file
 	 * to check if the Student is allowed to access or not.
 	 * 
 	 * @param currentDate  The current date based on the students systems clock

@@ -30,7 +30,7 @@ public class Course {
 
 	/**
 	 * Indices array stores the total capacity for each course index EG:
-	 * CE2003_1 -->CE2003 refers to the course code and 1 refers to the index.
+	 * CE2003_1 CE2003 refers to the course code and 1 refers to the index.
 	 * For Index "1", the total capacity is stored indices
 	 * 
 	 * Vacancy array stores the vacancies for each Index
@@ -59,17 +59,17 @@ public class Course {
 	 * @param courseCode
 	 *            for a particular course
 	 * @param courseName
-	 *            --> refers to the name of the coursee
+	 *             refers to the name of the coursee
 	 * @param school
-	 *            --> refers to the faculty
+	 *             refers to the faculty
 	 * @param startDate
-	 *            --> refers to the start date of a course
+	 *             refers to the start date of a course
 	 * @param endDate
-	 *            --> refers to the end of a course
+	 *             refers to the end of a course
 	 * @param vacancy
-	 *            --> the vacancy for the different indexes in a course
+	 *             the vacancy for the different indexes in a course
 	 * @param indices
-	 *            --> refers to the total capacity for each index
+	 *             refers to the total capacity for each index
 	 */
 	public Course(String courseCode, String courseName, String school, String startDate, String endDate, int[] vacancy,
 			int[] indices) {
@@ -97,7 +97,7 @@ public class Course {
 	/**
 	 * sets the startDate to the set method in DD/MM/YYYY
 	 * 
-	 * @param startDate
+	 * @param startDate in the format DD/MM/YYYY
 	 */
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
@@ -113,8 +113,7 @@ public class Course {
 
 	/**
 	 * 
-	 * @param endDate
-	 *            --> sets the end date of the course in the format DD/MM/YYYY
+	 * @param endDate sets the end date of the course in the format DD/MM/YYYY
 	 */
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
@@ -122,7 +121,7 @@ public class Course {
 
 	/**
 	 * 
-	 * @return the faculty as a String->> e.g:SCE
+	 * @return the faculty as a String e.g:SCE
 	 */
 	public String getSchool() {
 		return school;
@@ -130,8 +129,7 @@ public class Course {
 
 	/**
 	 * 
-	 * @param school
-	 *            set the faculty where the course is held
+	 * @param school set the faculty where the course is held
 	 */
 	public void setSchool(String school) {
 		this.school = school;
@@ -139,7 +137,7 @@ public class Course {
 
 	/**
 	 * 
-	 * @return -->returns the course code
+	 * @return returns the course code
 	 */
 	public String getCourseCode() {
 		return courseCode;
@@ -147,8 +145,7 @@ public class Course {
 
 	/**
 	 * 
-	 * @param courseCode
-	 *            --> sets the courseCode
+	 * @param courseCode sets the courseCode
 	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
@@ -165,8 +162,7 @@ public class Course {
 
 	/**
 	 * 
-	 * @param courseName
-	 *            --> sets the coursename for a course
+	 * @param courseName sets the coursename for a course
 	 */
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
@@ -175,7 +171,7 @@ public class Course {
 	/**
 	 * Gets the capacity for each Index in a course
 	 * 
-	 * @return
+	 * @return int of vacancies for each index
 	 */
 	public int[] getIndices() {
 		return indices;
@@ -184,7 +180,7 @@ public class Course {
 	/**
 	 * Sets the capacity for each Index in a course
 	 * 
-	 * @param indices
+	 * @param indices sets the capacity for each index
 	 */
 	public void setIndices(int[] indices) {
 		this.indices = indices;
@@ -193,7 +189,7 @@ public class Course {
 	/**
 	 * Gets the vacancies for each Index in a course
 	 * 
-	 * @return
+	 * @return the vacancy based on each index
 	 */
 	public int[] getVacancy() {
 		return vacancy;
@@ -202,7 +198,7 @@ public class Course {
 	/**
 	 * Sets the vacancies for each Index in a course
 	 * 
-	 * @param vacancy
+	 * @param sets the vacancy based on each index
 	 */
 	public void setVacancy(int[] vacancy) {
 		this.vacancy = vacancy;
@@ -212,7 +208,7 @@ public class Course {
 	 * This method decreases the vacancy given a particular index of a course
 	 * when invoked
 	 * 
-	 * @param indexNo
+	 * @param indexNo of a particular course
 	 */
 	public void decreaseVacancy(int indexNo) {
 		vacancy[indexNo - 1]--;
@@ -222,7 +218,7 @@ public class Course {
 	 * This method increases the vacancy given a particular index of a course
 	 * when invoked
 	 * 
-	 * @param indexNo
+	 * @param indexNo of a particular course
 	 */
 	public void increaseVacancy(int indexNo) {
 		vacancy[indexNo - 1]++;

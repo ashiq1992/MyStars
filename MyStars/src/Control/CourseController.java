@@ -638,7 +638,7 @@ public class CourseController {
 	/**
 	 * This method allows a course to be deleted
 	 * 
-	 * @param filename of the file where the deletion process should take place
+	 * @param file of the file where the deletion process should take place
 	 * @param courseCode course code of a particular course
 	 * @return True,if the deletion is successful and false if not.
 	 */
@@ -775,7 +775,7 @@ public class CourseController {
 	/**
 	 * This method displays all courses by the index
 	 * 
-	 * @param coursecode is based on the course
+	 * @param courseCode is based on the course
 	 */
 	public void showIndexByCourse(String courseCode) {
 		try {
@@ -814,7 +814,7 @@ public class CourseController {
 	/**
 	 * This method allows the Admin to display all the courses based on a course code
 	 * 
-	 * @param courseCode
+	 * @param courseCode of a particular course
 	 * @return True if there is no course to be displayed
 	 */
 	public boolean adminShowCourse(String courseCode) {
@@ -860,9 +860,9 @@ public class CourseController {
 	}
 	
 	/**
-	 * This method prints all the students enrolled in a course given a cousercode
+	 * This method prints all the students enrolled in a course given a course code
 	 * @param courseCode of a particular course
-	 * @return
+	 * @return True, if there is courses to print and false if otherwise
 	 */
 	public boolean adminPrintByCourseCode(String courseCode) {
 		boolean check = false;
@@ -947,9 +947,9 @@ public class CourseController {
 	/**
 	 * This allows the admin to print the students enrolled into a course based on a coursecode and index
 	 * 
-	 * @param courseCode
-	 * @param index
-	 * @return
+	 * @param courseCode of a particular course
+	 * @param index of a particular course code.E.g CE2003_1 where 1 refers to the index
+	 * @return True,if there are courses to be printed and false if it is otherwise
 	 */
 	public boolean adminPrintByCourseCodeAndIndex(String courseCode, int index) {
 		boolean check = false;
@@ -1018,7 +1018,7 @@ public class CourseController {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -1195,7 +1195,7 @@ public class CourseController {
 	 * @param courseCode of a particular course
 	 * @param matricNum of the student A
 	 * @param newMatricId of the student B
-	 * @return
+	 * @return True if the course code is correct and false if otherwise
 	 */
 	public boolean checkCourseCode(String courseCode, String matricNum, String newMatricId) {
 

@@ -50,11 +50,11 @@ public class Person {
 	 * The is constructor creates a person object given the following,
 	 * 
 	 * 
-	 * @param gender --> The gender of the Person
-	 * @param name --> The name of the Person
-	 * @param nationality --> The nationality of the Person
-	 * @param userId --> The userId of the person which is used to login into the system
-	 * @param password --> The password of the person in order to user the Stars System
+	 * @param gender  The gender of the Person
+	 * @param name  The name of the Person
+	 * @param nationality  The nationality of the Person
+	 * @param userId  The userId of the person which is used to login into the system
+	 * @param password  The password of the person in order to user the Stars System
 	 */
 	public Person(String gender,String name,String nationality,String userId,String password)
 	{
@@ -76,7 +76,7 @@ public class Person {
 	
 	/**
 	 * 
-	 * @param gender ->>Takes in a gender.Input is either M/F
+	 * @param gender Takes in a gender.Input is either M/F
 	 */
 	public void setGender(String gender) {
 		this.gender = gender;
@@ -84,7 +84,7 @@ public class Person {
 	
 	/**
 	 * 
-	 * @return ->>Returns the name of the person
+	 * @return Returns the name of the person
 	 */
 	public String getName() {
 		return name;
@@ -108,7 +108,7 @@ public class Person {
 	
 	/**
 	 * Sets the nationality of person.E.g: Singaporean and etc
-	 * @param nationality
+	 * @param nationality of the person
 	 */
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
@@ -116,7 +116,8 @@ public class Person {
 	
 	/**
 	 * Gets the userID of a person
-	 * @return
+	 * 
+	 * @return the userId of the person
 	 */
 	public String getUserId() {
 		return userId;
@@ -124,7 +125,9 @@ public class Person {
 	
 	/**
 	 * Sets the userId of the person
-	 * @param userId
+	 * 
+	 * 
+	 * @param userId of the person
 	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
@@ -132,7 +135,9 @@ public class Person {
 	
 	/**
 	 * Gets the password of the person
-	 * @return
+	 * 
+	 * 
+	 * @return the password as a string
 	 */
 	public String getPassword() {
 		return password;
@@ -140,7 +145,7 @@ public class Person {
 	
 	/**
 	 * Sets the password of the person
-	 * @param password
+	 * @param password takes in an input of password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
