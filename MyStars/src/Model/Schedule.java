@@ -95,7 +95,7 @@ public class Schedule {
 	/**
 	 * 
 	 * Sets the courseCode
-	 * @param courseCode
+	 * @param courseCode of a particular course
 	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;

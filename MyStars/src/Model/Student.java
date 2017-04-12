@@ -31,12 +31,12 @@ public class Student extends Person{
 	 * Creates a student based on the following fields,
 	 * and inherits attributs from the Parent class Person
 	 * 
-	 * @param matriculationNumber
-	 * @param name
-	 * @param userId
-	 * @param password
-	 * @param nationality
-	 * @param gender
+	 * @param matriculationNumber of the student
+	 * @param name of the person
+	 * @param userId of the user
+	 * @param password of the user
+	 * @param nationality of the user
+	 * @param gender of the user
 	 */
 	public Student(String matriculationNumber,String name,String userId,String password,String nationality,String gender) {
 		super(gender, name, nationality, userId, password);
@@ -46,7 +46,7 @@ public class Student extends Person{
 	
 	/**
 	 * Gets the matriculationNumber of the student
-	 * @return
+	 * @return the matriculation number as a string
 	 */
 	public String getMatriculationNumber() {
 		return matriculationNumber;
@@ -55,7 +55,7 @@ public class Student extends Person{
 	/**
 	 * 
 	 * Sets the matriculation number of the student
-	 * @param matriculationNumber
+	 * @param matriculationNumber of a student as a String
 	 */
 	public void setMatriculationNumber(String matriculationNumber) {
 		this.matriculationNumber = matriculationNumber;

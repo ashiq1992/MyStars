@@ -198,7 +198,7 @@ public class Course {
 	/**
 	 * Sets the vacancies for each Index in a course
 	 * 
-	 * @param sets the vacancy based on each index
+	 * @param vacancy sets the vacancy based on each index
 	 */
 	public void setVacancy(int[] vacancy) {
 		this.vacancy = vacancy;
