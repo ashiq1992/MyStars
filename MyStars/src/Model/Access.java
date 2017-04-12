@@ -2,6 +2,10 @@ package Model;
 /**
  * An Entity class called "Access" which consists of class variables and get and set methods. 
  * @author Ameen
+ * @author Waqas
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
  * @since 2017-04-01
  * @version 1.0
  *

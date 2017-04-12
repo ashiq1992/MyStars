@@ -4,6 +4,10 @@ package Model;
  * An Entity class called Person which is a super class,
  * A Person can be a student or an Admin
  * @author Ameen
+ * @author Waqas
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
  * @since 2017-04-01
  * @version 1.0
  */

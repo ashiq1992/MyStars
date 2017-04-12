@@ -4,6 +4,10 @@ package Model;
  * An entity class called Admin that inherits its variables from a Person class
  * 
  * @author Ameen
+ * @author Waqas
+ * @author Ashiq
+ * @author Will
+ * @author Reuben
  * @since 2017-04-01
  * @version 1.0
  */
