@@ -244,7 +244,9 @@ public class AccessController {
 	}
 	
 	
-	
+	/**
+	 * A method to display the access period to the user
+	 */
 	public void displayAccessPeriod(){
 		try {
 			ArrayList access1=this.readAccess();
@@ -260,7 +262,6 @@ public class AccessController {
 			System.out.println("===================================================================================");
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
