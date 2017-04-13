@@ -1,3 +1,4 @@
+
 package Control;
 
 import java.io.FileInputStream;
@@ -117,7 +118,7 @@ public class AccessController {
 		while(startDateResult==false)
 		{
 			
-			System.out.println("Please enter the start date : ");
+			System.out.println("Please enter the start date in the format dd/mm/yyyy: ");
 			startDate=sc.next();
 			startDateResult=course.validateDate(startDate);
 		}
@@ -127,7 +128,7 @@ public class AccessController {
 		while(endDateResult==false)
 		{
 			
-			System.out.println("Please enter the end date : ");
+			System.out.println("Please enter the end date in the format dd/mm/yyyy: ");
 			endDate=sc.next();
 			endDateResult=course.validateDate(endDate);
 		}

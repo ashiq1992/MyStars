@@ -14,6 +14,7 @@ package Model;
 public class Admin extends Person {
 	
 	/**
+	 * This constructor takes in variables from the Person class & Admin class and sets the values accordingly
 	 * 
 	 * @param gender Gender of the admin
 	 * @param name   the full name of the admin

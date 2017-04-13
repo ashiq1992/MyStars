@@ -949,11 +949,6 @@ public class AddDropController {
 		return courseCode;
 		
 	}
-public void displayInWaitList(String MatricNum){
-	
-	
-	
-	
-}
+
 
 }

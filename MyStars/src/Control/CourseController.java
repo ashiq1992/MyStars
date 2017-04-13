@@ -929,7 +929,7 @@ public class CourseController {
 					}
 					status = true;
 				} else {
-					System.out.println("There is no student registered for the course");
+					System.out.println("System message:There is no student registered for the course");
 
 				}
 			}
